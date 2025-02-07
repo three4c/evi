@@ -1,6 +1,14 @@
 import { useEffect } from "react";
+import * as stylex from "@stylexjs/stylex";
 
-const App = () => {
+const styles = stylex.create({
+  div: {
+    width: 48,
+    height: 48,
+  },
+});
+
+const App: React.FC = () => {
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       console.log(e.key);
@@ -10,7 +18,7 @@ const App = () => {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  return <div>🦐</div>;
+  return <div {...stylex.props(styles.div)}>🦐</div>;
 };
 
 export default App;
