@@ -17,16 +17,27 @@ const styles = stylex.create({
 
 const DOM_ARRAY = ["INPUT", "TEXTAREA"];
 
-const App = () => {
-  const getFontSize = (element: Element) =>
-    window.getComputedStyle(element).fontSize;
+const getFontSize = (element: Element) =>
+  window.getComputedStyle(element).fontSize;
 
+const getCursorXY = (element: Element) => {
+  if (
+    element instanceof HTMLInputElement ||
+    element instanceof HTMLTextAreaElement
+  ) {
+    const { offsetLeft, offsetTop } = element;
+    console.log(offsetLeft, offsetTop);
+  }
+};
+
+const App = () => {
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.ctrlKey && e.key === "Enter") {
         const activeElement = document.activeElement;
         if (activeElement && DOM_ARRAY.includes(activeElement.tagName)) {
           const fontSize = getFontSize(activeElement);
+          getCursorXY(activeElement);
           console.log(activeElement.tagName, fontSize);
         }
       }
@@ -39,8 +50,8 @@ const App = () => {
   return (
     <>
       <div {...stylex.props(styles.div)}>🦐</div>
-      {/* <input type="text" /> */}
-      {/* <textarea /> */}
+      <input type="text" />
+      <textarea />
     </>
   );
 };
