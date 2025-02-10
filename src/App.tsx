@@ -20,58 +20,94 @@ const DOM_ARRAY = ["INPUT", "TEXTAREA"];
 const App = () => {
   const isStartVim = useRef(false);
 
-  const startVim = (element: Element, e: KeyboardEvent) => {
+  const getCurrent = (target: Element) => {
+    let start = -1;
+    let end = -1;
+    let element: HTMLInputElement | HTMLTextAreaElement | null = null;
+
     if (
-      (element instanceof HTMLInputElement ||
-        element instanceof HTMLTextAreaElement) &&
-      element.selectionStart !== null
+      (target instanceof HTMLInputElement ||
+        target instanceof HTMLTextAreaElement) &&
+      target.selectionStart !== null
     ) {
-      let start = element.selectionStart;
-      let end = start + 1;
+      start = target.selectionStart;
+      end = start + 1;
+      element = target;
+    }
 
-      if (e.key === "h" && start) {
-        start--;
-        end = start + 1;
+    return {
+      element,
+      start,
+      end,
+    };
+  };
+
+  const startVim = (target: Element, e: KeyboardEvent) => {
+    const {
+      element,
+      start: initialStart,
+      end: initialEnd,
+    } = getCurrent(target);
+
+    let start = initialStart;
+    let end = initialEnd;
+
+    if (!element) {
+      return;
+    }
+
+    let charCount = 0;
+    let currentLine = 0;
+    let col = 0;
+    const lines = element.value.split("\n");
+
+    for (let i = 0; i < lines.length; i++) {
+      const linesLength = lines[i].length + 1;
+
+      if (charCount + linesLength > start) {
+        currentLine = i;
+        col = start - charCount;
+        break;
       }
 
-      if (e.key === "l" && start !== element.value.length - 1) {
-        start++;
-        end = start + 1;
-      }
+      charCount += linesLength;
+    }
 
-      let charCount = 0;
-      let currentLine = 0;
-      let col = 0;
-      const lines = element.value.split("\n");
+    if (e.key === "h" && start) {
+      start--;
+      end = start + 1;
+    }
 
-      for (let i = 0; i < lines.length; i++) {
-        const lineLength = lines[i].length + 1;
-        if (charCount + lineLength > start) {
-          currentLine = i;
-          col = start - charCount;
-          break;
-        }
-        charCount += lineLength;
-      }
+    if (e.key === "l" && col !== lines[currentLine].length - 1) {
+      start++;
+      end = start + 1;
+    }
 
-      if (e.key === "j" && currentLine + 1 < lines.length) {
-        const next = charCount + lines[currentLine].length + 1;
-        start = next + col;
-        end = start + 1;
-      }
+    if (e.key === "j" && currentLine + 1 < lines.length) {
+      const overCharCount =
+        col >= lines[currentLine + 1].length
+          ? col - lines[currentLine + 1].length + 1
+          : 0;
+      const next = charCount + lines[currentLine].length + 1;
+      start = next + col - overCharCount;
+      end = start + 1;
+    }
 
-      if (e.key === "k" && currentLine > 0) {
-        const prev = charCount - (lines[currentLine - 1].length + 1);
-        start = prev + col;
-        end = start + 1;
-      }
+    if (e.key === "k" && currentLine > 0) {
+      const overCharCount =
+        col >= lines[currentLine - 1].length
+          ? col - lines[currentLine - 1].length + 1
+          : 0;
+      const prev = charCount - (lines[currentLine - 1].length + 1);
+      start = prev + col - overCharCount;
+      end = start + 1;
+    }
 
+    if (e.key === "i") {
+      element.setSelectionRange(start, start);
+      isStartVim.current = false;
+    } else {
       element.setSelectionRange(start, end);
-
-      if (e.key === "i") {
-        element.setSelectionRange(start, start);
-        isStartVim.current = false;
-      }
     }
   };
 
@@ -104,8 +140,8 @@ const App = () => {
   return (
     <>
       <div {...stylex.props(styles.div)}>🦐</div>
-      <input type="text" />
-      <textarea />
+      {/* <input type="text" /> */}
+      {/* <textarea /> */}
     </>
   );
 };
