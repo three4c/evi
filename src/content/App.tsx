@@ -1,10 +1,12 @@
 import { useEffect, useRef } from "react";
 import "../reset.css";
 
+type MODE_TYPE = "normal" | "insert" | "visual";
+
 const DOM_ARRAY = ["INPUT", "TEXTAREA"];
 
 const App: React.FC = () => {
-  const isStartVim = useRef(false);
+  const mode = useRef<MODE_TYPE>("insert");
 
   const getElement = (element: Element | null) =>
     element instanceof HTMLInputElement ||
@@ -12,13 +14,10 @@ const App: React.FC = () => {
       ? element
       : null;
 
-  const startVim = (
+  const getLines = (
     element: HTMLInputElement | HTMLTextAreaElement,
-    e: KeyboardEvent,
+    start: number,
   ) => {
-    let start = element.selectionStart || 0;
-    let end = start + 1;
-
     let charCount = 0;
     let currentLine = 0;
     let col = 0;
@@ -35,6 +34,23 @@ const App: React.FC = () => {
 
       charCount += linesLength;
     }
+
+    return {
+      lines,
+      charCount,
+      currentLine,
+      col,
+    };
+  };
+
+  const startVim = (
+    element: HTMLInputElement | HTMLTextAreaElement,
+    e: KeyboardEvent,
+  ) => {
+    let start = element.selectionStart || 0;
+    let end = start + 1;
+
+    const { lines, charCount, currentLine, col } = getLines(element, start);
 
     if (e.key === "h" && start) {
       start--;
@@ -80,7 +96,11 @@ const App: React.FC = () => {
     }
 
     if (["i", "a"].includes(e.key)) {
-      isStartVim.current = false;
+      mode.current = "insert";
+    }
+
+    if (e.key === "v") {
+      mode.current = "visual";
     }
 
     element.setSelectionRange(start, end);
@@ -99,11 +119,11 @@ const App: React.FC = () => {
         return;
       }
 
-      if (e.ctrlKey && e.key === "Enter") {
-        isStartVim.current = true;
+      if (e.ctrlKey && e.metaKey && e.key === "e") {
+        mode.current = "normal";
       }
 
-      if (isStartVim.current) {
+      if (["normal", "visual"].includes(mode.current)) {
         startVim(element, e);
         e.preventDefault();
       }

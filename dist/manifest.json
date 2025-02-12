@@ -8,7 +8,7 @@
   "content_scripts": [
     {
       "js": [
-        "assets/index.tsx-loader-BU_9nRri.js"
+        "assets/index.tsx-loader-B8cmWrDk.js"
       ],
       "matches": [
         "<all_urls>"
@@ -24,8 +24,8 @@
         "<all_urls>"
       ],
       "resources": [
-        "assets/App-BcKCOG-q.js",
-        "assets/index.tsx-QMA2CxTO.js"
+        "assets/App-CrNy_TfB.js",
+        "assets/index.tsx-CHYDESUC.js"
       ],
       "use_dynamic_url": false
     }
