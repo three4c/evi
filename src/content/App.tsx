@@ -1,60 +1,23 @@
 import { useEffect, useRef } from "react";
-import * as stylex from "@stylexjs/stylex";
-import "./reset.css";
-
-const styles = stylex.create({
-  div: {
-    backdropFilter: "blur()12px",
-    backgroundColor: "rgba(255, 255, 255, 0.65)",
-    fontSize: "2em",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: 48,
-    height: 48,
-  },
-});
+import "../reset.css";
 
 const DOM_ARRAY = ["INPUT", "TEXTAREA"];
 
-const App = () => {
+const App: React.FC = () => {
   const isStartVim = useRef(false);
 
-  const getCurrent = (target: Element) => {
-    let start = -1;
-    let end = -1;
-    let element: HTMLInputElement | HTMLTextAreaElement | null = null;
+  const getElement = (element: Element | null) =>
+    element instanceof HTMLInputElement ||
+    element instanceof HTMLTextAreaElement
+      ? element
+      : null;
 
-    if (
-      (target instanceof HTMLInputElement ||
-        target instanceof HTMLTextAreaElement) &&
-      target.selectionStart !== null
-    ) {
-      start = target.selectionStart;
-      end = start + 1;
-      element = target;
-    }
-
-    return {
-      element,
-      start,
-      end,
-    };
-  };
-
-  const startVim = (target: Element, e: KeyboardEvent) => {
-    const {
-      element,
-      start: initialStart,
-      end: initialEnd,
-    } = getCurrent(target);
-
-    let start = initialStart;
-    let end = initialEnd;
-
-    if (!element) {
-      return;
-    }
+  const startVim = (
+    element: HTMLInputElement | HTMLTextAreaElement,
+    e: KeyboardEvent,
+  ) => {
+    let start = element.selectionStart || 0;
+    let end = start + 1;
 
     let charCount = 0;
     let currentLine = 0;
@@ -103,19 +66,36 @@ const App = () => {
       end = start + 1;
     }
 
-    if (e.key === "i") {
-      element.setSelectionRange(start, start);
-      isStartVim.current = false;
-    } else {
-      element.setSelectionRange(start, end);
+    if (col === lines[currentLine].length) {
+      start = start - 1;
+      end = start + 1;
     }
+
+    if (e.key === "i") {
+      end = start;
+    }
+
+    if (e.key === "a") {
+      start = end;
+    }
+
+    if (["i", "a"].includes(e.key)) {
+      isStartVim.current = false;
+    }
+
+    element.setSelectionRange(start, end);
   };
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       const activeElement = document.activeElement;
+      const element = getElement(activeElement);
 
-      if (!activeElement || !DOM_ARRAY.includes(activeElement.tagName)) {
+      if (!element) {
+        return;
+      }
+
+      if (!DOM_ARRAY.includes(element.tagName)) {
         return;
       }
 
@@ -123,12 +103,8 @@ const App = () => {
         isStartVim.current = true;
       }
 
-      if (e.ctrlKey && e.key === "q") {
-        isStartVim.current = false;
-      }
-
       if (isStartVim.current) {
-        startVim(activeElement, e);
+        startVim(element, e);
         e.preventDefault();
       }
     };
@@ -137,13 +113,7 @@ const App = () => {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  return (
-    <>
-      <div {...stylex.props(styles.div)}>🦐</div>
-      {/* <input type="text" /> */}
-      {/* <textarea /> */}
-    </>
-  );
+  return null;
 };
 
 export default App;
