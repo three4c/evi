@@ -14,8 +14,8 @@ const styles = stylex.create({
   },
   p: {
     color: "#fff",
-    fontWeight: "bold",
-    fontFamily: "'Noto Sans', serif",
+    fontWeight: "600",
+    fontFamily: "'Rubik', serif",
     fontSize: 16,
   },
   span: {
@@ -29,10 +29,7 @@ const styles = stylex.create({
     gap: 16,
     height: "100vh",
   },
-  input: {
-    width: "50%",
-  },
-  textarea: {
+  child: {
     width: "50%",
   },
 });
@@ -42,8 +39,9 @@ const App: React.FC = () => {
   return isDev ? (
     <div {...stylex.props(styles.dev)}>
       <Content />
-      <input {...stylex.props(styles.input)} type="text" />
-      <textarea {...stylex.props(styles.textarea)} />
+      <p>Vite Dev Mode</p>
+      <input {...stylex.props(styles.child)} type="text" />
+      <textarea {...stylex.props(styles.child)} />
     </div>
   ) : (
     <div {...stylex.props(styles.div)}>

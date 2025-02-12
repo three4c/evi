@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "evi",
+  "version": "1.0.0",
+  "action": {
+    "default_popup": "index.html"
+  },
+  "content_scripts": [
+    {
+      "js": [
+        "assets/index.tsx-loader-BU_9nRri.js"
+      ],
+      "matches": [
+        "<all_urls>"
+      ],
+      "css": [
+        "assets/App-B9Fm3BsU.css"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "resources": [
+        "assets/App-BcKCOG-q.js",
+        "assets/index.tsx-QMA2CxTO.js"
+      ],
+      "use_dynamic_url": false
+    }
+  ]
+}
