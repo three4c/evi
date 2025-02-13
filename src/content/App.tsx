@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import "../reset.css";
 
 type MODE_TYPE = "normal" | "insert" | "visual";
 
@@ -119,7 +118,7 @@ const App: React.FC = () => {
         return;
       }
 
-      if (e.ctrlKey && e.metaKey && e.key === "e") {
+      if (e.ctrlKey && e.metaKey && e.key === "v") {
         mode.current = "normal";
       }
 

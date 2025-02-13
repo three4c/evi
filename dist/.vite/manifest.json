@@ -5,41 +5,37 @@
     "src": "../../../../@crx/manifest",
     "isEntry": true
   },
-  "_App-B9Fm3BsU.css": {
-    "file": "assets/App-B9Fm3BsU.css",
-    "src": "_App-B9Fm3BsU.css"
+  "_App-CFsfyD2l.js": {
+    "file": "assets/App-CFsfyD2l.js",
+    "name": "App"
   },
-  "_App-CrNy_TfB.js": {
-    "file": "assets/App-CrNy_TfB.js",
-    "name": "App",
-    "css": [
-      "assets/App-B9Fm3BsU.css"
-    ]
-  },
-  "_index.tsx-loader-B8cmWrDk.js": {
-    "file": "assets/index.tsx-loader-B8cmWrDk.js",
-    "src": "_index.tsx-loader-B8cmWrDk.js"
+  "_index.tsx-loader-DEVDuo7B.js": {
+    "file": "assets/index.tsx-loader-DEVDuo7B.js",
+    "src": "_index.tsx-loader-DEVDuo7B.js"
   },
   "_stylex.bf2d377e.css": {
     "file": "assets/stylex.bf2d377e.css",
     "src": "_stylex.bf2d377e.css"
   },
   "index.html": {
-    "file": "assets/index.html-CvfNclE0.js",
+    "file": "assets/index.html-Dcll-ZaI.js",
     "name": "index.html",
     "src": "index.html",
     "isEntry": true,
     "imports": [
-      "_App-CrNy_TfB.js"
+      "_App-CFsfyD2l.js"
+    ],
+    "css": [
+      "assets/index-B9Fm3BsU.css"
     ]
   },
   "src/content/index.tsx": {
-    "file": "assets/index.tsx-CHYDESUC.js",
+    "file": "assets/index.tsx--pURSUoh.js",
     "name": "index.tsx",
     "src": "src/content/index.tsx",
     "isEntry": true,
     "imports": [
-      "_App-CrNy_TfB.js"
+      "_App-CFsfyD2l.js"
     ]
   }
 }
