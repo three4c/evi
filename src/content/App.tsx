@@ -81,7 +81,7 @@ const App: React.FC = () => {
       end = start + 1;
     }
 
-    if (col === lines[currentLine].length) {
+    if (lines[currentLine].length && col === lines[currentLine].length) {
       start = start - 1;
       end = start + 1;
     }
@@ -118,7 +118,7 @@ const App: React.FC = () => {
         return;
       }
 
-      if (e.ctrlKey && e.metaKey && e.key === "v") {
+      if (e.ctrlKey && e.metaKey && e.key === "e") {
         mode.current = "normal";
       }
 
