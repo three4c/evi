@@ -6,6 +6,10 @@ const DOM_ARRAY = ["INPUT", "TEXTAREA"];
 
 const App: React.FC = () => {
   const mode = useRef<MODE_TYPE>("insert");
+  const pos = useRef({
+    start: 0,
+    end: 0,
+  });
 
   const getElement = (element: Element | null) =>
     element instanceof HTMLInputElement ||
@@ -46,19 +50,31 @@ const App: React.FC = () => {
     element: HTMLInputElement | HTMLTextAreaElement,
     e: KeyboardEvent,
   ) => {
-    let start = element.selectionStart || 0;
-    let end = start + 1;
+    let { start, end } = pos.current;
+
+    if (mode.current === "normal") {
+      start = element.selectionStart || 0;
+      end = start + 1;
+    }
 
     const { lines, charCount, currentLine, col } = getLines(element, start);
 
     if (e.key === "h" && col) {
-      start--;
-      end = start + 1;
+      if (mode.current === "visual") {
+        start--;
+      } else {
+        start--;
+        end = start + 1;
+      }
     }
 
     if (e.key === "l" && col !== lines[currentLine].length - 1) {
-      start++;
-      end = start + 1;
+      if (mode.current === "visual") {
+        end++;
+      } else {
+        start++;
+        end = start + 1;
+      }
     }
 
     if (e.key === "j" && currentLine + 1 < lines.length) {
@@ -110,6 +126,7 @@ const App: React.FC = () => {
       mode.current = "visual";
     }
 
+    pos.current = { start, end };
     element.setSelectionRange(start, end);
   };
 

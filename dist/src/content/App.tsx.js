@@ -15,6 +15,10 @@ const DOM_ARRAY = [
 const App = ()=>{
     _s();
     const mode = useRef("insert");
+    const pos = useRef({
+        start: 0,
+        end: 0
+    });
     const getElement = (element)=>element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement ? element : null;
     const getLines = (element, start)=>{
         let charCount = 0;
@@ -38,16 +42,27 @@ const App = ()=>{
         };
     };
     const startVim = (element, e)=>{
-        let start = element.selectionStart || 0;
-        let end = start + 1;
-        const { lines, charCount, currentLine, col } = getLines(element, start);
-        if (e.key === "h" && col) {
-            start--;
+        let { start, end } = pos.current;
+        if (mode.current === "normal") {
+            start = element.selectionStart || 0;
             end = start + 1;
         }
+        const { lines, charCount, currentLine, col } = getLines(element, start);
+        if (e.key === "h" && col) {
+            if (mode.current === "visual") {
+                start--;
+            } else {
+                start--;
+                end = start + 1;
+            }
+        }
         if (e.key === "l" && col !== lines[currentLine].length - 1) {
-            start++;
-            end = start + 1;
+            if (mode.current === "visual") {
+                end++;
+            } else {
+                start++;
+                end = start + 1;
+            }
         }
         if (e.key === "j" && currentLine + 1 < lines.length) {
             const nextLineLength = lines[currentLine + 1].length;
@@ -90,6 +105,10 @@ const App = ()=>{
         if (e.key === "v") {
             mode.current = "visual";
         }
+        pos.current = {
+            start,
+            end
+        };
         element.setSelectionRange(start, end);
     };
     useEffect(()=>{
@@ -118,7 +137,7 @@ const App = ()=>{
     }, []);
     return null;
 };
-_s(App, "NhgHiiOrZaLBrIlQGv9OyeSAlcM=");
+_s(App, "qm/poDNH6jfExd4f3gyu3y3E7QI=");
 _c = App;
 export default App;
 var _c;
