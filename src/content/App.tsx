@@ -51,7 +51,7 @@ const App: React.FC = () => {
 
     const { lines, charCount, currentLine, col } = getLines(element, start);
 
-    if (e.key === "h" && start) {
+    if (e.key === "h" && col) {
       start--;
       end = start + 1;
     }

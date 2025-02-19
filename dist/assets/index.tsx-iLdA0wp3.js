@@ -1,0 +1,1 @@
+import{c as o,j as e,r,A as c}from"./App-D1U77irf.js";const t=document.createElement("div");t.id="crx-root";document.body.appendChild(t);o.createRoot(t).render(e.jsx(r.StrictMode,{children:e.jsx(c,{})}));
