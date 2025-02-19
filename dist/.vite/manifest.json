@@ -5,37 +5,37 @@
     "src": "../../../../@crx/manifest",
     "isEntry": true
   },
-  "_App-DYFctNaz.js": {
-    "file": "assets/App-DYFctNaz.js",
+  "_App-CTEF2DCT.js": {
+    "file": "assets/App-CTEF2DCT.js",
     "name": "App"
   },
-  "_index.tsx-loader--K6S79EH.js": {
-    "file": "assets/index.tsx-loader--K6S79EH.js",
-    "src": "_index.tsx-loader--K6S79EH.js"
+  "_index.tsx-loader-B_FrGu8w.js": {
+    "file": "assets/index.tsx-loader-B_FrGu8w.js",
+    "src": "_index.tsx-loader-B_FrGu8w.js"
   },
   "_stylex.bf2d377e.css": {
     "file": "assets/stylex.bf2d377e.css",
     "src": "_stylex.bf2d377e.css"
   },
   "index.html": {
-    "file": "assets/index.html-D28BGxKp.js",
+    "file": "assets/index.html-BkF83xI-.js",
     "name": "index.html",
     "src": "index.html",
     "isEntry": true,
     "imports": [
-      "_App-DYFctNaz.js"
+      "_App-CTEF2DCT.js"
     ],
     "css": [
       "assets/index-B9Fm3BsU.css"
     ]
   },
   "src/content/index.tsx": {
-    "file": "assets/index.tsx-2EB8K3He.js",
+    "file": "assets/index.tsx-C82nPH5k.js",
     "name": "index.tsx",
     "src": "src/content/index.tsx",
     "isEntry": true,
     "imports": [
-      "_App-DYFctNaz.js"
+      "_App-CTEF2DCT.js"
     ]
   }
 }

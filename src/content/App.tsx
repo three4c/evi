@@ -62,22 +62,30 @@ const App: React.FC = () => {
     }
 
     if (e.key === "j" && currentLine + 1 < lines.length) {
-      const overCharCount =
-        col >= lines[currentLine + 1].length
-          ? col - lines[currentLine + 1].length + 1
-          : 0;
+      const nextLineLength = lines[currentLine + 1].length;
       const next = charCount + lines[currentLine].length + 1;
-      start = next + col - overCharCount;
+
+      if (nextLineLength) {
+        const overCharCount =
+          col >= nextLineLength ? col - nextLineLength + 1 : 0;
+        start = next + col - overCharCount;
+      } else {
+        start = next;
+      }
       end = start + 1;
     }
 
     if (e.key === "k" && currentLine > 0) {
-      const overCharCount =
-        col >= lines[currentLine - 1].length
-          ? col - lines[currentLine - 1].length + 1
-          : 0;
+      const prevLineLength = lines[currentLine - 1].length;
       const prev = charCount - (lines[currentLine - 1].length + 1);
-      start = prev + col - overCharCount;
+
+      if (prevLineLength) {
+        const overCharCount =
+          col >= prevLineLength ? col - prevLineLength + 1 : 0;
+        start = prev + col - overCharCount;
+      } else {
+        start = prev;
+      }
       end = start + 1;
     }
 
