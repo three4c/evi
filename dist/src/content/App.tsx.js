@@ -50,7 +50,7 @@ const App = ()=>{
         const { lines, charCount, currentLine, col } = getLines(element, start);
         if (e.key === "h" && col) {
             if (mode.current === "visual") {
-                start--;
+                end--;
             } else {
                 start--;
                 end = start + 1;
@@ -64,6 +64,7 @@ const App = ()=>{
                 end = start + 1;
             }
         }
+        console.log(start, end);
         if (e.key === "j" && currentLine + 1 < lines.length) {
             const nextLineLength = lines[currentLine + 1].length;
             const next = charCount + lines[currentLine].length + 1;

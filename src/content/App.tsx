@@ -61,7 +61,7 @@ const App: React.FC = () => {
 
     if (e.key === "h" && col) {
       if (mode.current === "visual") {
-        start--;
+        end--;
       } else {
         start--;
         end = start + 1;
@@ -76,6 +76,8 @@ const App: React.FC = () => {
         end = start + 1;
       }
     }
+
+    console.log(start, end);
 
     if (e.key === "j" && currentLine + 1 < lines.length) {
       const nextLineLength = lines[currentLine + 1].length;
