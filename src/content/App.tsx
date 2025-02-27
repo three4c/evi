@@ -77,8 +77,6 @@ const App: React.FC = () => {
       }
     }
 
-    console.log(start, end);
-
     if (e.key === "j" && currentLine + 1 < lines.length) {
       const nextLineLength = lines[currentLine + 1].length;
       const next = charCount + lines[currentLine].length + 1;
