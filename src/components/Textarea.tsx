@@ -4,13 +4,13 @@ import * as stylex from "@stylexjs/stylex";
 const HEIGHT = 16;
 
 const styles = stylex.create({
-  div: {
+  editor: (width: number, height: number) => ({
     border: "1px solid #000",
-    width: 100,
-    height: 100,
+    width,
+    height,
     lineHeight: 1,
     fontSize: HEIGHT,
-  },
+  }),
   lineWrapper: {
     display: "flex",
     flexDirection: "column",
@@ -21,7 +21,12 @@ const styles = stylex.create({
   },
 });
 
-export const Textarea: React.FC = () => {
+interface TextareaProps {
+  width: number;
+  height: number;
+}
+
+export const Textarea: React.FC<TextareaProps> = (props) => {
   const [length, setLength] = useState(0);
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -42,7 +47,10 @@ export const Textarea: React.FC = () => {
   }, []);
 
   return (
-    <div {...stylex.props(styles.div)} ref={divRef}>
+    <div
+      {...stylex.props(styles.editor(props.width, props.height))}
+      ref={divRef}
+    >
       <div {...stylex.props(styles.lineWrapper)}>
         {[...Array(length)].map((_, index) => (
           <span {...stylex.props(styles.line)} key={index}>
