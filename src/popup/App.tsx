@@ -43,7 +43,7 @@ const App: React.FC = () => {
       <p>Vite Dev Mode</p>
       <input {...stylex.props(styles.child)} type="text" />
       <textarea {...stylex.props(styles.child)} />
-      <Textarea width={100} height={100} />
+      <Textarea width={200} height={200} fontSize={16} />
     </div>
   ) : (
     <div {...stylex.props(styles.div)}>
