@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 
 const HEIGHT = 16;
@@ -28,17 +28,12 @@ interface TextareaProps {
 
 export const Textarea: React.FC<TextareaProps> = (props) => {
   const [length, setLength] = useState(0);
-  const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!divRef.current) {
-      return;
-    }
-
     let sumHeight = HEIGHT;
     let sumLength = 0;
 
-    while (sumHeight < divRef.current.clientHeight) {
+    while (sumHeight < props.height) {
       sumHeight += HEIGHT;
       sumLength++;
     }
@@ -47,10 +42,7 @@ export const Textarea: React.FC<TextareaProps> = (props) => {
   }, []);
 
   return (
-    <div
-      {...stylex.props(styles.editor(props.width, props.height))}
-      ref={divRef}
-    >
+    <div {...stylex.props(styles.editor(props.width, props.height))}>
       <div {...stylex.props(styles.lineWrapper)}>
         {[...Array(length)].map((_, index) => (
           <span {...stylex.props(styles.line)} key={index}>
