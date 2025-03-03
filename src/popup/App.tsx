@@ -2,7 +2,6 @@ import * as stylex from "@stylexjs/stylex";
 import "../reset.css";
 
 import Content from "../content/App";
-import { Textarea } from "../components/Textarea";
 
 const styles = stylex.create({
   div: {
@@ -43,7 +42,6 @@ const App: React.FC = () => {
       <p>Vite Dev Mode</p>
       <input {...stylex.props(styles.child)} type="text" />
       <textarea {...stylex.props(styles.child)} />
-      <Textarea width={200} height={200} fontSize={16} />
     </div>
   ) : (
     <div {...stylex.props(styles.div)}>

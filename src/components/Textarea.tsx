@@ -2,12 +2,21 @@ import React, { useEffect, useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 
 const styles = stylex.create({
-  editor: (width: number, height: number, fontSize: number) => ({
+  editor: (
+    fontSize: number,
+    top: number,
+    left: number,
+    width: number,
+    height: number,
+  ) => ({
     border: "1px solid #000",
-    width,
-    height,
     lineHeight: 1,
     fontSize,
+    position: "fixed",
+    top,
+    left,
+    width,
+    height,
   }),
   lineWrapper: (width: number) => ({
     display: "flex",
@@ -20,6 +29,8 @@ const styles = stylex.create({
 });
 
 interface TextareaProps {
+  top: number;
+  left: number;
   width: number;
   height: number;
   fontSize: number;
@@ -43,7 +54,13 @@ export const Textarea: React.FC<TextareaProps> = (props) => {
   return (
     <div
       {...stylex.props(
-        styles.editor(props.width, props.height, props.fontSize),
+        styles.editor(
+          props.fontSize,
+          props.top,
+          props.left,
+          props.width,
+          props.height,
+        ),
       )}
     >
       <div {...stylex.props(styles.lineWrapper(props.fontSize))}>
