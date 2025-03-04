@@ -9,7 +9,9 @@ const styles = stylex.create({
     width: number,
     height: number,
   ) => ({
+    backgroundColor: "#000",
     border: "1px solid #000",
+    color: "#fff",
     lineHeight: 1,
     fontSize,
     position: "fixed",

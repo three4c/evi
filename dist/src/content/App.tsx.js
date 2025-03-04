@@ -25,14 +25,12 @@ const App = ()=>{
         width: 0,
         height: 9
     });
+    const [fontSize, setFontSize] = useState(0);
     const getElement = (element)=>element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement ? element : null;
     const startVim = (element, e)=>{
         setShow(!isShow);
-        const dom = getElement(element);
-        if (!dom) {
-            return;
-        }
-        const { top, left, width, height } = dom.getBoundingClientRect();
+        setFontSize(parseInt(window.getComputedStyle(element).fontSize));
+        const { top, left, width, height } = element.getBoundingClientRect();
         setPos({
             top,
             left
@@ -42,6 +40,7 @@ const App = ()=>{
             height
         });
     };
+    console.log(isShow);
     useEffect(()=>{
         const onKeyDown = (e)=>{
             const activeElement = document.activeElement;
@@ -58,20 +57,22 @@ const App = ()=>{
         };
         window.addEventListener("keydown", onKeyDown);
         return ()=>window.removeEventListener("keydown", onKeyDown);
-    }, []);
+    }, [
+        isShow
+    ]);
     return isShow ? /*#__PURE__*/ _jsxDEV(Textarea, {
-        fontSize: 16,
+        fontSize: fontSize,
         top: pos.top,
         left: pos.left,
         width: size.width,
         height: size.height
     }, void 0, false, {
         fileName: "/Users/three4c/Develop/evi/src/content/App.tsx",
-        lineNumber: 68,
+        lineNumber: 67,
         columnNumber: 5
     }, this) : null;
 };
-_s(App, "VeI9NOelQvwrCpbPsC7kv9CCTjY=");
+_s(App, "ESAVuhp8mmBlZ7gRAzSOFbgCmjg=");
 _c = App;
 export default App;
 var _c;

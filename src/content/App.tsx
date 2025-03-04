@@ -13,6 +13,7 @@ const App: React.FC = () => {
     width: 0,
     height: 9,
   });
+  const [fontSize, setFontSize] = useState(0);
 
   const getElement = (element: Element | null) =>
     element instanceof HTMLInputElement ||
@@ -25,13 +26,9 @@ const App: React.FC = () => {
     e: KeyboardEvent,
   ) => {
     setShow(!isShow);
-    const dom = getElement(element);
+    setFontSize(parseInt(window.getComputedStyle(element).fontSize));
 
-    if (!dom) {
-      return;
-    }
-
-    const { top, left, width, height } = dom.getBoundingClientRect();
+    const { top, left, width, height } = element.getBoundingClientRect();
     setPos({
       top,
       left,
@@ -41,6 +38,8 @@ const App: React.FC = () => {
       height,
     });
   };
+
+  console.log(isShow);
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -62,11 +61,11 @@ const App: React.FC = () => {
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
+  }, [isShow]);
 
   return isShow ? (
     <Textarea
-      fontSize={16}
+      fontSize={fontSize}
       top={pos.top}
       left={pos.left}
       width={size.width}

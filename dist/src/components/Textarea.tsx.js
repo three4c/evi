@@ -1,4 +1,4 @@
-import { createHotContext as __vite__createHotContext } from "/vendor/vite-client.js";import.meta.hot = __vite__createHotContext("/src/components/Textarea.tsx");import _inject from "/vendor/.vite-deps-@stylexjs_stylex_lib_stylex-inject.js__v--e540e4bd.js";
+import { createHotContext as __vite__createHotContext } from "/vendor/vite-client.js";import.meta.hot = __vite__createHotContext("/src/components/Textarea.tsx.js");import _inject from "/vendor/.vite-deps-@stylexjs_stylex_lib_stylex-inject.js__v--e540e4bd.js";
 var _inject2 = _inject;
 if (!window.$RefreshReg$) throw new Error("React refresh preamble was not loaded. Something is wrong.");
 const prevRefreshReg = window.$RefreshReg$;
@@ -11,7 +11,9 @@ import __vite__cjsImport3_react from "/vendor/.vite-deps-react.js__v--e540e4bd.j
 var _s = $RefreshSig$();
 import __vite__cjsImport4_react from "/vendor/.vite-deps-react.js__v--e540e4bd.js"; const React = __vite__cjsImport4_react.__esModule ? __vite__cjsImport4_react.default : __vite__cjsImport4_react; const useEffect = __vite__cjsImport4_react["useEffect"]; const useState = __vite__cjsImport4_react["useState"];
 import * as stylex from "/vendor/.vite-deps-@stylexjs_stylex.js__v--e540e4bd.js";
+_inject2(".x1r1mewj{background-color:#000}", 3000);
 _inject2(".xmgby6i{border:1px solid #000}", 1000);
+_inject2(".xfungia{color:#fff}", 3000);
 _inject2(".xo5v014{line-height:1}", 3000);
 _inject2(".x13jbg0v{font-size:var(--fontSize,revert)}", 3000);
 _inject2(".xixxii4{position:fixed}", 3000);
@@ -25,6 +27,7 @@ _inject2(".x1rg5ohu{display:inline-block}", 3000);
 const styles = {
   editor: (fontSize, top, left, width, height) => [{
     "Textarea__styles.editor": "Textarea__styles.editor",
+    backgroundColor: "x1r1mewj",
     border: "xmgby6i",
     borderWidth: null,
     borderInlineWidth: null,
@@ -53,6 +56,7 @@ const styles = {
     borderBlockColor: null,
     borderTopColor: null,
     borderBottomColor: null,
+    color: "xfungia",
     lineHeight: "xo5v014",
     fontSize: "x13jbg0v",
     position: "xixxii4",
@@ -103,19 +107,19 @@ export const Textarea = props => {
         key: index,
         __source: {
           fileName: "/Users/three4c/Develop/evi/src/components/Textarea.tsx",
-          lineNumber: 68,
+          lineNumber: 70,
           columnNumber: 11
         },
         __self: this
       }, "~"))
     }, void 0, false, {
       fileName: "/Users/three4c/Develop/evi/src/components/Textarea.tsx",
-      lineNumber: 66,
+      lineNumber: 68,
       columnNumber: 7
     }, this)
   }, void 0, false, {
     fileName: "/Users/three4c/Develop/evi/src/components/Textarea.tsx",
-    lineNumber: 55,
+    lineNumber: 57,
     columnNumber: 5
   }, this);
 };
