@@ -13,6 +13,7 @@ const styles = stylex.create({
     border: "1px solid #000",
     color: "#fff",
     lineHeight: 1,
+    fontFamily: "'Noto Sans JP', sans-serif",
     fontSize,
     position: "fixed",
     top,

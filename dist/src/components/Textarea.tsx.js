@@ -15,6 +15,7 @@ _inject2(".x1r1mewj{background-color:#000}", 3000);
 _inject2(".xmgby6i{border:1px solid #000}", 1000);
 _inject2(".xfungia{color:#fff}", 3000);
 _inject2(".xo5v014{line-height:1}", 3000);
+_inject2(".x1qg03c{font-family:'Noto Sans JP',sans-serif}", 3000);
 _inject2(".x13jbg0v{font-size:var(--fontSize,revert)}", 3000);
 _inject2(".xixxii4{position:fixed}", 3000);
 _inject2(".xrzbxsz{top:var(--top,revert)}", 4000);
@@ -58,6 +59,7 @@ const styles = {
     borderBottomColor: null,
     color: "xfungia",
     lineHeight: "xo5v014",
+    fontFamily: "x1qg03c",
     fontSize: "x13jbg0v",
     position: "xixxii4",
     top: "xrzbxsz",
@@ -107,19 +109,19 @@ export const Textarea = props => {
         key: index,
         __source: {
           fileName: "/Users/three4c/Develop/evi/src/components/Textarea.tsx",
-          lineNumber: 70,
+          lineNumber: 71,
           columnNumber: 11
         },
         __self: this
       }, "~"))
     }, void 0, false, {
       fileName: "/Users/three4c/Develop/evi/src/components/Textarea.tsx",
-      lineNumber: 68,
+      lineNumber: 69,
       columnNumber: 7
     }, this)
   }, void 0, false, {
     fileName: "/Users/three4c/Develop/evi/src/components/Textarea.tsx",
-    lineNumber: 57,
+    lineNumber: 58,
     columnNumber: 5
   }, this);
 };
