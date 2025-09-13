@@ -12,7 +12,7 @@
   "content_scripts": [
     {
       "js": [
-        "assets/index.tsx-loader-B4qTDEEQ.js"
+        "assets/index.tsx-loader-DTtw3WrU.js"
       ],
       "matches": [
         "<all_urls>"
@@ -26,8 +26,8 @@
       ],
       "resources": [
         "assets/shortcuts-Bdqo3K1J.js",
-        "assets/App-CjxFjOu4.js",
-        "assets/index.tsx-D2wcSWhG.js"
+        "assets/App-CjrYQj8X.js",
+        "assets/index.tsx-Bc9-8zqn.js"
       ],
       "use_dynamic_url": false
     }

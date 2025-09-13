@@ -106,6 +106,28 @@ const App: React.FC = () => {
       end = start + 1;
     }
 
+    if (e.key === "o" && element.tagName === "TEXTAREA") {
+      const nextBreak = element.value.indexOf("\n", start);
+      start = nextBreak === -1 ? element.value.length : nextBreak;
+      element.value = [
+        element.value.slice(0, start),
+        element.value.slice(start, element.value.length),
+      ].join("\n");
+      start = end = start + 1;
+      mode.current = "insert";
+    }
+
+    if (e.key === "O" && element.tagName === "TEXTAREA") {
+      const prevBreak = element.value.lastIndexOf("\n", start - 1);
+      start = prevBreak === -1 ? 0 : prevBreak;
+      element.value = [
+        element.value.slice(0, start),
+        element.value.slice(start, element.value.length),
+      ].join("\n");
+      start = end = start + (start ? 1 : 0);
+      mode.current = "insert";
+    }
+
     if (lines[currentLine].length && col === lines[currentLine].length) {
       start = start - 1;
       end = start + 1;

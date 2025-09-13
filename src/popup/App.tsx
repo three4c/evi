@@ -45,13 +45,14 @@ const App: React.FC = () => {
   const isDev = import.meta.env.DEV;
 
   const openShortcutSettings = () => chrome.runtime.openOptionsPage();
+  const testString = "aaaaa\nbbbbb\nccccc";
 
   return isDev ? (
     <div {...stylex.props(styles.dev)}>
       <Content />
       <p>Vite Dev Mode</p>
       <input {...stylex.props(styles.child)} type="text" />
-      <textarea {...stylex.props(styles.child)} />
+      <textarea {...stylex.props(styles.child)} defaultValue={testString} />
       <button {...stylex.props(styles.child)} onClick={openShortcutSettings}>
         キーボードショートカット設定
       </button>
