@@ -16,6 +16,10 @@ const App: React.FC = () => {
     start: 0,
     end: 0,
   });
+  const originalPos = useRef({
+    start: 0,
+    end: 0,
+  });
   const [shortcuts, setShortcuts] = useState<Record<string, ShortcutConfig>>(
     {},
   );
@@ -55,7 +59,7 @@ const App: React.FC = () => {
     };
   };
 
-  const startVim = (
+  const startVim = async (
     element: HTMLInputElement | HTMLTextAreaElement,
     e: KeyboardEvent,
   ) => {
@@ -69,13 +73,45 @@ const App: React.FC = () => {
     const { lines, charCount, currentLine, col } = getLines(element, start);
 
     if (e.key === "h" && col) {
-      start--;
-      end = start + 1;
+      if (mode.current === "normal") {
+        start--;
+        end = start + 1;
+      } else {
+        if (end - start === 1) {
+          if (start <= originalPos.current.start) {
+            start--;
+          } else {
+            end--;
+          }
+        } else {
+          if (start < originalPos.current.start) {
+            start--;
+          } else {
+            end--;
+          }
+        }
+      }
     }
 
     if (e.key === "l" && col !== lines[currentLine].length - 1) {
-      start++;
-      end = start + 1;
+      if (mode.current === "normal") {
+        start++;
+        end = start + 1;
+      } else {
+        if (end - start === 1) {
+          if (end >= originalPos.current.end) {
+            end++;
+          } else {
+            start++;
+          }
+        } else {
+          if (end > originalPos.current.end) {
+            end++;
+          } else {
+            start++;
+          }
+        }
+      }
     }
 
     if (e.key === "j" && currentLine + 1 < lines.length) {
@@ -128,6 +164,41 @@ const App: React.FC = () => {
       mode.current = "insert";
     }
 
+    if (e.key === "y" && mode.current === "visual") {
+      const text = window.getSelection()?.toString();
+      if (text) {
+        navigator.clipboard.writeText(text);
+        mode.current = "normal";
+        start = originalPos.current.start;
+        end = originalPos.current.end;
+      }
+    }
+
+    if (e.key === "p" && mode.current === "normal") {
+      const text = await navigator.clipboard.readText();
+      if (text) {
+        const pos = lines[currentLine].length === 0 ? start : end;
+        element.value = [
+          element.value.slice(0, pos),
+          element.value.slice(pos, element.value.length),
+        ].join(text);
+        start = start + text.length;
+        end = start + 1;
+      }
+    }
+
+    if (e.key === "P" && mode.current === "normal") {
+      const text = await navigator.clipboard.readText();
+      if (text) {
+        element.value = [
+          element.value.slice(0, start),
+          element.value.slice(start, element.value.length),
+        ].join(text);
+        start = start + text.length - 1;
+        end = start + 1;
+      }
+    }
+
     if (lines[currentLine].length && col === lines[currentLine].length) {
       start = start - 1;
       end = start + 1;
@@ -146,7 +217,14 @@ const App: React.FC = () => {
     }
 
     if (e.key === "v") {
-      mode.current = "visual";
+      if (mode.current === "normal") {
+        mode.current = "visual";
+        originalPos.current = { start, end };
+      } else {
+        mode.current = "normal";
+        start = originalPos.current.start;
+        end = originalPos.current.end;
+      }
     }
 
     pos.current = { start, end };
