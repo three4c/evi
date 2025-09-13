@@ -21,6 +21,12 @@ const styles = stylex.create({
   span: {
     marginRight: 8,
   },
+  settings: {
+    marginLeft: 8,
+    padding: 0,
+    background: "transparent",
+    border: "none",
+  },
   dev: {
     display: "flex",
     flexDirection: "column",
@@ -37,17 +43,26 @@ const styles = stylex.create({
 
 const App: React.FC = () => {
   const isDev = import.meta.env.DEV;
+
+  const openShortcutSettings = () => chrome.runtime.openOptionsPage();
+
   return isDev ? (
     <div {...stylex.props(styles.dev)}>
       <Content />
       <p>Vite Dev Mode</p>
       <input {...stylex.props(styles.child)} type="text" />
       <textarea {...stylex.props(styles.child)} />
+      <button {...stylex.props(styles.child)} onClick={openShortcutSettings}>
+        キーボードショートカット設定
+      </button>
     </div>
   ) : (
     <div {...stylex.props(styles.div)}>
       <span {...stylex.props(styles.span)}>🦐</span>
       <p {...stylex.props(styles.p)}>evi</p>
+      <button {...stylex.props(styles.settings)} onClick={openShortcutSettings}>
+        ⚙️
+      </button>
     </div>
   );
 };
