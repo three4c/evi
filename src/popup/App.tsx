@@ -27,10 +27,11 @@ const styles = stylex.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 16,
-    height: "100vh",
+    width: 300,
+    padding: 16,
   },
   child: {
-    width: "50%",
+    width: "100%",
   },
 });
 
