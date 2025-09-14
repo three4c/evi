@@ -115,6 +115,53 @@ const App: React.FC = () => {
         end = start + 1;
       }
 
+      if (e.key === "o" && element.tagName === "TEXTAREA") {
+        const nextBreak = element.value.indexOf("\n", start);
+        start = nextBreak === -1 ? element.value.length : nextBreak;
+        element.value = [
+          element.value.slice(0, start),
+          element.value.slice(start, element.value.length),
+        ].join("\n");
+        start = end = start + 1;
+        mode.current = "insert";
+      }
+
+      if (e.key === "O" && element.tagName === "TEXTAREA") {
+        const prevBreak = element.value.lastIndexOf("\n", start - 1);
+        start = prevBreak === -1 ? 0 : prevBreak;
+        element.value = [
+          element.value.slice(0, start),
+          element.value.slice(start, element.value.length),
+        ].join("\n");
+        start = end = start + (start ? 1 : 0);
+        mode.current = "insert";
+      }
+
+      if (e.key === "p") {
+        const text = await navigator.clipboard.readText();
+        if (text) {
+          const pos = lines[currentLine].length === 0 ? start : end;
+          element.value = [
+            element.value.slice(0, pos),
+            element.value.slice(pos, element.value.length),
+          ].join(text);
+          start = start + text.length;
+          end = start + 1;
+        }
+      }
+
+      if (e.key === "P") {
+        const text = await navigator.clipboard.readText();
+        if (text) {
+          element.value = [
+            element.value.slice(0, start),
+            element.value.slice(start, element.value.length),
+          ].join(text);
+          start = start + text.length - 1;
+          end = start + 1;
+        }
+      }
+
       if (lines[currentLine].length && col === lines[currentLine].length) {
         start = start - 1;
         end = start + 1;
@@ -176,6 +223,19 @@ const App: React.FC = () => {
       //   }
       // }
 
+      if (e.key === "p" || e.key === "P") {
+        const text = await navigator.clipboard.readText();
+        if (text) {
+          element.value = [
+            element.value.slice(0, start),
+            element.value.slice(end, element.value.length),
+          ].join(text);
+          start = start + text.length - 1;
+          end = start + 1;
+          mode.current = "normal";
+        }
+      }
+
       if (e.key === "y") {
         const text = window.getSelection()?.toString();
         if (text) {
@@ -184,53 +244,6 @@ const App: React.FC = () => {
           start = oStart;
           end = oEnd;
         }
-      }
-    }
-
-    if (e.key === "o" && element.tagName === "TEXTAREA") {
-      const nextBreak = element.value.indexOf("\n", start);
-      start = nextBreak === -1 ? element.value.length : nextBreak;
-      element.value = [
-        element.value.slice(0, start),
-        element.value.slice(start, element.value.length),
-      ].join("\n");
-      start = end = start + 1;
-      mode.current = "insert";
-    }
-
-    if (e.key === "O" && element.tagName === "TEXTAREA") {
-      const prevBreak = element.value.lastIndexOf("\n", start - 1);
-      start = prevBreak === -1 ? 0 : prevBreak;
-      element.value = [
-        element.value.slice(0, start),
-        element.value.slice(start, element.value.length),
-      ].join("\n");
-      start = end = start + (start ? 1 : 0);
-      mode.current = "insert";
-    }
-
-    if (e.key === "p" && mode.current === "normal") {
-      const text = await navigator.clipboard.readText();
-      if (text) {
-        const pos = lines[currentLine].length === 0 ? start : end;
-        element.value = [
-          element.value.slice(0, pos),
-          element.value.slice(pos, element.value.length),
-        ].join(text);
-        start = start + text.length;
-        end = start + 1;
-      }
-    }
-
-    if (e.key === "P" && mode.current === "normal") {
-      const text = await navigator.clipboard.readText();
-      if (text) {
-        element.value = [
-          element.value.slice(0, start),
-          element.value.slice(start, element.value.length),
-        ].join(text);
-        start = start + text.length - 1;
-        end = start + 1;
       }
     }
 
