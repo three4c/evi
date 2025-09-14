@@ -221,10 +221,7 @@ const App: React.FC = () => {
       if (e.key === "p" || e.key === "P") {
         const text = await navigator.clipboard.readText();
         if (text) {
-          element.value = [
-            element.value.slice(0, start),
-            element.value.slice(end, length),
-          ].join(text);
+          element.setRangeText(text);
           start = start + text.length - 1;
           end = start + 1;
           mode.current = "normal";
