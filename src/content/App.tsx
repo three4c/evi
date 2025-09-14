@@ -76,6 +76,7 @@ const App: React.FC = () => {
     }
 
     const { lines, charCount, currentLine, col } = getLines(element, start);
+    const { currentLine: endCurrentLine } = getLines(element, end);
 
     if (mode.current === "normal") {
       if (e.key === "h" && col) {
@@ -182,6 +183,11 @@ const App: React.FC = () => {
       const atLeftEdge = start === 0 && oStart === 0;
       const atRightEdge = end === length && oEnd === length;
 
+      const currentLineLength = lines[currentLine].length + 1;
+      const endCurrentLineLength = lines[endCurrentLine].length + 1;
+      const clampToTextBounds = (value: number) =>
+        Math.max(0, Math.min(value, length));
+
       if (e.key === "h") {
         if (start > 0) {
           if (shouldMoveStart) {
@@ -207,13 +213,12 @@ const App: React.FC = () => {
       }
 
       if (e.key === "j") {
-        if (currentLine + 1 < lines.length && currentLine >= oCurrentLine) {
-          end = end + lines[currentLine].length + 1;
-          if (end > length) {
-            end = length;
-          }
+        const canMoveDown = currentLine + 1 < lines.length;
+        const expandDown = currentLine >= oCurrentLine;
+        if (canMoveDown && expandDown) {
+          end = clampToTextBounds(end + currentLineLength);
         } else {
-          start = start + lines[currentLine].length + 1;
+          start = start + currentLineLength;
           if (start > end) {
             start = oStart;
             end = length;
@@ -222,14 +227,12 @@ const App: React.FC = () => {
       }
 
       if (e.key === "k") {
-        const { currentLine } = getLines(element, end);
-        if (currentLine > 0 && currentLine <= oCurrentLine) {
-          start = start - lines[currentLine].length - 1;
-          if (start < 0) {
-            start = 0;
-          }
+        const canMoveUp = endCurrentLine > 0;
+        const expandUp = endCurrentLine <= oCurrentLine;
+        if (canMoveUp && expandUp) {
+          start = clampToTextBounds(start - endCurrentLineLength);
         } else {
-          end = end - lines[currentLine].length - 1;
+          end = end - endCurrentLineLength;
           if (end < start) {
             start = 0;
             end = oEnd;
