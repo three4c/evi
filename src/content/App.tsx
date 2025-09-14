@@ -171,7 +171,7 @@ const App: React.FC = () => {
     if (mode.current === "visual" && originalPos.current) {
       const { start: oStart, end: oEnd } = originalPos.current;
 
-      if (e.key === "h" && start !== 0) {
+      if (e.key === "h" && start > 0) {
         if (end - start === 1) {
           if (start <= oStart) {
             start--;
@@ -185,11 +185,16 @@ const App: React.FC = () => {
             end--;
           }
         }
-      } else if (e.key === "h" && end !== 1) {
+      } else if (
+        e.key === "h" &&
+        oStart === 0 &&
+        end !== 1 &&
+        end - start > 1
+      ) {
         end--;
       }
 
-      if (e.key === "l" && end !== element.value.length) {
+      if (e.key === "l" && end < element.value.length) {
         if (end - start === 1) {
           if (end >= oEnd) {
             end++;
@@ -203,7 +208,12 @@ const App: React.FC = () => {
             start++;
           }
         }
-      } else if (e.key === "l" && start !== element.value.length - 1) {
+      } else if (
+        e.key === "l" &&
+        oEnd === element.value.length &&
+        start !== element.value.length - 1 &&
+        end - start > 1
+      ) {
         start++;
       }
 
