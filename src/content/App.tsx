@@ -72,75 +72,119 @@ const App: React.FC = () => {
 
     const { lines, charCount, currentLine, col } = getLines(element, start);
 
-    if (e.key === "h" && col) {
-      if (mode.current === "normal") {
+    if (mode.current === "normal") {
+      if (e.key === "h" && col) {
         start--;
         end = start + 1;
-      } else {
-        if (end - start === 1) {
-          if (start <= originalPos.current.start) {
-            start--;
-          } else {
-            end--;
-          }
-        } else {
-          if (start < originalPos.current.start) {
-            start--;
-          } else {
-            end--;
-          }
-        }
       }
-    }
 
-    if (e.key === "l" && col !== lines[currentLine].length - 1) {
-      if (mode.current === "normal") {
+      if (e.key === "l" && col !== lines[currentLine].length - 1) {
         start++;
         end = start + 1;
-      } else {
+      }
+
+      if (e.key === "j" && currentLine + 1 < lines.length) {
+        const nextLineLength = lines[currentLine + 1].length;
+        const next = charCount + lines[currentLine].length + 1;
+
+        if (nextLineLength) {
+          const overCharCount =
+            col >= nextLineLength ? col - nextLineLength + 1 : 0;
+          start = next + col - overCharCount;
+        } else {
+          start = next;
+        }
+        end = start + 1;
+      }
+
+      if (e.key === "k" && currentLine > 0) {
+        const prevLineLength = lines[currentLine - 1].length;
+        const prev = charCount - (lines[currentLine - 1].length + 1);
+
+        if (prevLineLength) {
+          const overCharCount =
+            col >= prevLineLength ? col - prevLineLength + 1 : 0;
+          start = prev + col - overCharCount;
+        } else {
+          start = prev;
+        }
+        end = start + 1;
+      }
+
+      if (lines[currentLine].length && col === lines[currentLine].length) {
+        start = start - 1;
+        end = start + 1;
+      }
+    }
+
+    if (mode.current === "visual") {
+      const { start: oStart, end: oEnd } = originalPos.current;
+
+      if (e.key === "h" && start !== 0) {
         if (end - start === 1) {
-          if (end >= originalPos.current.end) {
+          if (start <= oStart) {
+            start--;
+          } else {
+            end--;
+          }
+        } else {
+          if (start < oStart) {
+            start--;
+          } else {
+            end--;
+          }
+        }
+      } else if (e.key === "h" && end !== 1) {
+        end--;
+      }
+
+      if (e.key === "l" && end !== element.value.length) {
+        if (end - start === 1) {
+          if (end >= oEnd) {
             end++;
           } else {
             start++;
           }
         } else {
-          if (end > originalPos.current.end) {
+          if (end > oEnd) {
             end++;
           } else {
             start++;
           }
         }
+      } else if (e.key === "l" && start !== element.value.length - 1) {
+        start++;
+      }
+
+      // if (e.key === "j" && currentLine + 1 < lines.length) {
+      // }
+
+      // if (e.key === "k" && currentLine > 0) {
+      // }
+
+      if (e.key === "y") {
+        const text = window.getSelection()?.toString();
+        if (text) {
+          navigator.clipboard.writeText(text);
+          mode.current = "normal";
+          start = oStart;
+          end = oEnd;
+        }
       }
     }
 
-    if (e.key === "j" && currentLine + 1 < lines.length) {
-      const nextLineLength = lines[currentLine + 1].length;
-      const next = charCount + lines[currentLine].length + 1;
-
-      if (nextLineLength) {
-        const overCharCount =
-          col >= nextLineLength ? col - nextLineLength + 1 : 0;
-        start = next + col - overCharCount;
-      } else {
-        start = next;
-      }
-      end = start + 1;
-    }
-
-    if (e.key === "k" && currentLine > 0) {
-      const prevLineLength = lines[currentLine - 1].length;
-      const prev = charCount - (lines[currentLine - 1].length + 1);
-
-      if (prevLineLength) {
-        const overCharCount =
-          col >= prevLineLength ? col - prevLineLength + 1 : 0;
-        start = prev + col - overCharCount;
-      } else {
-        start = prev;
-      }
-      end = start + 1;
-    }
+    console.log(
+      "start: ",
+      start,
+      "end: ",
+      end,
+      "oS: ",
+      originalPos.current.start,
+      "oE: ",
+      originalPos.current.end,
+      "col: ",
+      col,
+    );
 
     if (e.key === "o" && element.tagName === "TEXTAREA") {
       const nextBreak = element.value.indexOf("\n", start);
@@ -162,16 +206,6 @@ const App: React.FC = () => {
       ].join("\n");
       start = end = start + (start ? 1 : 0);
       mode.current = "insert";
-    }
-
-    if (e.key === "y" && mode.current === "visual") {
-      const text = window.getSelection()?.toString();
-      if (text) {
-        navigator.clipboard.writeText(text);
-        mode.current = "normal";
-        start = originalPos.current.start;
-        end = originalPos.current.end;
-      }
     }
 
     if (e.key === "p" && mode.current === "normal") {
@@ -197,11 +231,6 @@ const App: React.FC = () => {
         start = start + text.length - 1;
         end = start + 1;
       }
-    }
-
-    if (lines[currentLine].length && col === lines[currentLine].length) {
-      start = start - 1;
-      end = start + 1;
     }
 
     if (e.key === "i") {
