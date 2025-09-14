@@ -16,10 +16,14 @@ const App: React.FC = () => {
     start: 0,
     end: 0,
   });
-  const originalPos = useRef({
-    start: 0,
-    end: 0,
-  });
+  const originalPos = useRef<
+    | {
+        start: number;
+        end: number;
+        currentLine: number;
+      }
+    | undefined
+  >(undefined);
   const [shortcuts, setShortcuts] = useState<Record<string, ShortcutConfig>>(
     {},
   );
@@ -117,7 +121,7 @@ const App: React.FC = () => {
       }
     }
 
-    if (mode.current === "visual") {
+    if (mode.current === "visual" && originalPos.current) {
       const { start: oStart, end: oEnd } = originalPos.current;
 
       if (e.key === "h" && start !== 0) {
@@ -157,9 +161,19 @@ const App: React.FC = () => {
       }
 
       // if (e.key === "j" && currentLine + 1 < lines.length) {
+      //   if (currentLine === oCurrentLine || currentLine > oCurrentLine) {
+      //     end = end + lines[currentLine].length + 1;
+      //   } else {
+      //     start = start + lines[currentLine].length + 1;
+      //   }
       // }
-
+      //
       // if (e.key === "k" && currentLine > 0) {
+      //   if (currentLine === oCurrentLine || currentLine < oCurrentLine) {
+      //     start = start - lines[currentLine].length - 1;
+      //   } else {
+      //     end = end - lines[currentLine].length - 1;
+      //   }
       // }
 
       if (e.key === "y") {
@@ -172,19 +186,6 @@ const App: React.FC = () => {
         }
       }
     }
-
-    console.log(
-      "start: ",
-      start,
-      "end: ",
-      end,
-      "oS: ",
-      originalPos.current.start,
-      "oE: ",
-      originalPos.current.end,
-      "col: ",
-      col,
-    );
 
     if (e.key === "o" && element.tagName === "TEXTAREA") {
       const nextBreak = element.value.indexOf("\n", start);
@@ -248,11 +249,12 @@ const App: React.FC = () => {
     if (e.key === "v") {
       if (mode.current === "normal") {
         mode.current = "visual";
-        originalPos.current = { start, end };
+        originalPos.current = { start, end, currentLine };
       } else {
         mode.current = "normal";
-        start = originalPos.current.start;
-        end = originalPos.current.end;
+        start = originalPos.current?.start || start;
+        end = originalPos.current?.end || end;
+        originalPos.current = undefined;
       }
     }
 
