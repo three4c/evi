@@ -237,8 +237,6 @@ const App: React.FC = () => {
         }
       }
 
-      console.log({ start, end });
-
       if (e.key === "p" || e.key === "P") {
         const text = await navigator.clipboard.readText();
         if (text) {

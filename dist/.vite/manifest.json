@@ -5,16 +5,16 @@
     "src": "../../../../../@crx/manifest",
     "isEntry": true
   },
-  "_App-ivkBomEB.js": {
-    "file": "assets/App-ivkBomEB.js",
+  "_App-CuBJxXPS.js": {
+    "file": "assets/App-CuBJxXPS.js",
     "name": "App",
     "imports": [
       "_shortcuts-Bdqo3K1J.js"
     ]
   },
-  "_index.tsx-loader-BcvQPXO4.js": {
-    "file": "assets/index.tsx-loader-BcvQPXO4.js",
-    "src": "_index.tsx-loader-BcvQPXO4.js"
+  "_index.tsx-loader-CvfmySLQ.js": {
+    "file": "assets/index.tsx-loader-CvfmySLQ.js",
+    "src": "_index.tsx-loader-CvfmySLQ.js"
   },
   "_reset-77EeHpRu.js": {
     "file": "assets/reset-77EeHpRu.js",
@@ -36,14 +36,14 @@
     "src": "_stylex.eedf0989.css"
   },
   "index.html": {
-    "file": "assets/popup-2kGa8tjJ.js",
+    "file": "assets/popup-CVjJ7LpJ.js",
     "name": "popup",
     "src": "index.html",
     "isEntry": true,
     "imports": [
       "_reset-77EeHpRu.js",
       "_shortcuts-Bdqo3K1J.js",
-      "_App-ivkBomEB.js"
+      "_App-CuBJxXPS.js"
     ]
   },
   "options.html": {
@@ -57,13 +57,13 @@
     ]
   },
   "src/content/index.tsx": {
-    "file": "assets/index.tsx-CQKf8wiI.js",
+    "file": "assets/index.tsx-v-hTXBnR.js",
     "name": "index.tsx",
     "src": "src/content/index.tsx",
     "isEntry": true,
     "imports": [
       "_shortcuts-Bdqo3K1J.js",
-      "_App-ivkBomEB.js"
+      "_App-CuBJxXPS.js"
     ]
   }
 }
