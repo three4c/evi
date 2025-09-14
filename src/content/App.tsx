@@ -68,6 +68,7 @@ const App: React.FC = () => {
     e: KeyboardEvent,
   ) => {
     let { start, end } = pos.current;
+    const { length } = element.value;
 
     if (mode.current === "normal") {
       start = element.selectionStart || 0;
@@ -117,10 +118,10 @@ const App: React.FC = () => {
 
       if (e.key === "o" && element.tagName === "TEXTAREA") {
         const nextBreak = element.value.indexOf("\n", start);
-        start = nextBreak === -1 ? element.value.length : nextBreak;
+        start = nextBreak === -1 ? length : nextBreak;
         element.value = [
           element.value.slice(0, start),
-          element.value.slice(start, element.value.length),
+          element.value.slice(start, length),
         ].join("\n");
         start = end = start + 1;
         mode.current = "insert";
@@ -131,7 +132,7 @@ const App: React.FC = () => {
         start = prevBreak === -1 ? 0 : prevBreak;
         element.value = [
           element.value.slice(0, start),
-          element.value.slice(start, element.value.length),
+          element.value.slice(start, length),
         ].join("\n");
         start = end = start + (start ? 1 : 0);
         mode.current = "insert";
@@ -143,7 +144,7 @@ const App: React.FC = () => {
           const pos = lines[currentLine].length === 0 ? start : end;
           element.value = [
             element.value.slice(0, pos),
-            element.value.slice(pos, element.value.length),
+            element.value.slice(pos, length),
           ].join(text);
           start = start + text.length;
           end = start + 1;
@@ -155,7 +156,7 @@ const App: React.FC = () => {
         if (text) {
           element.value = [
             element.value.slice(0, start),
-            element.value.slice(start, element.value.length),
+            element.value.slice(start, length),
           ].join(text);
           start = start + text.length - 1;
           end = start + 1;
@@ -171,50 +172,34 @@ const App: React.FC = () => {
     if (mode.current === "visual" && originalPos.current) {
       const { start: oStart, end: oEnd } = originalPos.current;
 
-      if (e.key === "h" && start > 0) {
-        if (end - start === 1) {
-          if (start <= oStart) {
+      const isSingleChar = end - start === 1;
+      const shouldMoveStart = isSingleChar ? start <= oStart : start < oStart;
+      const shouldMoveEnd = isSingleChar ? end >= oEnd : end > oEnd;
+      const atLeftEdge = start === 0 && oStart === 0;
+      const atRightEdge = end === length && oEnd === length;
+
+      if (e.key === "h") {
+        if (start > 0) {
+          if (shouldMoveStart) {
             start--;
           } else {
             end--;
           }
-        } else {
-          if (start < oStart) {
-            start--;
-          } else {
-            end--;
-          }
+        } else if (atLeftEdge && end !== 1 && !isSingleChar) {
+          end--;
         }
-      } else if (
-        e.key === "h" &&
-        oStart === 0 &&
-        end !== 1 &&
-        end - start > 1
-      ) {
-        end--;
       }
 
-      if (e.key === "l" && end < element.value.length) {
-        if (end - start === 1) {
-          if (end >= oEnd) {
+      if (e.key === "l") {
+        if (end < length) {
+          if (shouldMoveEnd) {
             end++;
           } else {
             start++;
           }
-        } else {
-          if (end > oEnd) {
-            end++;
-          } else {
-            start++;
-          }
+        } else if (atRightEdge && start !== length - 1 && !isSingleChar) {
+          start++;
         }
-      } else if (
-        e.key === "l" &&
-        oEnd === element.value.length &&
-        start !== element.value.length - 1 &&
-        end - start > 1
-      ) {
-        start++;
       }
 
       // if (e.key === "j" && currentLine + 1 < lines.length) {
@@ -238,7 +223,7 @@ const App: React.FC = () => {
         if (text) {
           element.value = [
             element.value.slice(0, start),
-            element.value.slice(end, element.value.length),
+            element.value.slice(end, length),
           ].join(text);
           start = start + text.length - 1;
           end = start + 1;
