@@ -170,7 +170,11 @@ const App: React.FC = () => {
     }
 
     if (mode.current === "visual" && originalPos.current) {
-      const { start: oStart, end: oEnd } = originalPos.current;
+      const {
+        start: oStart,
+        end: oEnd,
+        currentLine: oCurrentLine,
+      } = originalPos.current;
 
       const isSingleChar = end - start === 1;
       const shouldMoveStart = isSingleChar ? start <= oStart : start < oStart;
@@ -202,21 +206,38 @@ const App: React.FC = () => {
         }
       }
 
-      // if (e.key === "j" && currentLine + 1 < lines.length) {
-      //   if (currentLine === oCurrentLine || currentLine > oCurrentLine) {
-      //     end = end + lines[currentLine].length + 1;
-      //   } else {
-      //     start = start + lines[currentLine].length + 1;
-      //   }
-      // }
-      //
-      // if (e.key === "k" && currentLine > 0) {
-      //   if (currentLine === oCurrentLine || currentLine < oCurrentLine) {
-      //     start = start - lines[currentLine].length - 1;
-      //   } else {
-      //     end = end - lines[currentLine].length - 1;
-      //   }
-      // }
+      if (e.key === "j") {
+        if (currentLine + 1 < lines.length && currentLine >= oCurrentLine) {
+          end = end + lines[currentLine].length + 1;
+          if (end > length) {
+            end = length;
+          }
+        } else {
+          start = start + lines[currentLine].length + 1;
+          if (start > end) {
+            start = oStart;
+            end = length;
+          }
+        }
+      }
+
+      if (e.key === "k") {
+        const { currentLine } = getLines(element, end);
+        if (currentLine > 0 && currentLine <= oCurrentLine) {
+          start = start - lines[currentLine].length - 1;
+          if (start < 0) {
+            start = 0;
+          }
+        } else {
+          end = end - lines[currentLine].length - 1;
+          if (end < start) {
+            start = 0;
+            end = oEnd;
+          }
+        }
+      }
+
+      console.log({ start, end });
 
       if (e.key === "p" || e.key === "P") {
         const text = await navigator.clipboard.readText();
