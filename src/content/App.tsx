@@ -78,7 +78,10 @@ const App: React.FC = () => {
     const { lines, charCount, currentLine, col } = getLines(element, start);
     const { currentLine: endCurrentLine } = getLines(element, end);
 
-    if (mode.current === "normal") {
+    if (
+      mode.current === "normal" &&
+      !matchesShortcut(e, shortcuts.normal_mode)
+    ) {
       if (e.key === "h" && col) {
         start--;
         end = start + 1;
