@@ -180,12 +180,17 @@ const App: React.FC = () => {
       }
 
       if (e.key === "x") {
-        element.setRangeText("");
+        const text = window.getSelection()?.toString();
+        if (text) {
+          navigator.clipboard.writeText(text);
+          element.setRangeText("");
+        }
       }
 
       if (e.key === "X") {
         start = start - 1;
         end = end - 1;
+        navigator.clipboard.writeText(element.value.slice(start, start + 1));
         element.value = [
           element.value.slice(0, start),
           element.value.slice(end, length),
@@ -285,6 +290,17 @@ const App: React.FC = () => {
           mode.current = "normal";
           start = oStart;
           end = oEnd;
+        }
+      }
+
+      if (e.key === "x") {
+        const text = window.getSelection()?.toString();
+        if (text) {
+          navigator.clipboard.writeText(text);
+          element.setRangeText("");
+          start = oStart;
+          end = oEnd;
+          mode.current = "normal";
         }
       }
     }
