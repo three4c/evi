@@ -268,11 +268,19 @@ const App: React.FC = () => {
       end = start;
     }
 
+    if (e.key === "I") {
+      start = end = element.value.lastIndexOf("\n", start) + 1;
+    }
+
     if (e.key === "a") {
       start = end;
     }
 
-    if (["i", "a"].includes(e.key)) {
+    if (e.key === "A") {
+      start = end = element.value.indexOf("\n", start);
+    }
+
+    if (["i", "I", "a", "A"].includes(e.key)) {
       mode.current = "insert";
     }
 
