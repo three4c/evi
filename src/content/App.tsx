@@ -179,6 +179,19 @@ const App: React.FC = () => {
         }
       }
 
+      if (e.key === "x") {
+        element.setRangeText("");
+      }
+
+      if (e.key === "X") {
+        start = start - 1;
+        end = end - 1;
+        element.value = [
+          element.value.slice(0, start),
+          element.value.slice(end, length),
+        ].join("");
+      }
+
       if (lines[currentLine].length && col === lines[currentLine].length) {
         start = start - 1;
         end = start + 1;
