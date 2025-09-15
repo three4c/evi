@@ -321,7 +321,24 @@ const App: React.FC = () => {
       start = end = element.value.indexOf("\n", start);
     }
 
-    if (["i", "I", "a", "A"].includes(e.key)) {
+    if (e.key === "s") {
+      element.setRangeText("");
+      end = start;
+    }
+
+    if (e.key === "S") {
+      const prevBreak = element.value.lastIndexOf("\n", start) + 1;
+      const nextBreak = element.value.indexOf("\n", end);
+      start = prevBreak === -1 ? 0 : prevBreak;
+      end = nextBreak === -1 ? length : nextBreak;
+      element.value = [
+        element.value.slice(0, start),
+        element.value.slice(end, length),
+      ].join("");
+      end = start;
+    }
+
+    if (["i", "I", "a", "A", "s", "S"].includes(e.key)) {
       mode.current = "insert";
     }
 
