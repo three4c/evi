@@ -120,6 +120,18 @@ const App: React.FC = () => {
         end = start + 1;
       }
 
+      if (e.key === "J") {
+        const nextBreak = element.value.indexOf("\n", start);
+        if (nextBreak >= 0) {
+          start = nextBreak;
+          end = nextBreak + 1;
+          element.value = [
+            element.value.slice(0, start),
+            element.value.slice(end, length),
+          ].join(" ");
+        }
+      }
+
       if (e.key === "o" && element.tagName === "TEXTAREA") {
         const nextBreak = element.value.indexOf("\n", start);
         start = nextBreak === -1 ? length : nextBreak;
