@@ -1,5 +1,4 @@
 import * as stylex from "@stylexjs/stylex";
-import "../reset.css";
 
 import Content from "../content/App";
 
