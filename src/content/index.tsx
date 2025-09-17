@@ -7,7 +7,7 @@ root.id = "crx-root";
 document.body.appendChild(root);
 
 createRoot(root).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
+	<StrictMode>
+		<App />
+	</StrictMode>,
 );

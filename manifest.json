@@ -1,16 +1,16 @@
 {
-  "manifest_version": 3,
-  "name": "evi",
-  "version": "1.0.0",
-  "permissions": ["storage"],
-  "action": {
-    "default_popup": "index.html"
-  },
-  "options_page": "options.html",
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["src/content/index.tsx"]
-    }
-  ]
+	"manifest_version": 3,
+	"name": "evi",
+	"version": "1.0.0",
+	"permissions": ["storage"],
+	"action": {
+		"default_popup": "index.html"
+	},
+	"options_page": "options.html",
+	"content_scripts": [
+		{
+			"matches": ["<all_urls>"],
+			"js": ["src/content/index.tsx"]
+		}
+	]
 }

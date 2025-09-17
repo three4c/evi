@@ -6,13 +6,13 @@ import manifest from "./manifest.json";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), styleX(), crx({ manifest })],
-  build: {
-    rollupOptions: {
-      input: {
-        popup: "index.html",
-        options: "options.html"
-      }
-    }
-  }
+	plugins: [react(), styleX(), crx({ manifest })],
+	build: {
+		rollupOptions: {
+			input: {
+				popup: "index.html",
+				options: "options.html",
+			},
+		},
+	},
 });

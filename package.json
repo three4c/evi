@@ -6,8 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "biome lint",
+    "lint--write": "biome lint --write",
+    "format": "biome format",
+    "format--write": "biome format --write"
   },
   "dependencies": {
     "@stylexjs/stylex": "^0.6.1",
