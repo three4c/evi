@@ -1,1 +1,0 @@
-import{c as r,j as o,r as e}from"./shortcuts-Bdqo3K1J.js";import{A as c}from"./App-MVODQd6i.js";const t=document.createElement("div");t.id="crx-root";document.body.appendChild(t);r.createRoot(t).render(o.jsx(e.StrictMode,{children:o.jsx(c,{})}));
