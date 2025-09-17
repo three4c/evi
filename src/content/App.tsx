@@ -1,4 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import {
+  loadShortcuts,
+  matchesShortcut,
+  onShortcutsChanged,
+  ShortcutConfig,
+} from "../utils/shortcuts";
 
 type MODE_TYPE = "normal" | "insert" | "visual";
 
@@ -10,6 +16,9 @@ const App: React.FC = () => {
     start: 0,
     end: 0,
   });
+  const [shortcuts, setShortcuts] = useState<Record<string, ShortcutConfig>>(
+    {},
+  );
 
   const getElement = (element: Element | null) =>
     element instanceof HTMLInputElement ||
@@ -97,6 +106,28 @@ const App: React.FC = () => {
       end = start + 1;
     }
 
+    if (e.key === "o" && element.tagName === "TEXTAREA") {
+      const nextBreak = element.value.indexOf("\n", start);
+      start = nextBreak === -1 ? element.value.length : nextBreak;
+      element.value = [
+        element.value.slice(0, start),
+        element.value.slice(start, element.value.length),
+      ].join("\n");
+      start = end = start + 1;
+      mode.current = "insert";
+    }
+
+    if (e.key === "O" && element.tagName === "TEXTAREA") {
+      const prevBreak = element.value.lastIndexOf("\n", start - 1);
+      start = prevBreak === -1 ? 0 : prevBreak;
+      element.value = [
+        element.value.slice(0, start),
+        element.value.slice(start, element.value.length),
+      ].join("\n");
+      start = end = start + (start ? 1 : 0);
+      mode.current = "insert";
+    }
+
     if (lines[currentLine].length && col === lines[currentLine].length) {
       start = start - 1;
       end = start + 1;
@@ -123,6 +154,11 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
+    loadShortcuts().then(setShortcuts);
+    onShortcutsChanged(setShortcuts);
+  }, []);
+
+  useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       const activeElement = document.activeElement;
       const element = getElement(activeElement);
@@ -135,7 +171,7 @@ const App: React.FC = () => {
         return;
       }
 
-      if (e.ctrlKey && e.metaKey && e.key === "e") {
+      if (shortcuts.normal_mode && matchesShortcut(e, shortcuts.normal_mode)) {
         mode.current = "normal";
       }
 
@@ -147,7 +183,7 @@ const App: React.FC = () => {
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
+  }, [shortcuts]);
 
   return null;
 };
