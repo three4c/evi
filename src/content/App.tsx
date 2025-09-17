@@ -1,4 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import {
+  loadShortcuts,
+  matchesShortcut,
+  onShortcutsChanged,
+  ShortcutConfig,
+} from "../utils/shortcuts";
 
 type MODE_TYPE = "normal" | "insert" | "visual";
 
@@ -10,6 +16,9 @@ const App: React.FC = () => {
     start: 0,
     end: 0,
   });
+  const [shortcuts, setShortcuts] = useState<Record<string, ShortcutConfig>>(
+    {},
+  );
 
   const getElement = (element: Element | null) =>
     element instanceof HTMLInputElement ||
@@ -123,6 +132,11 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
+    loadShortcuts().then(setShortcuts);
+    onShortcutsChanged(setShortcuts);
+  }, []);
+
+  useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       const activeElement = document.activeElement;
       const element = getElement(activeElement);
@@ -135,7 +149,7 @@ const App: React.FC = () => {
         return;
       }
 
-      if (e.ctrlKey && e.metaKey && e.key === "e") {
+      if (shortcuts.normal_mode && matchesShortcut(e, shortcuts.normal_mode)) {
         mode.current = "normal";
       }
 
@@ -147,7 +161,7 @@ const App: React.FC = () => {
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
+  }, [shortcuts]);
 
   return null;
 };
