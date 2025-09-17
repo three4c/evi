@@ -16,43 +16,43 @@
     "file": "assets/index.tsx-loader-B4qTDEEQ.js",
     "src": "_index.tsx-loader-B4qTDEEQ.js"
   },
-  "_reset-77EeHpRu.js": {
-    "file": "assets/reset-77EeHpRu.js",
-    "name": "reset",
-    "css": [
-      "assets/reset-B9Fm3BsU.css"
-    ]
-  },
-  "_reset-B9Fm3BsU.css": {
-    "file": "assets/reset-B9Fm3BsU.css",
-    "src": "_reset-B9Fm3BsU.css"
-  },
   "_shortcuts-Bdqo3K1J.js": {
     "file": "assets/shortcuts-Bdqo3K1J.js",
     "name": "shortcuts"
+  },
+  "_stylex-B9Fm3BsU.css": {
+    "file": "assets/stylex-B9Fm3BsU.css",
+    "src": "_stylex-B9Fm3BsU.css"
+  },
+  "_stylex-qxPkio6y.js": {
+    "file": "assets/stylex-qxPkio6y.js",
+    "name": "stylex",
+    "css": [
+      "assets/stylex-B9Fm3BsU.css"
+    ]
   },
   "_stylex.eedf0989.css": {
     "file": "assets/stylex.eedf0989.css",
     "src": "_stylex.eedf0989.css"
   },
   "index.html": {
-    "file": "assets/popup-CLE8rkcy.js",
+    "file": "assets/popup-BuWiXZOt.js",
     "name": "popup",
     "src": "index.html",
     "isEntry": true,
     "imports": [
-      "_reset-77EeHpRu.js",
+      "_stylex-qxPkio6y.js",
       "_shortcuts-Bdqo3K1J.js",
       "_App-CjxFjOu4.js"
     ]
   },
   "options.html": {
-    "file": "assets/options-DSdk2MTo.js",
+    "file": "assets/options-gy5tDjpz.js",
     "name": "options",
     "src": "options.html",
     "isEntry": true,
     "imports": [
-      "_reset-77EeHpRu.js",
+      "_stylex-qxPkio6y.js",
       "_shortcuts-Bdqo3K1J.js"
     ]
   },
