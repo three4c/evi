@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import * as stylex from "@stylexjs/stylex";
-import "../reset.css";
 import {
   loadShortcuts,
   saveShortcuts,
