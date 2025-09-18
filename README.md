@@ -3,6 +3,7 @@
 ## Development
 
 ```
+bun install
 bun dev
 bun lint
 bun lint --write
