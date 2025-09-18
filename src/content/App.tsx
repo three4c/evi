@@ -76,6 +76,7 @@ const App: React.FC = () => {
     }
 
     const { lines, charCount, currentLine, col } = getLines(element, start);
+    const { currentLine: endCurrentLine } = getLines(element, end);
 
     if (mode.current === "normal") {
       if (e.key === "h" && col) {
@@ -170,13 +171,22 @@ const App: React.FC = () => {
     }
 
     if (mode.current === "visual" && originalPos.current) {
-      const { start: oStart, end: oEnd } = originalPos.current;
+      const {
+        start: oStart,
+        end: oEnd,
+        currentLine: oCurrentLine,
+      } = originalPos.current;
 
       const isSingleChar = end - start === 1;
       const shouldMoveStart = isSingleChar ? start <= oStart : start < oStart;
       const shouldMoveEnd = isSingleChar ? end >= oEnd : end > oEnd;
       const atLeftEdge = start === 0 && oStart === 0;
       const atRightEdge = end === length && oEnd === length;
+
+      const currentLineLength = lines[currentLine].length + 1;
+      const endCurrentLineLength = lines[endCurrentLine].length + 1;
+      const clampToTextBounds = (value: number) =>
+        Math.max(0, Math.min(value, length));
 
       if (e.key === "h") {
         if (start > 0) {
@@ -202,21 +212,33 @@ const App: React.FC = () => {
         }
       }
 
-      // if (e.key === "j" && currentLine + 1 < lines.length) {
-      //   if (currentLine === oCurrentLine || currentLine > oCurrentLine) {
-      //     end = end + lines[currentLine].length + 1;
-      //   } else {
-      //     start = start + lines[currentLine].length + 1;
-      //   }
-      // }
-      //
-      // if (e.key === "k" && currentLine > 0) {
-      //   if (currentLine === oCurrentLine || currentLine < oCurrentLine) {
-      //     start = start - lines[currentLine].length - 1;
-      //   } else {
-      //     end = end - lines[currentLine].length - 1;
-      //   }
-      // }
+      if (e.key === "j") {
+        const canMoveDown = currentLine + 1 < lines.length;
+        const expandDown = currentLine >= oCurrentLine;
+        if (canMoveDown && expandDown) {
+          end = clampToTextBounds(end + currentLineLength);
+        } else {
+          start = start + currentLineLength;
+          if (start > end) {
+            start = oStart;
+            end = length;
+          }
+        }
+      }
+
+      if (e.key === "k") {
+        const canMoveUp = endCurrentLine > 0;
+        const expandUp = endCurrentLine <= oCurrentLine;
+        if (canMoveUp && expandUp) {
+          start = clampToTextBounds(start - endCurrentLineLength);
+        } else {
+          end = end - endCurrentLineLength;
+          if (end < start) {
+            start = 0;
+            end = oEnd;
+          }
+        }
+      }
 
       if (e.key === "p" || e.key === "P") {
         const text = await navigator.clipboard.readText();
