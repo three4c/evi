@@ -78,7 +78,10 @@ const App: React.FC = () => {
     const { lines, charCount, currentLine, col } = getLines(element, start);
     const { currentLine: endCurrentLine } = getLines(element, end);
 
-    if (mode.current === "normal") {
+    if (
+      mode.current === "normal" &&
+      !matchesShortcut(e, shortcuts.normal_mode)
+    ) {
       if (e.key === "h" && col) {
         start--;
         end = start + 1;
@@ -115,6 +118,18 @@ const App: React.FC = () => {
           start = prev;
         }
         end = start + 1;
+      }
+
+      if (e.key === "J") {
+        const nextBreak = element.value.indexOf("\n", start);
+        if (nextBreak >= 0) {
+          start = nextBreak;
+          end = nextBreak + 1;
+          element.value = [
+            element.value.slice(0, start),
+            element.value.slice(end, length),
+          ].join(" ");
+        }
       }
 
       if (e.key === "o" && element.tagName === "TEXTAREA") {
@@ -162,6 +177,24 @@ const App: React.FC = () => {
           start = start + text.length - 1;
           end = start + 1;
         }
+      }
+
+      if (e.key === "x") {
+        const text = window.getSelection()?.toString();
+        if (text) {
+          navigator.clipboard.writeText(text);
+          element.setRangeText("");
+        }
+      }
+
+      if (e.key === "X") {
+        start = start - 1;
+        end = end - 1;
+        navigator.clipboard.writeText(element.value.slice(start, start + 1));
+        element.value = [
+          element.value.slice(0, start),
+          element.value.slice(end, length),
+        ].join("");
       }
 
       if (lines[currentLine].length && col === lines[currentLine].length) {
@@ -259,17 +292,53 @@ const App: React.FC = () => {
           end = oEnd;
         }
       }
+
+      if (e.key === "x") {
+        const text = window.getSelection()?.toString();
+        if (text) {
+          navigator.clipboard.writeText(text);
+          element.setRangeText("");
+          start = oStart;
+          end = oEnd;
+          mode.current = "normal";
+        }
+      }
     }
 
     if (e.key === "i") {
       end = start;
     }
 
+    if (e.key === "I") {
+      start = end = element.value.lastIndexOf("\n", start) + 1;
+    }
+
     if (e.key === "a") {
       start = end;
     }
 
-    if (["i", "a"].includes(e.key)) {
+    if (e.key === "A") {
+      start = end = element.value.indexOf("\n", start);
+    }
+
+    if (e.key === "s") {
+      element.setRangeText("");
+      end = start;
+    }
+
+    if (e.key === "S") {
+      const prevBreak = element.value.lastIndexOf("\n", start) + 1;
+      const nextBreak = element.value.indexOf("\n", end);
+      start = prevBreak === -1 ? 0 : prevBreak;
+      end = nextBreak === -1 ? length : nextBreak;
+      element.value = [
+        element.value.slice(0, start),
+        element.value.slice(end, length),
+      ].join("");
+      end = start;
+    }
+
+    if (["i", "I", "a", "A", "s", "S"].includes(e.key)) {
       mode.current = "insert";
     }
 
