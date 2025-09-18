@@ -318,9 +318,7 @@ const App: React.FC = () => {
     };
 
     window.addEventListener("keydown", onKeyDown);
-    return () => {
-      window.removeEventListener("keydown", onKeyDown);
-    };
+    return () => window.removeEventListener("keydown", onKeyDown);
   }, [shortcuts]);
 
   return null;
