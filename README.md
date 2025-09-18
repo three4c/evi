@@ -1,8 +1,18 @@
 # evi
 
+## Development
+
 ```
-bun run dev
+bun dev
+bun lint
+bun lint --write
+bun format
+bun format --write
+bun preview
+```
+
+## Production
+
+```
 bun run build
-bun run lint
-bun run preview
 ```
