@@ -10,12 +10,13 @@
   },
   "formatter": {
     "enabled": true,
+    "includes": ["**", "!dist"],
     "indentStyle": "space",
-    "indentWidth": 2,
-    "includes": ["**", "!dist"]
+    "indentWidth": 2
   },
   "linter": {
     "enabled": true,
+    "includes": ["**", "!dist"],
     "rules": {
       "recommended": true
     }
