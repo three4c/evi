@@ -22,7 +22,7 @@ export const DEFAULT_SHORTCUTS = {
 export const matchesShortcut = (
   event: KeyboardEvent,
   shortcut: ShortcutConfig,
-): boolean => {
+) => {
   return (
     event.key.toLowerCase() === shortcut.key.toLowerCase() &&
     event.ctrlKey === shortcut.ctrlKey &&
@@ -58,7 +58,7 @@ export const validateShortcut = (shortcut: ShortcutConfig): string | null => {
   }
 
   // 装飾キーのみの場合は無視（エラーを返さない）
-  const modifierKeys = ['control', 'shift', 'alt', 'meta', 'cmd', 'command'];
+  const modifierKeys = ["control", "shift", "alt", "meta", "cmd", "command"];
   if (modifierKeys.includes(shortcut.key.toLowerCase())) {
     return null;
   }
@@ -121,11 +121,10 @@ export const loadShortcuts = async (): Promise<
 
 export const onShortcutsChanged = (
   callback: (shortcuts: Record<string, ShortcutConfig>) => void,
-): void => {
+) => {
   chrome.storage.onChanged.addListener((changes, areaName) => {
     if (areaName === "sync" && changes.shortcuts) {
       callback(changes.shortcuts.newValue || DEFAULT_SHORTCUTS);
     }
   });
 };
-

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import * as stylex from "@stylexjs/stylex";
-import "../reset.css";
 import {
   loadShortcuts,
   saveShortcuts,
@@ -84,14 +83,14 @@ const App: React.FC = () => {
     e.preventDefault();
 
     const newShortcut = parseKeyboardEvent(e);
-    
+
     // 装飾キーのみの場合は待機メッセージを表示
-    const modifierKeys = ['control', 'shift', 'alt', 'meta', 'cmd', 'command'];
+    const modifierKeys = ["control", "shift", "alt", "meta", "cmd", "command"];
     if (modifierKeys.includes(newShortcut.key.toLowerCase())) {
       setMessage("追加のキーを押してください...");
       return;
     }
-    
+
     const error = validateShortcut(newShortcut);
 
     if (error) {
