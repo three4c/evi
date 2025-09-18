@@ -1,7 +1,8 @@
 import Content from "../content/App";
+
 import { styleX, styles } from "./App.styles";
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
   const isDev = import.meta.env.DEV;
 
   const openShortcutSettings = () => chrome.runtime.openOptionsPage();
@@ -27,5 +28,3 @@ const App: React.FC = () => {
     </div>
   );
 };
-
-export default App;

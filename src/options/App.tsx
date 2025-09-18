@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
+import type React from "react";
+import { useEffect, useState } from "react";
 import {
   loadShortcuts,
   saveShortcuts,
   getShortcutString,
   parseKeyboardEvent,
   validateShortcut,
-  ShortcutConfig,
+  type ShortcutConfig,
   DEFAULT_SHORTCUTS,
 } from "../utils/shortcuts";
-import { styleX, styles } from './App.styles';
-
+import { styleX, styles } from "./App.styles";
 
 const App: React.FC = () => {
   const [shortcuts, setShortcuts] =

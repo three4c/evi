@@ -3,7 +3,7 @@ import {
   loadShortcuts,
   matchesShortcut,
   onShortcutsChanged,
-  ShortcutConfig,
+  type ShortcutConfig,
 } from "../utils/shortcuts";
 
 type MODE_TYPE = "normal" | "insert" | "visual";
