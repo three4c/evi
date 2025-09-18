@@ -21,10 +21,17 @@
       "recommended": true,
       "correctness": {
         "useExhaustiveDependencies": "warn",
-        "useHookAtTopLevel": "error"
+        "useHookAtTopLevel": "error",
+        "noUnusedImports": "error"
+      },
+      "suspicious": {
+        "noConsole": "error",
+        "noExplicitAny": "error",
+        "noArrayIndexKey": "error"
       },
       "style": {
-        "useComponentExportOnlyModules": "error"
+        "useComponentExportOnlyModules": "error",
+        "useImportType": "error"
       }
     }
   },

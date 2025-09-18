@@ -3,7 +3,7 @@ import {
   loadShortcuts,
   matchesShortcut,
   onShortcutsChanged,
-  ShortcutConfig,
+  type ShortcutConfig,
 } from "../utils/shortcuts";
 
 type MODE_TYPE = "normal" | "insert" | "visual";
@@ -18,10 +18,10 @@ const App: React.FC = () => {
   });
   const originalPos = useRef<
     | {
-      start: number;
-      end: number;
-      currentLine: number;
-    }
+        start: number;
+        end: number;
+        currentLine: number;
+      }
     | undefined
   >(undefined);
   const [shortcuts, setShortcuts] = useState<Record<string, ShortcutConfig>>(
@@ -30,7 +30,7 @@ const App: React.FC = () => {
 
   const getElement = (element: Element | null) =>
     element instanceof HTMLInputElement ||
-      element instanceof HTMLTextAreaElement
+    element instanceof HTMLTextAreaElement
       ? element
       : null;
 
