@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import type React from "react";
+import { useEffect, useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 import {
   loadShortcuts,
@@ -6,7 +7,7 @@ import {
   getShortcutString,
   parseKeyboardEvent,
   validateShortcut,
-  ShortcutConfig,
+  type ShortcutConfig,
   DEFAULT_SHORTCUTS,
 } from "../utils/shortcuts";
 
