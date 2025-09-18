@@ -18,7 +18,14 @@
     "enabled": true,
     "includes": ["**", "!dist"],
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "correctness": {
+        "useExhaustiveDependencies": "warn",
+        "useHookAtTopLevel": "error"
+      },
+      "style": {
+        "useComponentExportOnlyModules": "error"
+      }
     }
   },
   "javascript": {
