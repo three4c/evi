@@ -1,6 +1,5 @@
 import type React from "react";
 import { useEffect, useState } from "react";
-import * as stylex from "@stylexjs/stylex";
 import {
   loadShortcuts,
   saveShortcuts,
@@ -10,58 +9,7 @@ import {
   type ShortcutConfig,
   DEFAULT_SHORTCUTS,
 } from "../utils/shortcuts";
-
-const styles = stylex.create({
-  container: {
-    padding: 20,
-    fontFamily: "system-ui",
-    fontSize: 14,
-  },
-  section: {
-    marginBottom: 20,
-  },
-  subtitle: {
-    marginBottom: 10,
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  inputGroup: {
-    display: "flex",
-    alignItems: "center",
-    gap: 10,
-  },
-  input: {
-    padding: "6px 12px",
-    border: "1px solid #ccc",
-    borderRadius: 4,
-    minWidth: 150,
-    backgroundColor: "#fff",
-  },
-  inputEditing: {
-    backgroundColor: "#f0f8ff",
-  },
-  button: {
-    padding: "6px 12px",
-    border: "1px solid #ccc",
-    borderRadius: 4,
-    backgroundColor: "#fff",
-    cursor: "pointer",
-  },
-  message: {
-    padding: 10,
-    borderRadius: 4,
-  },
-  messageError: {
-    backgroundColor: "#ffebee",
-    border: "1px solid #ffcdd2",
-    color: "#c62828",
-  },
-  messageSuccess: {
-    backgroundColor: "#e8f5e8",
-    border: "1px solid #c8e6c9",
-    color: "#2e7d32",
-  },
-});
+import { styleX, styles } from "./App.styles";
 
 const App: React.FC = () => {
   const [shortcuts, setShortcuts] =
@@ -126,10 +74,10 @@ const App: React.FC = () => {
   }, [isEditing, shortcuts]);
 
   return (
-    <div {...stylex.props(styles.container)}>
-      <div {...stylex.props(styles.section)}>
-        <h3 {...stylex.props(styles.subtitle)}>Normal Mode</h3>
-        <div {...stylex.props(styles.inputGroup)}>
+    <div {...styleX.props(styles.container)}>
+      <div {...styleX.props(styles.section)}>
+        <h3 {...styleX.props(styles.subtitle)}>Normal Mode</h3>
+        <div {...styleX.props(styles.inputGroup)}>
           <input
             type="text"
             value={
@@ -138,10 +86,10 @@ const App: React.FC = () => {
                 : getShortcutString(shortcuts.normal_mode)
             }
             readOnly
-            {...stylex.props(styles.input, isEditing && styles.inputEditing)}
+            {...styleX.props(styles.input, isEditing && styles.inputEditing)}
           />
           <button
-            {...stylex.props(styles.button)}
+            {...styleX.props(styles.button)}
             onClick={isEditing ? handleCancel : handleEdit}
           >
             {isEditing ? "キャンセル" : "編集"}
@@ -150,7 +98,7 @@ const App: React.FC = () => {
       </div>
       {message && (
         <div
-          {...stylex.props(
+          {...styleX.props(
             styles.message,
             message.includes("エラー")
               ? styles.messageError
