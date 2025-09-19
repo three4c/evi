@@ -2,7 +2,7 @@ name: Chrome Extension PR Preview
 
 on:
   pull_request:
-    types: [synchronize]
+    types: [synchronize, closed]
 
 jobs:
   pr-preview:
