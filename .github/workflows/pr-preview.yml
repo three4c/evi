@@ -2,7 +2,7 @@ name: Chrome Extension PR Preview
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, closed]
+    types: [synchronize, closed]
 
 jobs:
   pr-preview:
@@ -11,6 +11,7 @@ jobs:
       contents: write
       issues: write
       pull-requests: write
+    if: contains(join(github.event.pull_request.labels.*.name, ','), 'pr-preview')
 
     steps:
       - name: Checkout repository
