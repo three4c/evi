@@ -43,8 +43,12 @@ jobs:
       - name: Build Vite project and create ZIP
         if: env.ACTION == 'build'
         run: |
+          npm install
+          npm run build
+
+        run: |
           mkdir -p pr-preview
-          cp -r dist/* pr-preview/ 
+          cp -r dist/* pr-preview/
           SAFE_BRANCH_NAME=$(echo $GITHUB_HEAD_REF | tr '/' '-')
           ZIP_NAME="pr-preview-${SAFE_BRANCH_NAME}.zip"
           zip -r $ZIP_NAME pr-preview
