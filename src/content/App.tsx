@@ -5,7 +5,7 @@ import {
   onShortcutsChanged,
   type ShortcutConfig,
 } from "../utils/shortcuts";
-import { replaceText } from "../utils/replaceText";
+import { insertText } from "../utils/insertText";
 
 type MODE_TYPE = "normal" | "insert" | "visual";
 
@@ -126,7 +126,7 @@ const App: React.FC = () => {
         if (nextBreak >= 0) {
           start = nextBreak;
           end = nextBreak + 1;
-          replaceText(element, start, end, " ");
+          insertText(element, start, end, " ");
         }
       }
 
@@ -134,7 +134,7 @@ const App: React.FC = () => {
         const nextBreak = element.value.indexOf("\n", start);
         start = nextBreak === -1 ? length : nextBreak;
         start = end = start + 1;
-        replaceText(element, start, end, "\n");
+        insertText(element, start, end, "\n");
         mode.current = "insert";
       }
 
@@ -142,7 +142,7 @@ const App: React.FC = () => {
         const prevBreak = element.value.lastIndexOf("\n", start - 1);
         start = prevBreak === -1 ? 0 : prevBreak;
         start = end = start + (start ? 1 : 0);
-        replaceText(element, start, end, "\n");
+        insertText(element, start, end, "\n");
         mode.current = "insert";
       }
 
@@ -150,7 +150,7 @@ const App: React.FC = () => {
         const text = await navigator.clipboard.readText();
         if (text) {
           const pos = lines[currentLine].length === 0 ? start : end;
-          replaceText(element, pos, pos, text);
+          insertText(element, pos, pos, text);
           start = start + text.length;
           end = start + 1;
         }
@@ -159,7 +159,7 @@ const App: React.FC = () => {
       if (e.key === "P") {
         const text = await navigator.clipboard.readText();
         if (text) {
-          replaceText(element, start, start, text);
+          insertText(element, start, start, text);
           start = start + text.length - 1;
           end = start + 1;
         }
@@ -169,7 +169,7 @@ const App: React.FC = () => {
         const text = window.getSelection()?.toString();
         if (text) {
           navigator.clipboard.writeText(text);
-          replaceText(element, start, end, "");
+          insertText(element, start, end, "");
         }
       }
 
@@ -177,7 +177,7 @@ const App: React.FC = () => {
         start = start - 1;
         end = end - 1;
         navigator.clipboard.writeText(element.value.slice(start, start + 1));
-        replaceText(element, start, end, "");
+        insertText(element, start, end, "");
       }
 
       if (lines[currentLine].length && col === lines[currentLine].length) {
@@ -267,7 +267,7 @@ const App: React.FC = () => {
       if (e.key === "p" || e.key === "P") {
         const text = await navigator.clipboard.readText();
         if (text) {
-          replaceText(element, start, end, text);
+          insertText(element, start, end, text);
           start = start + text.length - 1;
           end = start + 1;
           mode.current = "normal";

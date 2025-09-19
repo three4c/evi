@@ -1,4 +1,4 @@
-export const replaceText = (
+export const insertText = (
   element: HTMLInputElement | HTMLTextAreaElement,
   start: number,
   end: number,
