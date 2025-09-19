@@ -10,7 +10,8 @@
     "lint:fix": "biome lint --write",
     "format": "biome format",
     "format:fix": "biome format --write",
-    "build": "tsc -b && vite build"
+    "build": "tsc -b && vite build",
+    "postinstall": "bunx lefthook install"
   },
   "dependencies": {
     "@stylexjs/stylex": "^0.6.1",
