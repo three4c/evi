@@ -5,6 +5,7 @@ import {
   onShortcutsChanged,
   type ShortcutConfig,
 } from "../utils/shortcuts";
+import { replaceText } from "../utils/replaceText";
 
 type MODE_TYPE = "normal" | "insert" | "visual";
 
@@ -125,32 +126,23 @@ const App: React.FC = () => {
         if (nextBreak >= 0) {
           start = nextBreak;
           end = nextBreak + 1;
-          element.value = [
-            element.value.slice(0, start),
-            element.value.slice(end, length),
-          ].join(" ");
+          replaceText(element, start, end, " ");
         }
       }
 
       if (e.key === "o" && element.tagName === "TEXTAREA") {
         const nextBreak = element.value.indexOf("\n", start);
         start = nextBreak === -1 ? length : nextBreak;
-        element.value = [
-          element.value.slice(0, start),
-          element.value.slice(start, length),
-        ].join("\n");
         start = end = start + 1;
+        replaceText(element, start, end, "\n");
         mode.current = "insert";
       }
 
       if (e.key === "O" && element.tagName === "TEXTAREA") {
         const prevBreak = element.value.lastIndexOf("\n", start - 1);
         start = prevBreak === -1 ? 0 : prevBreak;
-        element.value = [
-          element.value.slice(0, start),
-          element.value.slice(start, length),
-        ].join("\n");
         start = end = start + (start ? 1 : 0);
+        replaceText(element, start, end, "\n");
         mode.current = "insert";
       }
 
@@ -158,10 +150,7 @@ const App: React.FC = () => {
         const text = await navigator.clipboard.readText();
         if (text) {
           const pos = lines[currentLine].length === 0 ? start : end;
-          element.value = [
-            element.value.slice(0, pos),
-            element.value.slice(pos, length),
-          ].join(text);
+          replaceText(element, pos, pos, text);
           start = start + text.length;
           end = start + 1;
         }
@@ -170,10 +159,7 @@ const App: React.FC = () => {
       if (e.key === "P") {
         const text = await navigator.clipboard.readText();
         if (text) {
-          element.value = [
-            element.value.slice(0, start),
-            element.value.slice(start, length),
-          ].join(text);
+          replaceText(element, start, start, text);
           start = start + text.length - 1;
           end = start + 1;
         }
@@ -183,7 +169,7 @@ const App: React.FC = () => {
         const text = window.getSelection()?.toString();
         if (text) {
           navigator.clipboard.writeText(text);
-          element.setRangeText("");
+          replaceText(element, start, end, "");
         }
       }
 
@@ -191,15 +177,20 @@ const App: React.FC = () => {
         start = start - 1;
         end = end - 1;
         navigator.clipboard.writeText(element.value.slice(start, start + 1));
-        element.value = [
-          element.value.slice(0, start),
-          element.value.slice(end, length),
-        ].join("");
+        replaceText(element, start, end, "");
       }
 
       if (lines[currentLine].length && col === lines[currentLine].length) {
         start = start - 1;
         end = start + 1;
+      }
+
+      if (e.key === "u") {
+        document.execCommand("undo");
+      }
+
+      if (e.key === "r" && e.ctrlKey) {
+        document.execCommand("redo");
       }
     }
 
@@ -276,7 +267,7 @@ const App: React.FC = () => {
       if (e.key === "p" || e.key === "P") {
         const text = await navigator.clipboard.readText();
         if (text) {
-          element.setRangeText(text);
+          replaceText(element, start, end, text);
           start = start + text.length - 1;
           end = start + 1;
           mode.current = "normal";
@@ -322,7 +313,7 @@ const App: React.FC = () => {
     }
 
     if (e.key === "s") {
-      element.setRangeText("");
+      replaceText(element, start, end, "");
       end = start;
     }
 
@@ -331,10 +322,7 @@ const App: React.FC = () => {
       const nextBreak = element.value.indexOf("\n", end);
       start = prevBreak === -1 ? 0 : prevBreak;
       end = nextBreak === -1 ? length : nextBreak;
-      element.value = [
-        element.value.slice(0, start),
-        element.value.slice(end, length),
-      ].join("");
+      replaceText(element, start, end, "");
       end = start;
     }
 
