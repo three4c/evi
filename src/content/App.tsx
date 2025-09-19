@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
+
+import { insertText } from "../utils/insertText";
 import {
   loadShortcuts,
   matchesShortcut,
   onShortcutsChanged,
   type ShortcutConfig,
 } from "../utils/shortcuts";
-import { insertText } from "../utils/insertText";
 
 type MODE_TYPE = "normal" | "insert" | "visual";
 
