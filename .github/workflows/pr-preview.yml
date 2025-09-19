@@ -70,13 +70,29 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const zipName = process.env.ZIP_NAME;
             const [owner, repo] = process.env.GITHUB_REPOSITORY.split('/');
-            const url = `https://${owner}.github.io/${repo}/pr-previews/${zipName}`;
-            github.rest.issues.createComment({
+            const base = {
               issue_number: context.issue.number,
               owner: owner,
               repo: repo,
+            }
+
+            const comments = await github.rest.issues.listComments(base);
+
+            for (const comment of comments.data) {
+              if (comment.body.includes("PR用のChrome拡張プレビューがビルドされました")) {
+                await github.rest.issues.deleteComment({
+                  owner,
+                  repo,
+                  comment_id: comment.id
+                });
+              }
+            }
+
+            const zipName = process.env.ZIP_NAME;
+            const url = `https://${owner}.github.io/${repo}/pr-previews/${zipName}`;
+            await github.rest.issues.createComment({
+              ...base,
               body: `✅ PR用のChrome拡張プレビューがビルドされました！\n\n[ダウンロードはこちら](${url})`
             });
         env:
