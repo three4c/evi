@@ -32,6 +32,7 @@ jobs:
             echo "ACTION=close" >> $GITHUB_ENV
           else
             echo "ACTION=build" >> $GITHUB_ENV
+          fi
 
       - name: Build Vite project and create ZIP
         if: env.ACTION == 'build'
@@ -39,7 +40,8 @@ jobs:
           mkdir -p pr-preview
           cp -r dist/* pr-preview/ || true
           cp manifest.json pr-preview/
-          ZIP_NAME="pr-preview-${GITHUB_HEAD_REF}.zip"
+          SAFE_BRANCH_NAME=$(echo $GITHUB_HEAD_REF | tr '/' '-')
+          ZIP_NAME="pr-preview-${SAFE_BRANCH_NAME}.zip"
           zip -r $ZIP_NAME pr-preview
           echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
 
@@ -62,19 +64,23 @@ jobs:
         with:
           script: |
             const zipName = process.env.ZIP_NAME;
-            const url = `https://${process.env.GITHUB_REPOSITORY_OWNER}.github.io/${process.env.GITHUB_REPOSITORY_NAME}/pr-previews/${zipName}`;
-
+            const [owner, repo] = process.env.GITHUB_REPOSITORY.split('/');
+            const url = `https://${owner}.github.io/${repo}/pr-previews/${zipName}`;
             github.rest.issues.createComment({
               issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
+              owner: owner,
+              repo: repo,
               body: `✅ PR用のChrome拡張プレビューがビルドされました！\n\n[ダウンロードはこちら](${url})`
             });
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          ZIP_NAME: ${{ env.ZIP_NAME }}
 
       - name: Remove ZIP on PR close
         if: env.ACTION == 'close'
         run: |
-          ZIP_NAME="pr-preview-${GITHUB_HEAD_REF}.zip"
+          SAFE_BRANCH_NAME=$(echo $GITHUB_HEAD_REF | tr '/' '-')
+          ZIP_NAME="pr-preview-${SAFE_BRANCH_NAME}.zip"
           echo "Removing ZIP: $ZIP_NAME from gh-pages"
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
