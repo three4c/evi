@@ -43,7 +43,7 @@ jobs:
       - name: Build Vite project and create ZIP
         if: env.ACTION == 'build'
         run: |
-          npm install
+          npm install --legacy-peer-deps
           npm run build
           mkdir -p pr-preview
           cp -r dist/* pr-preview/
