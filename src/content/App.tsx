@@ -313,7 +313,7 @@ const App: React.FC = () => {
     }
 
     if (e.key === "s") {
-      replaceText(element, start, end, "");
+      insertText(element, start, end, "");
       end = start;
     }
 
@@ -322,7 +322,7 @@ const App: React.FC = () => {
       const nextBreak = element.value.indexOf("\n", end);
       start = prevBreak === -1 ? 0 : prevBreak;
       end = nextBreak === -1 ? length : nextBreak;
-      replaceText(element, start, end, "");
+      insertText(element, start, end, "");
       end = start;
     }
 
