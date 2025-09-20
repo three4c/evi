@@ -10,13 +10,13 @@
   },
   "formatter": {
     "enabled": true,
-    "includes": ["**", "!dist"],
+    "includes": ["**", "!.output", "!.wxt"],
     "indentStyle": "space",
     "indentWidth": 2
   },
   "linter": {
     "enabled": true,
-    "includes": ["**", "!dist"],
+    "includes": ["**", "!.output", "!.wxt"],
     "rules": {
       "recommended": true,
       "correctness": {
@@ -27,7 +27,8 @@
       "suspicious": {
         "noConsole": "error",
         "noExplicitAny": "error",
-        "noArrayIndexKey": "error"
+        "noArrayIndexKey": "error",
+        "noAssignInExpressions": "off"
       },
       "style": {
         "useComponentExportOnlyModules": "error",
