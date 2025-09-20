@@ -51,7 +51,8 @@ jobs:
           ZIP_NAME="pr-preview-${SAFE_BRANCH_NAME}.zip"
           mkdir -p pr-previews
           mv "$BASE_ZIP" "pr-previews/$ZIP_NAME"
-          echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
+          ZIP_PATH="$(pwd)/pr-previews/$ZIP_NAME"
+          echo "ZIP_PATH=$ZIP_PATH" >> $GITHUB_ENV
 
       - name: Deploy ZIP to GitHub Pages
         if: env.ACTION == 'build'
@@ -61,7 +62,7 @@ jobs:
           git fetch origin gh-pages || git checkout --orphan gh-pages
           git checkout gh-pages || git checkout --orphan gh-pages
           mkdir -p pr-previews
-          mv $ZIP_NAME pr-previews/
+          mv "$ZIP_PATH" pr-previews/
           git add pr-previews/$ZIP_NAME
           git commit -m "Add PR preview ZIP: $GITHUB_HEAD_REF" || echo "Nothing to commit"
           git push origin gh-pages --force
