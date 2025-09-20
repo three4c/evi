@@ -10,7 +10,7 @@ const DOM_ARRAY = ["INPUT", "TEXTAREA"];
 
 let keyHistory: string[] = [];
 
-// すべてのキーマップから最大キーシーケンスを計算
+// すべてのキーマップから最大キー数を取得
 const maxHistory = Math.max(
   ...[
     ...Object.keys(NORMAL_COMMANDS),
@@ -34,9 +34,19 @@ export const handleKeyDown = async (e: KeyboardEvent, args: Args) => {
 
   let { start, end, oStart, oEnd, oCurrentLine } = args.pos.current;
 
+  /** 部分的に位置情報が更新された時、不足部分を現在の位置情報で補う */
+  const updatePositions = (newPosition: any) => {
+    const updated = newPosition || args.pos.current;
+    start = updated.start ?? start;
+    end = updated.end ?? end;
+    oStart = updated.oStart ?? oStart;
+    oEnd = updated.oEnd ?? oEnd;
+    oCurrentLine = updated.oCurrentLine ?? oCurrentLine;
+  };
+
   const combinedArgs = {
+    mode,
     element,
-    mode: args.mode,
     length: element.value.length,
     endCurrentLine: getLines(element, end).currentLine,
     ...args.pos.current,
@@ -52,17 +62,6 @@ export const handleKeyDown = async (e: KeyboardEvent, args: Args) => {
   if (mode.current === "visual") {
     commands = { ...VISUAL_COMMANDS, ...COMMON_COMMANDS };
   }
-
-  const defaultValues = { start, end, oStart, oEnd, oCurrentLine };
-
-  const updatePositions = (newPosition: any) => {
-    const updated = newPosition || defaultValues;
-    start = updated.start ?? start;
-    end = updated.end ?? end;
-    oStart = updated.oStart ?? oStart;
-    oEnd = updated.oEnd ?? oEnd;
-    oCurrentLine = updated.oCurrentLine ?? oCurrentLine;
-  };
 
   if (commands[key]) {
     // 1キーで該当のコマンドが見つかったら発火
