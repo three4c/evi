@@ -46,10 +46,10 @@ jobs:
         run: |
           npm install --legacy-peer-deps 
           npm run zip
-          mkdir -p pr-preview
           BASE_ZIP=$(ls .output/*.zip | head -n 1)
           SAFE_BRANCH_NAME=$(echo $GITHUB_HEAD_REF | tr '/' '-')
           ZIP_NAME="pr-preview-${SAFE_BRANCH_NAME}.zip"
+          mkdir -p pr-previews
           mv "$BASE_ZIP" "pr-previews/$ZIP_NAME"
           echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
 
