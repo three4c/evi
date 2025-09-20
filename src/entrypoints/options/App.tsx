@@ -25,45 +25,54 @@ const App: React.FC = () => {
     setMessage("キーの組み合わせを押してください...");
   };
 
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (!isEditing) return;
-
-    e.preventDefault();
-
-    const newShortcut = parseKeyboardEvent(e);
-
-    const modifierKeys = ["control", "shift", "alt", "meta", "cmd", "command"];
-    if (modifierKeys.includes(newShortcut.key.toLowerCase())) {
-      setMessage("追加のキーを押してください...");
-      return;
-    }
-
-    const error = validateShortcut(newShortcut);
-    if (error) {
-      setMessage(`エラー: ${error}`);
-      return;
-    }
-
-    const updatedShortcuts = { ...shortcuts, normal_mode: newShortcut };
-    setShortcuts(updatedShortcuts);
-    setIsEditing(false);
-
-    saveShortcuts(updatedShortcuts).then(() => {
-      setMessage("保存完了！");
-      setTimeout(() => setMessage(""), 3000);
-    });
-  };
-
   const handleCancel = () => {
     setIsEditing(false);
     setMessage("");
   };
 
   useEffect(() => {
-    if (isEditing) {
-      document.addEventListener("keydown", handleKeyDown);
-      return () => document.removeEventListener("keydown", handleKeyDown);
+    if (!isEditing) {
+      return;
     }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!isEditing) return;
+
+      e.preventDefault();
+
+      const newShortcut = parseKeyboardEvent(e);
+
+      const modifierKeys = [
+        "control",
+        "shift",
+        "alt",
+        "meta",
+        "cmd",
+        "command",
+      ];
+      if (modifierKeys.includes(newShortcut.key.toLowerCase())) {
+        setMessage("追加のキーを押してください...");
+        return;
+      }
+
+      const error = validateShortcut(newShortcut);
+      if (error) {
+        setMessage(`エラー: ${error}`);
+        return;
+      }
+
+      const updatedShortcuts = { ...shortcuts, normal_mode: newShortcut };
+      setShortcuts(updatedShortcuts);
+      setIsEditing(false);
+
+      saveShortcuts(updatedShortcuts).then(() => {
+        setMessage("保存完了！");
+        setTimeout(() => setMessage(""), 3000);
+      });
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, [isEditing, shortcuts]);
 
   return (

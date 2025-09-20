@@ -14,7 +14,7 @@ let mode: MODE_TYPE = "insert";
 let pos = { start: 0, end: 0 };
 let originalPos:
   | { start: number; end: number; currentLine: number }
-  | undefined = undefined;
+  | undefined;
 
 let shortcuts: Record<string, ShortcutConfig> = {};
 
@@ -164,10 +164,12 @@ const startVim = async (
     }
 
     if (e.key === "u") {
+      // TODO: 将来のブラウザで非推奨になる可能性あり
       document.execCommand("undo");
     }
 
     if (e.key === "r" && e.ctrlKey) {
+      // TODO: 将来のブラウザで非推奨になる可能性あり
       document.execCommand("redo");
     }
   }

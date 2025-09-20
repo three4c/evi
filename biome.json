@@ -10,13 +10,13 @@
   },
   "formatter": {
     "enabled": true,
-    "includes": ["**", "!.output"],
+    "includes": ["**", "!.output", "!.wxt"],
     "indentStyle": "space",
     "indentWidth": 2
   },
   "linter": {
     "enabled": true,
-    "includes": ["**", "!.output"],
+    "includes": ["**", "!.output", "!.wxt"],
     "rules": {
       "recommended": true,
       "correctness": {
