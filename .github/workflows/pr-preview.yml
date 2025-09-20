@@ -2,7 +2,7 @@ name: Chrome Extension PR Preview
 
 on:
   pull_request:
-    types: [synchronize, closed]
+    types: [synchronize,  closed]
 
 jobs:
   pr-preview:
@@ -47,7 +47,7 @@ jobs:
           npm install --legacy-peer-deps 
           npm run zip
           mkdir -p pr-preview
-          BASE_ZIP=$(ls *.zip | head -n 1)
+          BASE_ZIP=$(ls .output/*.zip | head -n 1)
           SAFE_BRANCH_NAME=$(echo $GITHUB_HEAD_REF | tr '/' '-')
           ZIP_NAME="pr-preview-${SAFE_BRANCH_NAME}.zip"
           mv "$BASE_ZIP" "pr-previews/$ZIP_NAME"
