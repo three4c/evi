@@ -30,11 +30,6 @@ const App: React.FC = () => {
     {},
   );
 
-  const getElement = (element: Element | null) =>
-    element instanceof HTMLInputElement ||
-    element instanceof HTMLTextAreaElement
-      ? element
-      : null;
 
   const getLines = (
     element: HTMLInputElement | HTMLTextAreaElement,
