@@ -1,3 +1,14 @@
-# WXT + React
+# evi
 
-This template should help get you started developing with React in WXT.
+## Development
+
+```
+bun install
+bun dev
+```
+
+## Production
+
+```
+bun run build
+```
