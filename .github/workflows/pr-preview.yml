@@ -64,7 +64,7 @@ jobs:
           SAFE_BRANCH_NAME=$(echo $GITHUB_HEAD_REF | tr '/' '-')
           ZIP_NAME="pr-preview-${SAFE_BRANCH_NAME}.zip"
           mkdir -p pr-previews
-          mv $ZIP_NAME pr-previews/
+          mv "$BASE_ZIP" "pr-previews/$ZIP_NAME"
           git add pr-previews/$ZIP_NAME
           git commit -m "Add PR preview ZIP: $GITHUB_HEAD_REF" || echo "Nothing to commit"
           git push origin gh-pages --force
