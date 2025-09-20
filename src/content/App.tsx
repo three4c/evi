@@ -26,49 +26,6 @@ const App: React.FC = () => {
     {},
   );
 
-  // const startVim = async (
-  //   element: HTMLInputElement | HTMLTextAreaElement,
-  //   e: KeyboardEvent,
-  // ) => {
-  //   let { start, end } = pos.current;
-  //   const { length } = element.value;
-  //
-  //   if (mode.current === "normal") {
-  //     start = element.selectionStart || 0;
-  //     end = start + 1;
-  //   }
-  //
-  //   pos.current = { start, end };
-  //   element.setSelectionRange(start, end);
-  // };
-
-  // useEffect(() => {
-  //   const onKeyDown = (e: KeyboardEvent) => {
-  //     const activeElement = document.activeElement;
-  //     const element = getElement(activeElement);
-  //
-  //     if (!element) {
-  //       return;
-  //     }
-  //
-  //     if (!DOM_ARRAY.includes(element.tagName)) {
-  //       return;
-  //     }
-  //
-  //     if (shortcuts.normal_mode && matchesShortcut(e, shortcuts.normal_mode)) {
-  //       mode.current = "normal";
-  //     }
-  //
-  //     if (["normal", "visual"].includes(mode.current)) {
-  //       startVim(element, e);
-  //       e.preventDefault();
-  //     }
-  //   };
-  //
-  //   window.addEventListener("keydown", onKeyDown);
-  //   return () => window.removeEventListener("keydown", onKeyDown);
-  // }, [shortcuts]);
-
   const keydown = useCallback((e: KeyboardEvent) => {
     handleKeyDown(e, { mode, pos, originalPos });
   }, []);
