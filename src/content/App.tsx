@@ -38,52 +38,6 @@ const App: React.FC = () => {
   //     end = start + 1;
   //   }
   //
-  //   if (e.key === "i") {
-  //     end = start;
-  //   }
-  //
-  //   if (e.key === "I") {
-  //     start = end = element.value.lastIndexOf("\n", start) + 1;
-  //   }
-  //
-  //   if (e.key === "a") {
-  //     start = end;
-  //   }
-  //
-  //   if (e.key === "A") {
-  //     start = end = element.value.indexOf("\n", start);
-  //   }
-  //
-  //   if (e.key === "s") {
-  //     insertText(element, start, end, "");
-  //     end = start;
-  //   }
-  //
-  //   if (e.key === "S") {
-  //     const prevBreak = element.value.lastIndexOf("\n", start) + 1;
-  //     const nextBreak = element.value.indexOf("\n", end);
-  //     start = prevBreak === -1 ? 0 : prevBreak;
-  //     end = nextBreak === -1 ? length : nextBreak;
-  //     insertText(element, start, end, "");
-  //     end = start;
-  //   }
-  //
-  //   if (["i", "I", "a", "A", "s", "S"].includes(e.key)) {
-  //     mode.current = "insert";
-  //   }
-  //
-  //   if (e.key === "v") {
-  //     if (mode.current === "normal") {
-  //       mode.current = "visual";
-  //       originalPos.current = { start, end, currentLine };
-  //     } else {
-  //       mode.current = "normal";
-  //       start = originalPos.current?.start || start;
-  //       end = originalPos.current?.end || end;
-  //       originalPos.current = undefined;
-  //     }
-  //   }
-  //
   //   pos.current = { start, end };
   //   element.setSelectionRange(start, end);
   // };
