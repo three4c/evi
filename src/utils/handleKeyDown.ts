@@ -4,7 +4,7 @@ import { getLines } from "./getLines";
 import { NORMAL_COMMANDS } from "../commands/normal";
 import { VISUAL_COMMANDS } from "../commands/visual";
 import { COMMON_COMMANDS } from "../commands/common";
-import type { Args, Command } from "./types";
+import type { Args, Command, Positions } from "./types";
 
 const DOM_ARRAY = ["INPUT", "TEXTAREA"];
 
@@ -32,16 +32,12 @@ export const handleKeyDown = async (e: KeyboardEvent, args: Args) => {
 
   e.preventDefault();
 
-  let { start, end, oStart, oEnd, oCurrentLine } = args.pos.current;
+  let { start, end } = args.pos.current;
 
-  /** 部分的に位置情報が更新された時、不足部分を現在の位置情報で補う */
-  const updatePositions = (newPosition: any) => {
-    const updated = newPosition || args.pos.current;
-    start = updated.start ?? start;
-    end = updated.end ?? end;
-    oStart = updated.oStart ?? oStart;
-    oEnd = updated.oEnd ?? oEnd;
-    oCurrentLine = updated.oCurrentLine ?? oCurrentLine;
+  const updatePositions = (newPositions: Partial<Positions> | void = {}) => {
+    // 部分的に位置情報が更新された時、不足部分を現在の位置情報で補う
+    args.pos.current = { ...args.pos.current, ...newPositions };
+    ({ start, end } = args.pos.current);
   };
 
   const combinedArgs = {
@@ -86,6 +82,5 @@ export const handleKeyDown = async (e: KeyboardEvent, args: Args) => {
     }
   }
 
-  args.pos.current = { start, end, oStart, oEnd, oCurrentLine };
   element.setSelectionRange(start, end);
 };

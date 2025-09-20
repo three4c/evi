@@ -1,6 +1,6 @@
 export type MODE_TYPE = "normal" | "insert" | "visual";
 
-type Positions = {
+export type Positions = {
   start: number;
   end: number;
   /** visual mode に入る前の `start` */
