@@ -111,6 +111,6 @@ const NORMAL_COMMANDS: Record<string, Command> = {
   "ctrl+r": () => {
     document.execCommand("redo");
   },
-} as const;
+};
 
 export { NORMAL_COMMANDS };
