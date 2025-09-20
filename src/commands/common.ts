@@ -36,13 +36,13 @@ const COMMON_COMMANDS: Record<string, Command> = {
     mode.current = "insert";
     return { start, end };
   },
-  v: ({ mode, start, end, currentLine, originalPos }) => {
+  v: ({ mode, start, end, currentLine, oStart, oEnd }) => {
     if (mode.current === "normal") {
       mode.current = "visual";
       return { oStart: start, oEnd: end, oCurrentLine: currentLine };
     } else {
-      start = originalPos.current?.oStart || start;
-      end = originalPos.current?.oEnd || end;
+      start = oStart;
+      end = oEnd;
       mode.current = "normal";
       return { start, end };
     }

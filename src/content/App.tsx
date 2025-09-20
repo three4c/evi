@@ -16,14 +16,17 @@ const App: React.FC = () => {
   const pos = useRef({
     start: 0,
     end: 0,
+    oStart: 0,
+    oEnd: 0,
+    oCurrentLine: 0,
   });
-  const originalPos = useRef({ oStart: 0, oEnd: 0, oCurrentLine: 0 });
+  // const originalPos = useRef({ oStart: 0, oEnd: 0, oCurrentLine: 0 });
   const [shortcuts, setShortcuts] = useState<Record<string, ShortcutConfig>>(
     {},
   );
 
   const keydown = useCallback((e: KeyboardEvent) => {
-    handleKeyDown(e, { mode, pos, originalPos });
+    handleKeyDown(e, { mode, pos });
   }, []);
 
   useEffect(() => {
@@ -42,7 +45,7 @@ const App: React.FC = () => {
         mode.current = "normal";
         const start = element.selectionStart || 0;
         const end = start + 1;
-        pos.current = { start, end };
+        pos.current = { ...pos.current, start, end };
         element.setSelectionRange(start, end);
       }
     };

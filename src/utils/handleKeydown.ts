@@ -30,8 +30,7 @@ const handleKeyDown = async (e: KeyboardEvent, args: Args) => {
 
   e.preventDefault();
 
-  let { start, end } = args.pos.current;
-  let { oStart, oEnd, oCurrentLine } = args.originalPos.current;
+  let { start, end, oStart, oEnd, oCurrentLine } = args.pos.current;
   const { currentLine: endCurrentLine } = getLines(element, end);
   const { lines, charCount, currentLine, col } = getLines(element, start);
   const { length } = element.value;
@@ -95,8 +94,7 @@ const handleKeyDown = async (e: KeyboardEvent, args: Args) => {
     }
   }
 
-  args.pos.current = { start, end };
-  args.originalPos.current = { oStart, oEnd, oCurrentLine };
+  args.pos.current = { start, end, oStart, oEnd, oCurrentLine };
   element.setSelectionRange(start, end);
 };
 

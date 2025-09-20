@@ -1,11 +1,8 @@
 export type MODE_TYPE = "normal" | "insert" | "visual";
 
-type POS_TYPE = {
+type Positions = {
   start: number;
   end: number;
-};
-
-type ORIGINAL_POS_TYPE = {
   oStart: number;
   oEnd: number;
   oCurrentLine: number;
@@ -13,11 +10,10 @@ type ORIGINAL_POS_TYPE = {
 
 export type Args = {
   mode: React.RefObject<MODE_TYPE>;
-  pos: React.RefObject<POS_TYPE>;
-  originalPos: React.RefObject<ORIGINAL_POS_TYPE>;
+  pos: React.RefObject<Positions>;
 };
 
-export interface CombinedArgs extends POS_TYPE, ORIGINAL_POS_TYPE, Args {
+export interface CombinedArgs extends Positions, Args {
   currentLine: number;
   endCurrentLine: number;
   lines: string[];
@@ -29,8 +25,4 @@ export interface CombinedArgs extends POS_TYPE, ORIGINAL_POS_TYPE, Args {
 
 export type Command = (
   args: CombinedArgs,
-) =>
-  | Promise<POS_TYPE | ORIGINAL_POS_TYPE | void>
-  | POS_TYPE
-  | ORIGINAL_POS_TYPE
-  | void;
+) => Promise<Partial<Positions> | void> | Partial<Positions> | void;
