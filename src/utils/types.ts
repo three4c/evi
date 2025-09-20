@@ -17,17 +17,20 @@ export type Args = {
   originalPos: React.RefObject<ORIGINAL_POS_TYPE>;
 };
 
-export interface CombinedArgs extends Args {
-  start: number;
-  end: number;
+export interface CombinedArgs extends POS_TYPE, ORIGINAL_POS_TYPE, Args {
   currentLine: number;
   endCurrentLine: number;
   lines: string[];
   charCount: number;
   col: number;
   element: HTMLInputElement | HTMLTextAreaElement;
+  length: number;
 }
 
 export type Command = (
   args: CombinedArgs,
-) => Promise<POS_TYPE | void> | POS_TYPE | void;
+) =>
+  | Promise<POS_TYPE | ORIGINAL_POS_TYPE | void>
+  | POS_TYPE
+  | ORIGINAL_POS_TYPE
+  | void;
