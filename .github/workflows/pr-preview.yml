@@ -92,7 +92,7 @@ jobs:
             const url = `https://${owner}.github.io/${repo}/pr-previews/${zipName}`;
             await github.rest.issues.createComment({
               ...base,
-              body: `✅ PR用のChrome拡張プレビューがビルドされました！\n\n[ダウンロードはこちら](${url})`
+              body: `✅ PR用のChrome拡張プレビューがビルドされました🦐\n[ダウンロードはこちら](${url})`
             });
         env:
           GITHUB_REPOSITORY: ${{ github.repository }}
