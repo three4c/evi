@@ -79,7 +79,7 @@ jobs:
             const comments = await github.rest.issues.listComments(base);
 
             for (const comment of comments.data) {
-              if (comment.body.includes("PR用のChrome拡張プレビューがビルドされました")) {
+              if (comment.body.includes("PR用のChrome Extensionsがビルドされました")) {
                 await github.rest.issues.deleteComment({
                   owner,
                   repo,
@@ -92,7 +92,7 @@ jobs:
             const url = `https://${owner}.github.io/${repo}/pr-previews/${zipName}`;
             await github.rest.issues.createComment({
               ...base,
-              body: `✅ PR用のChrome拡張プレビューがビルドされました🦐\n[ダウンロードはこちら](${url})`
+              body: `✅ PR用のChrome Extensionsがビルドされました🦐\n[ダウンロードはこちら](${url})`
             });
         env:
           GITHUB_REPOSITORY: ${{ github.repository }}
