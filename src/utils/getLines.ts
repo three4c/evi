@@ -1,4 +1,4 @@
-const getLines = (
+export const getLines = (
   element: HTMLInputElement | HTMLTextAreaElement,
   start: number,
 ) => {
@@ -26,5 +26,3 @@ const getLines = (
     col,
   };
 };
-
-export { getLines };

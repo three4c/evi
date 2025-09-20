@@ -19,7 +19,7 @@ const maxHistory = Math.max(
   ].map((command) => command.split(" ").length),
 );
 
-const handleKeyDown = async (e: KeyboardEvent, args: Args) => {
+export const handleKeyDown = async (e: KeyboardEvent, args: Args) => {
   const activeElement = document.activeElement;
   const element = getElement(activeElement);
   if (!element || !DOM_ARRAY.includes(element.tagName)) return;
@@ -90,5 +90,3 @@ const handleKeyDown = async (e: KeyboardEvent, args: Args) => {
   args.pos.current = { start, end, oStart, oEnd, oCurrentLine };
   element.setSelectionRange(start, end);
 };
-
-export { handleKeyDown };

@@ -1,15 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import {
+  getElement,
+  handleKeyDown,
   loadShortcuts,
   matchesShortcut,
   onShortcutsChanged,
   type ShortcutConfig,
-} from "../utils/shortcuts";
-import { getElement } from "../utils/getElement";
-import { handleKeyDown } from "../utils/handleKeyDown";
-
-import type { MODE_TYPE } from "../utils/types";
+  type MODE_TYPE,
+} from "../utils";
 
 const App: React.FC = () => {
   const mode = useRef<MODE_TYPE>("insert");

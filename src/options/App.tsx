@@ -8,7 +8,7 @@ import {
   validateShortcut,
   type ShortcutConfig,
   DEFAULT_SHORTCUTS,
-} from "../utils/shortcuts";
+} from "../utils";
 import { styleX, styles } from "./App.styles";
 
 const App: React.FC = () => {

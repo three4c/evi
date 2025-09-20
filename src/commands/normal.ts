@@ -1,5 +1,4 @@
-import { insertText } from "../utils/insertText";
-import { Command } from "../utils/types";
+import { Command, insertText } from "../utils";
 
 const NORMAL_COMMANDS: Record<string, Command> = {
   h: ({ start, end, col }) => {
