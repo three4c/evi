@@ -20,7 +20,6 @@ const App: React.FC = () => {
     oEnd: 0,
     oCurrentLine: 0,
   });
-  // const originalPos = useRef({ oStart: 0, oEnd: 0, oCurrentLine: 0 });
   const [shortcuts, setShortcuts] = useState<Record<string, ShortcutConfig>>(
     {},
   );

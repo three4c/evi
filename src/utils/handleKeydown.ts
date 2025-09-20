@@ -9,6 +9,8 @@ import type { Args, Command } from "../utils/types";
 const DOM_ARRAY = ["INPUT", "TEXTAREA"];
 
 let keyHistory: string[] = [];
+
+// すべてのキーマップから最大キーシーケンスを計算
 const maxHistory = Math.max(
   ...[
     ...Object.keys(NORMAL_COMMANDS),
@@ -31,23 +33,14 @@ const handleKeyDown = async (e: KeyboardEvent, args: Args) => {
   e.preventDefault();
 
   let { start, end, oStart, oEnd, oCurrentLine } = args.pos.current;
-  const { currentLine: endCurrentLine } = getLines(element, end);
-  const { lines, charCount, currentLine, col } = getLines(element, start);
-  const { length } = element.value;
+
   const combinedArgs = {
-    start,
-    end,
-    lines,
-    charCount,
-    currentLine,
-    endCurrentLine,
-    col,
     element,
-    length,
-    oStart,
-    oEnd,
-    oCurrentLine,
-    ...args,
+    mode: args.mode,
+    length: element.value.length,
+    endCurrentLine: getLines(element, end).currentLine,
+    ...args.pos.current,
+    ...getLines(element, start),
   };
 
   const key = detectModifierKey(e);
@@ -76,7 +69,7 @@ const handleKeyDown = async (e: KeyboardEvent, args: Args) => {
     updatePositions(await commands[key](combinedArgs));
     keyHistory = [];
   } else {
-    // 見つからなければ、2つ目のキーとの組み合わせでコマンドを発火
+    // 見つからなければ、追加で入力されたキーとの組み合わせでコマンドを探す
     keyHistory.push(key);
 
     if (keyHistory.length > maxHistory) {
