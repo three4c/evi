@@ -1,5 +1,5 @@
 {
-  "name": "wxt-react-starter",
+  "name": "evi",
   "description": "manifest.json description",
   "private": true,
   "version": "0.0.0",
@@ -9,19 +9,25 @@
     "dev:firefox": "wxt -b firefox",
     "build": "wxt build",
     "build:firefox": "wxt build -b firefox",
+    "lint": "biome lint",
+    "lint:fix": "biome lint --write",
+    "format": "biome format",
+    "format:fix": "biome format --write",
     "zip": "wxt zip",
     "zip:firefox": "wxt zip -b firefox",
     "compile": "tsc --noEmit",
-    "postinstall": "wxt prepare"
+    "postinstall": "wxt prepare && bunx lefthook install"
   },
   "dependencies": {
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.2.4",
     "@types/react": "^19.1.12",
     "@types/react-dom": "^19.1.9",
     "@wxt-dev/module-react": "^1.1.3",
+    "lefthook": "^1.13.1",
     "typescript": "^5.9.2",
     "wxt": "^0.20.6"
   }
