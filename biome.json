@@ -27,7 +27,8 @@
       "suspicious": {
         "noConsole": "error",
         "noExplicitAny": "error",
-        "noArrayIndexKey": "error"
+        "noArrayIndexKey": "error",
+        "noAssignInExpressions": "off"
       },
       "style": {
         "useComponentExportOnlyModules": "error",
