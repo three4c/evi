@@ -58,11 +58,11 @@ jobs:
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-          git fetch origin gh-pages || git checkout --orphan gh-pages
-          git checkout gh-pages || git checkout --orphan gh-pages
           BASE_ZIP=$(ls .output/*.zip | head -n 1)
           SAFE_BRANCH_NAME=$(echo $GITHUB_HEAD_REF | tr '/' '-')
           ZIP_NAME="pr-preview-${SAFE_BRANCH_NAME}.zip"
+          git fetch origin gh-pages || git checkout --orphan gh-pages
+          git checkout gh-pages || git checkout --orphan gh-pages
           mkdir -p pr-previews
           mv "$BASE_ZIP" "pr-previews/$ZIP_NAME"
           git add pr-previews/$ZIP_NAME
