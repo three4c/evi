@@ -16,7 +16,8 @@
     "zip": "wxt zip",
     "zip:firefox": "wxt zip -b firefox",
     "compile": "tsc --noEmit",
-    "postinstall": "wxt prepare && bunx lefthook install"
+    "postinstall": "wxt prepare",
+    "postinstall:dev": "bunx lefthook install"
   },
   "dependencies": {
     "react": "^19.1.1",
