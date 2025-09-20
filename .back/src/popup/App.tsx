@@ -1,6 +1,6 @@
 import Content from "../content/App";
 
-import { styleX, styles } from "./App.styles";
+import { styles, styleX } from "./App.styles";
 
 const App: React.FC = () => {
   const isDev = import.meta.env.DEV;

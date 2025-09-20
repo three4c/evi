@@ -1,4 +1,3 @@
-import type React from "react";
 import { useEffect, useState } from "react";
 import {
   DEFAULT_SHORTCUTS,
@@ -8,8 +7,8 @@ import {
   type ShortcutConfig,
   saveShortcuts,
   validateShortcut,
-} from "../utils/shortcuts";
-import { styles, styleX } from "./App.styles";
+} from "../../utils/shortcuts";
+import "./App.scss";
 
 const App: React.FC = () => {
   const [shortcuts, setShortcuts] =
@@ -33,7 +32,6 @@ const App: React.FC = () => {
 
     const newShortcut = parseKeyboardEvent(e);
 
-    // 装飾キーのみの場合は待機メッセージを表示
     const modifierKeys = ["control", "shift", "alt", "meta", "cmd", "command"];
     if (modifierKeys.includes(newShortcut.key.toLowerCase())) {
       setMessage("追加のキーを押してください...");
@@ -41,17 +39,12 @@ const App: React.FC = () => {
     }
 
     const error = validateShortcut(newShortcut);
-
     if (error) {
       setMessage(`エラー: ${error}`);
       return;
     }
 
-    const updatedShortcuts = {
-      ...shortcuts,
-      normal_mode: newShortcut,
-    };
-
+    const updatedShortcuts = { ...shortcuts, normal_mode: newShortcut };
     setShortcuts(updatedShortcuts);
     setIsEditing(false);
 
@@ -74,10 +67,10 @@ const App: React.FC = () => {
   }, [isEditing, shortcuts]);
 
   return (
-    <div {...styleX.props(styles.container)}>
-      <div {...styleX.props(styles.section)}>
-        <h3 {...styleX.props(styles.subtitle)}>Normal Mode</h3>
-        <div {...styleX.props(styles.inputGroup)}>
+    <div className="App">
+      <div className="App__section">
+        <h3 className="App__subtitle">Normal Mode</h3>
+        <div className="App__input-group">
           <input
             type="text"
             value={
@@ -86,24 +79,25 @@ const App: React.FC = () => {
                 : getShortcutString(shortcuts.normal_mode)
             }
             readOnly
-            {...styleX.props(styles.input, isEditing && styles.inputEditing)}
+            className={`App__input ${isEditing ? "App__input--editing" : ""}`}
           />
           <button
-            {...styleX.props(styles.button)}
+            type="button"
+            className="App__button"
             onClick={isEditing ? handleCancel : handleEdit}
           >
             {isEditing ? "キャンセル" : "編集"}
           </button>
         </div>
       </div>
+
       {message && (
         <div
-          {...styleX.props(
-            styles.message,
+          className={`App__message ${
             message.includes("エラー")
-              ? styles.messageError
-              : styles.messageSuccess,
-          )}
+              ? "App__message--error"
+              : "App__message--success"
+          }`}
         >
           {message}
         </div>
