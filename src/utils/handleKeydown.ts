@@ -1,9 +1,9 @@
 import { detectModifierKey } from "./detectModifierKey";
 import { getElement } from "./getElement";
-import { getLines } from "./getLines.ts";
-import { NORMAL_COMMANDS } from "../commands/normal.ts";
-import { VISUAL_COMMANDS } from "../commands/visual.ts";
-import { COMMON_COMMANDS } from "../commands/common.ts";
+import { getLines } from "./getLines";
+import { NORMAL_COMMANDS } from "../commands/normal";
+import { VISUAL_COMMANDS } from "../commands/visual";
+import { COMMON_COMMANDS } from "../commands/common";
 import type { Args, Command } from "../utils/types";
 
 const DOM_ARRAY = ["INPUT", "TEXTAREA"];
