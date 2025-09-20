@@ -4,7 +4,7 @@ import { getLines } from "./getLines";
 import { NORMAL_COMMANDS } from "../commands/normal";
 import { VISUAL_COMMANDS } from "../commands/visual";
 import { COMMON_COMMANDS } from "../commands/common";
-import type { Args, Command } from "../utils/types";
+import type { Args, Command } from "./types";
 
 const DOM_ARRAY = ["INPUT", "TEXTAREA"];
 
