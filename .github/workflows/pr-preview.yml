@@ -1,0 +1,116 @@
+name: Chrome Extension PR Preview
+
+on:
+  pull_request:
+    types: [synchronize, closed]
+
+jobs:
+  pr-preview:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    if: contains(join(github.event.pull_request.labels.*.name, ','), 'pr-preview')
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Cache Node modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Determine action
+        id: pr_action
+        run: |
+          if [ "${{ github.event.action }}" = "closed" ]; then
+            echo "ACTION=close" >> $GITHUB_ENV
+          else
+            echo "ACTION=build" >> $GITHUB_ENV
+          fi
+
+      - name: Build Vite project and create ZIP
+        if: env.ACTION == 'build'
+        run: |
+          npm install --legacy-peer-deps
+          npm run build
+          mkdir -p pr-preview
+          cp -r dist/* pr-preview/
+          SAFE_BRANCH_NAME=$(echo $GITHUB_HEAD_REF | tr '/' '-')
+          ZIP_NAME="pr-preview-${SAFE_BRANCH_NAME}.zip"
+          zip -r $ZIP_NAME pr-preview
+          echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
+
+      - name: Deploy ZIP to GitHub Pages
+        if: env.ACTION == 'build'
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git fetch origin gh-pages || git checkout --orphan gh-pages
+          git checkout gh-pages || git checkout --orphan gh-pages
+          mkdir -p pr-previews
+          mv $ZIP_NAME pr-previews/
+          git add pr-previews/$ZIP_NAME
+          git commit -m "Add PR preview ZIP: $GITHUB_HEAD_REF" || echo "Nothing to commit"
+          git push origin gh-pages --force
+
+      - name: Add PR comment with download link
+        if: env.ACTION == 'build'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const [owner, repo] = process.env.GITHUB_REPOSITORY.split('/');
+            const base = {
+              issue_number: context.issue.number,
+              owner: owner,
+              repo: repo,
+            }
+
+            const comments = await github.rest.issues.listComments(base);
+
+            for (const comment of comments.data) {
+              if (comment.body.includes("PR用のChrome拡張プレビューがビルドされました")) {
+                await github.rest.issues.deleteComment({
+                  owner,
+                  repo,
+                  comment_id: comment.id
+                });
+              }
+            }
+
+            const zipName = process.env.ZIP_NAME;
+            const url = `https://${owner}.github.io/${repo}/pr-previews/${zipName}`;
+            await github.rest.issues.createComment({
+              ...base,
+              body: `✅ PR用のChrome拡張プレビューがビルドされました！\n\n[ダウンロードはこちら](${url})`
+            });
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          ZIP_NAME: ${{ env.ZIP_NAME }}
+
+      - name: Remove ZIP on PR close
+        if: env.ACTION == 'close'
+        run: |
+          SAFE_BRANCH_NAME=$(echo $GITHUB_HEAD_REF | tr '/' '-')
+          ZIP_NAME="pr-preview-${SAFE_BRANCH_NAME}.zip"
+          echo "Removing ZIP: $ZIP_NAME from gh-pages"
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git fetch origin gh-pages
+          git checkout gh-pages
+          rm -f pr-previews/$ZIP_NAME
+          git add pr-previews/$ZIP_NAME
+          git commit -m "Remove PR preview ZIP: $GITHUB_HEAD_REF" || echo "Nothing to commit"
+          git push origin gh-pages --force
