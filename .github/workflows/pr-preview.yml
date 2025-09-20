@@ -44,13 +44,13 @@ jobs:
       - name: Build Vite project and create ZIP
         if: env.ACTION == 'build'
         run: |
-          npm install --legacy-peer-deps
-          npm run build
+          npm install --legacy-peer-deps --prefix ../../package.ci.json
+          npm run zip --prefix ../../package.ci.json
           mkdir -p pr-preview
-          cp -r .output/chrome-mv3/* pr-preview/
+          BASE_ZIP=$(ls *.zip | head -n 1)
           SAFE_BRANCH_NAME=$(echo $GITHUB_HEAD_REF | tr '/' '-')
           ZIP_NAME="pr-preview-${SAFE_BRANCH_NAME}.zip"
-          zip -r $ZIP_NAME pr-preview
+          mv "$BASE_ZIP" "pr-previews/$ZIP_NAME"
           echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
 
       - name: Deploy ZIP to GitHub Pages

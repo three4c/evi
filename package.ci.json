@@ -1,0 +1,16 @@
+{
+  "name": "evi",
+  "description": "manifest.json description",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "zip": "wxt zip",
+    "zip:firefox": "wxt zip -b firefox",
+    "postinstall": "wxt prepare"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "wxt": "^0.20.6"
+  }
+}
