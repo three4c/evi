@@ -5,13 +5,11 @@ type POS_TYPE = {
   end: number;
 };
 
-type ORIGINAL_POS_TYPE =
-  | {
-      start: number;
-      end: number;
-      currentLine: number;
-    }
-  | undefined;
+type ORIGINAL_POS_TYPE = {
+  oStart: number;
+  oEnd: number;
+  oCurrentLine: number;
+};
 
 export type Args = {
   mode: React.RefObject<MODE_TYPE>;
