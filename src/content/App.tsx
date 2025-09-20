@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-// import { insertText } from "../utils/insertText";
 import {
   loadShortcuts,
   matchesShortcut,
@@ -8,12 +7,9 @@ import {
   type ShortcutConfig,
 } from "../utils/shortcuts";
 import { getElement } from "../utils/getElement";
-// import { getLines } from "../utils/getLines";
 import { handleKeyDown } from "../utils/handleKeydown";
 
 import type { MODE_TYPE } from "../utils/types";
-
-const DOM_ARRAY = ["INPUT", "TEXTAREA"];
 
 const App: React.FC = () => {
   const mode = useRef<MODE_TYPE>("insert");
@@ -41,6 +37,7 @@ const App: React.FC = () => {
       if (shortcuts.normal_mode && matchesShortcut(e, shortcuts.normal_mode)) {
         const activeElement = document.activeElement;
         const element = getElement(activeElement);
+        const DOM_ARRAY = ["INPUT", "TEXTAREA"];
         if (!element || !DOM_ARRAY.includes(element.tagName)) return;
         mode.current = "normal";
         const start = element.selectionStart || 0;
