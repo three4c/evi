@@ -1,10 +1,10 @@
-import { Command, insertText } from "../utils";
+import { type Command, insertText } from "../utils";
 
-const NORMAL_COMMANDS: Record<string, Command> = {
+export const NORMAL_COMMANDS: Record<string, Command> = {
   h: ({ start, end, col }) => {
     if (col) return { start: start - 1, end: end - 1 };
   },
-  j: ({ start, end, col, lines, charCount, currentLine }) => {
+  j: ({ start, col, lines, charCount, currentLine }) => {
     if (currentLine + 1 < lines.length) {
       const nextLineLength = lines[currentLine + 1].length;
       const next = charCount + lines[currentLine].length + 1;
@@ -16,11 +16,10 @@ const NORMAL_COMMANDS: Record<string, Command> = {
       } else {
         start = next;
       }
-      end = start + 1;
-      return { start, end };
+      return { start, end: start + 1 };
     }
   },
-  k: ({ start, end, col, lines, charCount, currentLine }) => {
+  k: ({ start, col, lines, charCount, currentLine }) => {
     if (currentLine > 0) {
       const prevLineLength = lines[currentLine - 1].length;
       const prev = charCount - (lines[currentLine - 1].length + 1);
@@ -32,8 +31,7 @@ const NORMAL_COMMANDS: Record<string, Command> = {
       } else {
         start = prev;
       }
-      end = start + 1;
-      return { start, end };
+      return { start, end: start + 1 };
     }
   },
   l: ({ start, end, col, lines, currentLine }) => {
@@ -50,24 +48,22 @@ const NORMAL_COMMANDS: Record<string, Command> = {
     }
   },
   "d d": () => {},
-  o: ({ mode, start, end, element }) => {
+  o: ({ start, end, element, length }) => {
     if (element.tagName === "TEXTAREA") {
       const nextBreak = element.value.indexOf("\n", start);
       start = nextBreak === -1 ? length : nextBreak;
       start = end = start + 1;
       insertText(element, start, end, "\n");
-      mode.current = "insert";
-      return { start, end };
+      return { start, end, mode: "insert" };
     }
   },
-  O: ({ mode, start, end, element }) => {
+  O: ({ start, end, element }) => {
     if (element.tagName === "TEXTAREA") {
       const prevBreak = element.value.lastIndexOf("\n", start - 1);
       start = prevBreak === -1 ? 0 : prevBreak;
       start = end = start + (start ? 1 : 0);
       insertText(element, start, end, "\n");
-      mode.current = "insert";
-      return { start, end };
+      return { start, end, mode: "insert" };
     }
   },
   p: async ({ start, end, element, lines, currentLine }) => {
@@ -111,5 +107,3 @@ const NORMAL_COMMANDS: Record<string, Command> = {
     document.execCommand("redo");
   },
 };
-
-export { NORMAL_COMMANDS };

@@ -1,6 +1,6 @@
-import { Command, insertText } from "../utils";
+import { type Command, insertText } from "../utils";
 
-const VISUAL_COMMANDS: Record<string, Command> = {
+export const VISUAL_COMMANDS: Record<string, Command> = {
   h: ({ start, end, oStart }) => {
     const isSingleChar = end - start === 1;
     const shouldMoveStart = isSingleChar ? start <= oStart : start < oStart;
@@ -65,48 +65,38 @@ const VISUAL_COMMANDS: Record<string, Command> = {
     }
     return { start, end };
   },
-  p: async ({ mode, start, end, element }) => {
+  p: async ({ start, end, element }) => {
     const text = await navigator.clipboard.readText();
     if (text) {
       insertText(element, start, end, text);
       start = start + text.length - 1;
       end = start + 1;
-      mode.current = "normal";
-      return { start, end };
+      return { start, end, mode: "normal" };
     }
   },
   // FIXME: 外部関数化して、pとPを共通にする
-  P: async ({ mode, start, end, element }) => {
+  P: async ({ start, end, element }) => {
     const text = await navigator.clipboard.readText();
     if (text) {
       insertText(element, start, end, text);
       start = start + text.length - 1;
       end = start + 1;
-      mode.current = "normal";
-      return { start, end };
+      return { start, end, mode: "normal" };
     }
   },
-  y: ({ mode, start, end, oStart, oEnd }) => {
+  y: ({ oStart, oEnd }) => {
     const text = window.getSelection()?.toString();
     if (text) {
       navigator.clipboard.writeText(text);
-      start = oStart;
-      end = oEnd;
-      mode.current = "normal";
-      return { start, end };
+      return { start: oStart, end: oEnd, mode: "normal" };
     }
   },
-  x: ({ mode, start, end, oStart, oEnd, element }) => {
+  x: ({ oStart, oEnd, element }) => {
     const text = window.getSelection()?.toString();
     if (text) {
       navigator.clipboard.writeText(text);
       element.setRangeText("");
-      start = oStart;
-      end = oEnd;
-      mode.current = "normal";
-      return { start, end };
+      return { start: oStart, end: oEnd, mode: "normal" };
     }
   },
 };
-
-export { VISUAL_COMMANDS };

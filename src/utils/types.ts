@@ -12,8 +12,8 @@ export type Positions = {
 };
 
 export type Args = {
-  mode: React.RefObject<MODE_TYPE>;
-  pos: React.RefObject<Positions>;
+  mode: MODE_TYPE;
+  pos: Positions;
 };
 
 /** handleKeyDown() に渡される引数、Vimコマンドの実装に必要な情報 */
@@ -27,11 +27,10 @@ export interface CombinedArgs extends Positions, Omit<Args, "pos"> {
   length: number;
 }
 
-/**
- * Vimコマンド関数のシグニチャ
- * 新しいPositionを返却する。
- * 部分的な返却が可能で、不足している部分は前回の値が再利用される
- */
+/** Vimコマンド関数のシグニチャ */
 export type Command = (
   args: CombinedArgs,
-) => Promise<Partial<Positions> | void> | Partial<Positions> | void;
+) =>
+  | Promise<Partial<Positions & { mode?: MODE_TYPE }> | undefined>
+  | Partial<Positions & { mode?: MODE_TYPE }>
+  | undefined;

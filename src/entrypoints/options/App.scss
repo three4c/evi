@@ -1,0 +1,58 @@
+.App {
+  font-family: system-ui;
+  font-size: 14px;
+  padding: 20px;
+
+  &__section {
+    margin-bottom: 20px;
+  }
+
+  &__subtitle {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  &__input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__input {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    min-width: 150px;
+    background-color: #fff;
+
+    &--editing {
+      background-color: #f0f8ff;
+    }
+  }
+
+  &__button {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+  }
+
+  &__message {
+    padding: 10px;
+    border-radius: 4px;
+
+    &--error {
+      background-color: #ffebee;
+      border: 1px solid #ffcdd2;
+      color: #c62828;
+    }
+
+    &--success {
+      background-color: #e8f5e8;
+      border: 1px solid #c8e6c9;
+      color: #2e7d32;
+    }
+  }
+}
