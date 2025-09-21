@@ -1,6 +1,9 @@
-import { COMMON_COMMANDS } from "../commands/common";
-import { NORMAL_COMMANDS } from "../commands/normal";
-import { VISUAL_COMMANDS } from "../commands/visual";
+import { COMMON_COMMANDS } from "@/commands/common";
+import { NORMAL_COMMANDS } from "@/commands/normal";
+import { VISUAL_COMMANDS } from "@/commands/visual";
+import { COMMON_KEYMAPS } from "@/keymaps/common";
+import { NORMAL_KEYMAPS } from "@/keymaps/normal";
+import { VISUAL_KEYMAPS } from "@/keymaps/visual";
 import { detectModifierKey } from "./detectModifierKey";
 import { getElement } from "./getElement";
 import { getLines } from "./getLines";
@@ -13,9 +16,9 @@ let keyHistory: string[] = [];
 // すべてのキーマップから最大キー数を取得
 const maxHistory = Math.max(
   ...[
-    ...Object.keys(NORMAL_COMMANDS),
-    ...Object.keys(VISUAL_COMMANDS),
-    ...Object.keys(COMMON_COMMANDS),
+    ...Object.keys(NORMAL_KEYMAPS),
+    ...Object.keys(VISUAL_KEYMAPS),
+    ...Object.keys(COMMON_KEYMAPS),
   ].map((command) => command.split(" ").length),
 );
 
@@ -48,16 +51,19 @@ export const handleKeyDown = async (
   const key = detectModifierKey(e);
 
   let commands: Record<string, Command> = {};
+  let keymaps: Record<string, string> = {};
   if (mode === "normal") {
     commands = { ...NORMAL_COMMANDS, ...COMMON_COMMANDS };
+    keymaps = { ...NORMAL_KEYMAPS, ...COMMON_KEYMAPS };
   }
   if (mode === "visual") {
     commands = { ...VISUAL_COMMANDS, ...COMMON_COMMANDS };
+    keymaps = { ...VISUAL_KEYMAPS, ...COMMON_KEYMAPS };
   }
 
-  if (commands[key]) {
+  if (commands[keymaps[key]]) {
     // 1キーで該当のコマンドが見つかったら発火
-    newValues = await commands[key](combinedArgs);
+    newValues = await commands[keymaps[key]](combinedArgs);
     keyHistory = [];
   } else {
     // 見つからなければ、追加で入力されたキーとの組み合わせでコマンドを探す
@@ -70,7 +76,7 @@ export const handleKeyDown = async (
     const keyCombination = keyHistory.join(" ");
 
     for (const command in commands) {
-      if (keyCombination.endsWith(command)) {
+      if (keymaps[keyCombination]?.endsWith(command)) {
         newValues = await commands[command](combinedArgs);
         keyHistory = [];
         break;

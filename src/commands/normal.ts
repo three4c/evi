@@ -47,7 +47,9 @@ export const NORMAL_COMMANDS: Record<string, Command> = {
       return { start, end };
     }
   },
-  // delete_line: () => {},
+  // delete_line: () => {
+  //   console.log("delete_line");
+  // },
   insert_below: ({ start, end, element, length }) => {
     if (element.tagName === "TEXTAREA") {
       const nextBreak = element.value.indexOf("\n", start);
