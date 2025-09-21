@@ -3,6 +3,7 @@ export const NORMAL_KEYMAPS: Record<string, string> = {
   j: "down",
   k: "up",
   l: "right",
+  J: "join_line",
   // "d d": "delete_line",
   o: "insert_below",
   O: "insert_above",
