@@ -1,0 +1,15 @@
+export const NORMAL_KEYMAPS: Record<string, string> = {
+  h: "left",
+  j: "down",
+  k: "up",
+  l: "right",
+  // "d d": "delete_line",
+  o: "insert_below",
+  O: "insert_above",
+  p: "paste_after",
+  P: "paste_before",
+  x: "cut_char",
+  X: "cut_char_before",
+  u: "undo",
+  "ctrl+r": "redo",
+};
