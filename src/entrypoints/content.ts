@@ -10,6 +10,7 @@ type MODE_TYPE = "normal" | "insert" | "visual";
 
 const DOM_ARRAY = ["INPUT", "TEXTAREA"];
 
+let initComplete = false;
 let mode: MODE_TYPE = "insert";
 let pos = { start: 0, end: 0 };
 let originalPos:
@@ -323,6 +324,7 @@ const startVim = async (
 };
 
 export const initVim = () => {
+  if (initComplete) return;
   loadShortcuts().then((s) => (shortcuts = s));
   onShortcutsChanged((s) => (shortcuts = s));
 
@@ -344,7 +346,7 @@ export const initVim = () => {
   };
 
   window.addEventListener("keydown", onKeyDown);
-  return () => window.removeEventListener("keydown", onKeyDown);
+  initComplete = true;
 };
 
 export default defineContentScript({

@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { initVim } from "../content";
 import "./App.scss";
 
 const App: React.FC = () => {
@@ -5,6 +7,10 @@ const App: React.FC = () => {
 
   const openShortcutSettings = () => chrome.runtime.openOptionsPage();
   const testString = "aaaaa\nbbbbb\nccccc";
+
+  useEffect(() => {
+    if (isDev) initVim();
+  }, []);
 
   return isDev ? (
     <div className="App App--dev">
