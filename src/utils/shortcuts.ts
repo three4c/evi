@@ -1,4 +1,5 @@
-const isMac = navigator.platform.toUpperCase().indexOf("MAC") >= 0;
+const isBrowser = typeof navigator !== "undefined";
+const isMac = isBrowser && navigator.platform.toUpperCase().includes("MAC");
 
 export interface ShortcutConfig {
   key: string;
