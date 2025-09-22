@@ -1,4 +1,5 @@
 export * from "./detectModifierKey.ts";
+export * from "./findCommand.ts";
 export * from "./getElement.ts";
 export * from "./getKeymaps.ts";
 export * from "./getLines.ts";

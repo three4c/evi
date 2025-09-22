@@ -2,24 +2,18 @@ import { COMMON_COMMANDS } from "@/commands/common";
 import { INSERT_COMMANDS } from "@/commands/insert";
 import { NORMAL_COMMANDS } from "@/commands/normal";
 import { VISUAL_COMMANDS } from "@/commands/visual";
-import { detectModifierKey } from "./detectModifierKey";
-import { getElement } from "./getElement";
-import { getLines } from "./getLines";
+import {
+  detectModifierKey,
+  findCommand,
+  getElement,
+  getKeymaps,
+  getLines,
+  getMaxKeyHistory,
+} from "./";
 import type { Args, Command } from "./types";
 
 const DOM_ARRAY = ["INPUT", "TEXTAREA"];
-
 let keyHistory: string[] = [];
-
-const findCommand = (
-  searchKey: string,
-  keymaps: Record<string, string>,
-  commands: Record<string, Command>,
-) => {
-  const commandName =
-    Object.keys(keymaps).find((k) => keymaps[k] === searchKey) || "";
-  return commands[commandName] ? commandName : null;
-};
 
 export const handleKeyDown = async (
   e: KeyboardEvent,
@@ -65,7 +59,7 @@ export const handleKeyDown = async (
   let newValues: ReturnType<Command> = {};
   const key = detectModifierKey(e);
 
-  let keymapsForMode: Record<string, string> = {
+  const keymapsForMode: Record<string, string> = {
     ...keymaps[mode],
     ...keymaps.common,
   };
