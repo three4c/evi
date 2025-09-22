@@ -7,7 +7,7 @@ import {
   type ShortcutConfig,
   saveShortcuts,
   validateShortcut,
-} from "../../utils/shortcuts";
+} from "../../utils";
 import "./App.scss";
 
 const App: React.FC = () => {
