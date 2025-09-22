@@ -1,44 +1,37 @@
-export const saveKeymaps = async (keymaps: {
-  common: Record<string, string>;
-  insert: Record<string, string>;
-  normal: Record<string, string>;
-  visual: Record<string, string>;
-}): Promise<void> => {
-  await chrome.storage.sync.set({ keymaps: keymaps });
+import {
+  COMMON_KEYMAPS,
+  INSERT_KEYMAPS,
+  NORMAL_KEYMAPS,
+  VISUAL_KEYMAPS,
+} from "@/keymaps";
+import type { Keymaps } from "./types";
+
+const DEFAULT_KEYMAPS: Keymaps = {
+  common: COMMON_KEYMAPS,
+  insert: INSERT_KEYMAPS,
+  normal: NORMAL_KEYMAPS,
+  visual: VISUAL_KEYMAPS,
+};
+
+const STORAGE_KEY = "keymaps";
+
+export const saveKeymaps = async (keymaps: Keymaps): Promise<void> => {
+  await chrome.storage.sync.set({ keymaps });
 };
 
 export const resetKeymaps = async (): Promise<void> => {
-  await chrome.storage.sync.remove("keymaps");
+  await chrome.storage.sync.remove(STORAGE_KEY);
 };
 
-export const loadKeymaps = async (): Promise<{
-  common: Record<string, string>;
-  insert: Record<string, string>;
-  normal: Record<string, string>;
-  visual: Record<string, string>;
-}> => {
-  const result = await chrome.storage.sync.get(["keymaps"]);
-  return result.keymaps || { common: {}, insert: {}, normal: {}, visual: {} };
+export const loadKeymaps = async (): Promise<Keymaps> => {
+  const result = await chrome.storage.sync.get([STORAGE_KEY]);
+  return result.keymaps || DEFAULT_KEYMAPS;
 };
 
-export const onKeymapsChanged = (
-  callback: (keymaps: {
-    common: Record<string, string>;
-    insert: Record<string, string>;
-    normal: Record<string, string>;
-    visual: Record<string, string>;
-  }) => void,
-) => {
+export const onKeymapsChanged = (callback: (keymaps: Keymaps) => void) => {
   chrome.storage.onChanged.addListener((changes, areaName) => {
     if (areaName === "sync" && changes.keymaps) {
-      callback(
-        changes.keymaps.newValue || {
-          common: {},
-          insert: {},
-          normal: {},
-          visual: {},
-        },
-      );
+      callback(changes.keymaps.newValue || DEFAULT_KEYMAPS);
     }
   });
 };
