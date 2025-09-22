@@ -11,22 +11,6 @@ const DOM_ARRAY = ["INPUT", "TEXTAREA"];
 
 let keyHistory: string[] = [];
 
-const getMaxHistory = (keymaps: {
-  common: Record<string, string>;
-  insert: Record<string, string>;
-  normal: Record<string, string>;
-  visual: Record<string, string>;
-}) => {
-  return Math.max(
-    ...[
-      ...Object.keys(keymaps.normal),
-      ...Object.keys(keymaps.visual),
-      ...Object.keys(keymaps.common),
-      ...Object.keys(keymaps.insert),
-    ].map((command) => command.split(" ").length),
-  );
-};
-
 const findCommand = (
   searchKey: string,
   keymaps: Record<string, string>,
@@ -76,7 +60,7 @@ export const handleKeyDown = async (
 
   e.preventDefault();
 
-  const maxHistory = getMaxHistory(currentKeymaps);
+  const maxHistory = getMaxKeyHistory(keymaps);
 
   let newValues: ReturnType<Command> = {};
   const key = detectModifierKey(e);
