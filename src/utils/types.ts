@@ -27,6 +27,13 @@ export interface CombinedArgs extends Positions, Omit<Args, "pos"> {
   length: number;
 }
 
+export type Keymaps = {
+  common: Record<string, string>;
+  insert: Record<string, string>;
+  normal: Record<string, string>;
+  visual: Record<string, string>;
+};
+
 /** Vimコマンド関数のシグニチャ */
 export type Command = (
   args: CombinedArgs,
