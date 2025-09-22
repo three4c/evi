@@ -5,21 +5,17 @@ import {
   NORMAL_KEYMAPS,
   VISUAL_KEYMAPS,
 } from "@/keymaps";
+import type { Keymap, Keymaps } from "@/utils";
 import {
   detectModifierKey,
   loadKeymaps,
   resetKeymaps,
   saveKeymaps,
-} from "../../utils";
+} from "@/utils";
 import "./App.scss";
 
 const App: React.FC = () => {
-  const [keymaps, setKeymaps] = useState<{
-    common: Record<string, string>;
-    insert: Record<string, string>;
-    normal: Record<string, string>;
-    visual: Record<string, string>;
-  }>({
+  const [keymaps, setKeymaps] = useState<Keymaps>({
     common: COMMON_KEYMAPS,
     insert: INSERT_KEYMAPS,
     normal: NORMAL_KEYMAPS,
@@ -116,7 +112,7 @@ const App: React.FC = () => {
   const renderKeymapSection = (
     title: string,
     mode: string,
-    keymapObj: Record<string, string>,
+    keymapObj: Keymap,
   ) => (
     <div className="App__section">
       <h3 className="App__subtitle">{title}</h3>

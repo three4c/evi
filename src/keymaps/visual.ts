@@ -1,4 +1,6 @@
-export const VISUAL_KEYMAPS: Record<string, string> = {
+import type { Keymap } from "@/utils";
+
+export const VISUAL_KEYMAPS: Keymap = {
   expand_left: "h",
   expand_down: "j",
   expand_up: "k",

@@ -1,4 +1,6 @@
-export const NORMAL_KEYMAPS: Record<string, string> = {
+import type { Keymap } from "@/utils";
+
+export const NORMAL_KEYMAPS: Keymap = {
   insert_before: "i",
   insert_start: "I",
   insert_after: "a",

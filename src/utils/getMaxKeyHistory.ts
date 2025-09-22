@@ -1,4 +1,4 @@
-import type { Keymaps } from "./types";
+import type { Keymaps } from "@/utils";
 
 export const getMaxKeyHistory = (keymaps: Keymaps) => {
   return Math.max(

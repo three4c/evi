@@ -1,4 +1,4 @@
-import { type Command, insertText } from "../utils";
+import { type Command, insertText } from "@/utils";
 
 export const COMMON_COMMANDS: Record<string, Command> = {
   delete_char_insert: ({ start, end, element }) => {

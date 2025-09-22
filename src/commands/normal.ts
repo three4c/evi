@@ -1,4 +1,4 @@
-import { type Command, insertText } from "../utils";
+import { type Command, insertText } from "@/utils";
 
 export const NORMAL_COMMANDS: Record<string, Command> = {
   insert_before: ({ start }) => ({ start, end: start, mode: "insert" }),

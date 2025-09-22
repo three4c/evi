@@ -4,6 +4,7 @@ import {
   NORMAL_COMMANDS,
   VISUAL_COMMANDS,
 } from "@/commands";
+import type { Args, Command, Keymap } from "@/utils";
 import {
   detectModifierKey,
   findCommand,
@@ -11,8 +12,7 @@ import {
   getKeymaps,
   getLines,
   getMaxKeyHistory,
-} from "./";
-import type { Args, Command } from "./types";
+} from "@/utils";
 
 const DOM_ARRAY = ["INPUT", "TEXTAREA"];
 let keyHistory: string[] = [];
@@ -61,7 +61,7 @@ export const handleKeyDown = async (
   let newValues: ReturnType<Command> = {};
   const key = detectModifierKey(e);
 
-  const keymapsForMode: Record<string, string> = {
+  const keymapsForMode: Keymap = {
     ...keymaps[mode],
     ...keymaps.common,
   };

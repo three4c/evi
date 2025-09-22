@@ -1,4 +1,4 @@
-import { type Command, insertText } from "../utils";
+import { type Command, insertText } from "@/utils";
 
 export const VISUAL_COMMANDS: Record<string, Command> = {
   expand_left: ({ start, end, oStart }) => {

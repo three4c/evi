@@ -1,4 +1,4 @@
-import { handleKeyDown, type MODE_TYPE, type Positions } from "../utils";
+import { handleKeyDown, type MODE_TYPE, type Positions } from "@/utils";
 
 let initComplete = false;
 let mode: MODE_TYPE = "insert";

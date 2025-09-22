@@ -1,4 +1,4 @@
-import type { Command } from "../utils";
+import type { Command } from "@/utils";
 
 export const INSERT_COMMANDS: Record<string, Command> = {
   enter_normal_mode: ({ element, start, end }) => {

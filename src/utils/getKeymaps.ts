@@ -4,8 +4,8 @@ import {
   NORMAL_KEYMAPS,
   VISUAL_KEYMAPS,
 } from "@/keymaps";
+import type { Keymaps } from "@/utils";
 import { loadKeymaps } from "./shortcuts";
-import type { Keymaps } from "./types";
 
 let cachedKeymaps: Keymaps | null = null;
 

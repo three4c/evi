@@ -4,7 +4,7 @@ import {
   NORMAL_KEYMAPS,
   VISUAL_KEYMAPS,
 } from "@/keymaps";
-import type { Keymaps } from "./types";
+import type { Keymaps } from "@/utils";
 
 const DEFAULT_KEYMAPS: Keymaps = {
   common: COMMON_KEYMAPS,
