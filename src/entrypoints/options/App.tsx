@@ -92,7 +92,7 @@ const App: React.FC = () => {
     setMessage("");
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (!editingMode || !editingCommand || currentKeySequence.length === 0)
       return;
 
@@ -117,29 +117,30 @@ const App: React.FC = () => {
     setCurrentKeySequence([]);
     setValidationError("");
 
-    saveKeymaps(updatedKeymaps).then(() => {
-      setMessage("保存完了！");
-      setTimeout(() => setMessage(""), 3000);
+    await saveKeymaps(updatedKeymaps);
+    setMessage("保存完了！");
+    setTimeout(() => setMessage(""), 3000);
+  };
+
+  const updateKeymaps = (savedKeymaps: Keymaps) => {
+    setKeymaps({
+      common: { ...DEFAULT_KEYMAPS.common, ...savedKeymaps.common },
+      insert: { ...DEFAULT_KEYMAPS.insert, ...savedKeymaps.insert },
+      normal: { ...DEFAULT_KEYMAPS.normal, ...savedKeymaps.normal },
+      visual: { ...DEFAULT_KEYMAPS.visual, ...savedKeymaps.visual },
     });
   };
 
-  const handleReset = () => {
+  const handleReset = async () => {
     setKeymaps(DEFAULT_KEYMAPS);
-    resetKeymaps().then(() => {
-      setMessage("キーマップをデフォルトにリセットしました！");
-      setTimeout(() => setMessage(""), 3000);
-    });
+    await resetKeymaps();
+    await loadKeymaps().then(updateKeymaps);
+    setMessage("キーマップをデフォルトにリセットしました！");
+    setTimeout(() => setMessage(""), 3000);
   };
 
   useEffect(() => {
-    loadKeymaps().then((savedKeymaps) => {
-      setKeymaps({
-        common: { ...DEFAULT_KEYMAPS.common, ...savedKeymaps.common },
-        insert: { ...DEFAULT_KEYMAPS.insert, ...savedKeymaps.insert },
-        normal: { ...DEFAULT_KEYMAPS.normal, ...savedKeymaps.normal },
-        visual: { ...DEFAULT_KEYMAPS.visual, ...savedKeymaps.visual },
-      });
-    });
+    loadKeymaps().then(updateKeymaps);
   }, []);
 
   useEffect(() => {
