@@ -1,26 +1,65 @@
 import { COMMON_COMMANDS } from "@/commands/common";
+import { INSERT_COMMANDS } from "@/commands/insert";
 import { NORMAL_COMMANDS } from "@/commands/normal";
 import { VISUAL_COMMANDS } from "@/commands/visual";
 import { COMMON_KEYMAPS } from "@/keymaps/common";
+import { INSERT_KEYMAPS } from "@/keymaps/insert";
 import { NORMAL_KEYMAPS } from "@/keymaps/normal";
 import { VISUAL_KEYMAPS } from "@/keymaps/visual";
 import { detectModifierKey } from "./detectModifierKey";
 import { getElement } from "./getElement";
 import { getLines } from "./getLines";
+import { loadKeymaps } from "./shortcuts";
 import type { Args, Command } from "./types";
 
 const DOM_ARRAY = ["INPUT", "TEXTAREA"];
 
 let keyHistory: string[] = [];
+let cachedKeymaps: {
+  common: Record<string, string>;
+  insert: Record<string, string>;
+  normal: Record<string, string>;
+  visual: Record<string, string>;
+} | null = null;
 
-// すべてのキーマップから最大キー数を取得
-const maxHistory = Math.max(
-  ...[
-    ...Object.keys(NORMAL_KEYMAPS),
-    ...Object.keys(VISUAL_KEYMAPS),
-    ...Object.keys(COMMON_KEYMAPS),
-  ].map((command) => command.split(" ").length),
-);
+const getKeymaps = async () => {
+  if (!cachedKeymaps) {
+    const savedKeymaps = await loadKeymaps();
+    cachedKeymaps = {
+      common: { ...COMMON_KEYMAPS, ...savedKeymaps.common },
+      insert: { ...INSERT_KEYMAPS, ...savedKeymaps.insert },
+      normal: { ...NORMAL_KEYMAPS, ...savedKeymaps.normal },
+      visual: { ...VISUAL_KEYMAPS, ...savedKeymaps.visual },
+    };
+  }
+  return cachedKeymaps;
+};
+
+const getMaxHistory = (keymaps: {
+  common: Record<string, string>;
+  insert: Record<string, string>;
+  normal: Record<string, string>;
+  visual: Record<string, string>;
+}) => {
+  return Math.max(
+    ...[
+      ...Object.keys(keymaps.normal),
+      ...Object.keys(keymaps.visual),
+      ...Object.keys(keymaps.common),
+      ...Object.keys(keymaps.insert),
+    ].map((command) => command.split(" ").length),
+  );
+};
+
+const findCommand = (
+  searchKey: string,
+  keymaps: Record<string, string>,
+  commands: Record<string, Command>,
+) => {
+  const commandName =
+    Object.keys(keymaps).find((k) => keymaps[k] === searchKey) || "";
+  return commands[commandName] ? commandName : null;
+};
 
 export const handleKeyDown = async (
   e: KeyboardEvent,
@@ -31,15 +70,9 @@ export const handleKeyDown = async (
   if (!element || !DOM_ARRAY.includes(element.tagName))
     return { mode: args.mode, pos: args.pos };
 
+  const currentKeymaps = await getKeymaps();
   const { mode } = args;
 
-  if (!["normal", "visual"].includes(mode)) {
-    return args;
-  }
-
-  e.preventDefault();
-
-  let newValues: ReturnType<Command> = {};
   const combinedArgs = {
     mode,
     element,
@@ -48,27 +81,47 @@ export const handleKeyDown = async (
     ...args.pos,
     ...getLines(element, args.pos.start),
   };
+
+  if (!["normal", "visual"].includes(mode)) {
+    const key = detectModifierKey(e);
+    const commandName = findCommand(
+      key,
+      currentKeymaps.insert,
+      INSERT_COMMANDS,
+    );
+    if (commandName) {
+      const newValues = await INSERT_COMMANDS[commandName](combinedArgs);
+      keyHistory = [];
+      const { mode: newMode, ...newPos } = newValues || {};
+      return {
+        pos: { ...args.pos, ...newPos },
+        mode: newMode ?? mode,
+      };
+    }
+
+    return args;
+  }
+
+  e.preventDefault();
+
+  const maxHistory = getMaxHistory(currentKeymaps);
+
+  let newValues: ReturnType<Command> = {};
   const key = detectModifierKey(e);
 
   let commands: Record<string, Command> = {};
   let keymaps: Record<string, string> = {};
   if (mode === "normal") {
     commands = { ...NORMAL_COMMANDS, ...COMMON_COMMANDS };
-    keymaps = { ...NORMAL_KEYMAPS, ...COMMON_KEYMAPS };
+    keymaps = { ...currentKeymaps.normal, ...currentKeymaps.common };
   }
   if (mode === "visual") {
     commands = { ...VISUAL_COMMANDS, ...COMMON_COMMANDS };
-    keymaps = { ...VISUAL_KEYMAPS, ...COMMON_KEYMAPS };
+    keymaps = { ...currentKeymaps.visual, ...currentKeymaps.common };
   }
 
-  const findCommand = (searchKey: string) => {
-    const commandName =
-      Object.keys(keymaps).find((k) => keymaps[k] === searchKey) || "";
-    return commands[commandName] ? commandName : null;
-  };
-
   // 1キーのコマンドを探す
-  let commandName = findCommand(key);
+  let commandName = findCommand(key, keymaps, commands);
 
   if (commandName) {
     // 1キーで該当のコマンドが見つかったら発火
@@ -83,7 +136,7 @@ export const handleKeyDown = async (
     }
 
     const keyCombination = keyHistory.join(" ");
-    commandName = findCommand(keyCombination);
+    commandName = findCommand(keyCombination, keymaps, commands);
 
     if (commandName) {
       newValues = await commands[commandName](combinedArgs);
