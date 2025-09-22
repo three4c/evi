@@ -1,10 +1,9 @@
 export const VISUAL_KEYMAPS: Record<string, string> = {
-  h: "expand_left",
-  j: "expand_down",
-  k: "expand_up",
-  l: "expand_right",
-  p: "replace",
-  P: "replace",
-  y: "copy",
-  x: "cut",
+  expand_left: "h",
+  expand_down: "j",
+  expand_up: "k",
+  expand_right: "l",
+  replace: "p",
+  copy: "y",
+  cut: "x",
 };

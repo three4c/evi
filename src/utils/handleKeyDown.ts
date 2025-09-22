@@ -61,12 +61,21 @@ export const handleKeyDown = async (
     keymaps = { ...VISUAL_KEYMAPS, ...COMMON_KEYMAPS };
   }
 
-  if (commands[keymaps[key]]) {
+  const findCommand = (searchKey: string) => {
+    const commandName =
+      Object.keys(keymaps).find((k) => keymaps[k] === searchKey) || "";
+    return commands[commandName] ? commandName : null;
+  };
+
+  // 1キーのコマンドを探す
+  let commandName = findCommand(key);
+
+  if (commandName) {
     // 1キーで該当のコマンドが見つかったら発火
-    newValues = await commands[keymaps[key]](combinedArgs);
+    newValues = await commands[commandName](combinedArgs);
     keyHistory = [];
   } else {
-    // 見つからなければ、追加で入力されたキーとの組み合わせでコマンドを探す
+    // 見つからなければ、キー履歴に追加してコンビネーションで探す
     keyHistory.push(key);
 
     if (keyHistory.length > maxHistory) {
@@ -74,13 +83,11 @@ export const handleKeyDown = async (
     }
 
     const keyCombination = keyHistory.join(" ");
+    commandName = findCommand(keyCombination);
 
-    for (const command in commands) {
-      if (keymaps[keyCombination]?.endsWith(command)) {
-        newValues = await commands[command](combinedArgs);
-        keyHistory = [];
-        break;
-      }
+    if (commandName) {
+      newValues = await commands[commandName](combinedArgs);
+      keyHistory = [];
     }
   }
 
