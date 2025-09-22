@@ -1,7 +1,9 @@
-import { COMMON_COMMANDS } from "@/commands/common";
-import { INSERT_COMMANDS } from "@/commands/insert";
-import { NORMAL_COMMANDS } from "@/commands/normal";
-import { VISUAL_COMMANDS } from "@/commands/visual";
+import {
+  COMMON_COMMANDS,
+  INSERT_COMMANDS,
+  NORMAL_COMMANDS,
+  VISUAL_COMMANDS,
+} from "@/commands";
 import {
   detectModifierKey,
   findCommand,
