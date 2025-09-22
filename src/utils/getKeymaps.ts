@@ -1,7 +1,9 @@
-import { COMMON_KEYMAPS } from "@/keymaps/common";
-import { INSERT_KEYMAPS } from "@/keymaps/insert";
-import { NORMAL_KEYMAPS } from "@/keymaps/normal";
-import { VISUAL_KEYMAPS } from "@/keymaps/visual";
+import {
+  COMMON_KEYMAPS,
+  INSERT_KEYMAPS,
+  NORMAL_KEYMAPS,
+  VISUAL_KEYMAPS,
+} from "@/keymaps";
 import { loadKeymaps } from "./shortcuts";
 import type { Keymaps } from "./types";
 
