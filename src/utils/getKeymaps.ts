@@ -1,11 +1,5 @@
-import {
-  COMMON_KEYMAPS,
-  INSERT_KEYMAPS,
-  NORMAL_KEYMAPS,
-  VISUAL_KEYMAPS,
-} from "@/keymaps";
-import type { Keymaps } from "@/utils";
-import { loadKeymaps } from "./shortcuts";
+import { DEFAULT_KEYMAPS } from "@/keymaps";
+import { type Keymaps, loadKeymaps } from "@/utils";
 
 let cachedKeymaps: Keymaps | null = null;
 
@@ -13,10 +7,10 @@ export const getKeymaps = async () => {
   if (!cachedKeymaps) {
     const savedKeymaps = await loadKeymaps();
     cachedKeymaps = {
-      common: { ...COMMON_KEYMAPS, ...savedKeymaps.common },
-      insert: { ...INSERT_KEYMAPS, ...savedKeymaps.insert },
-      normal: { ...NORMAL_KEYMAPS, ...savedKeymaps.normal },
-      visual: { ...VISUAL_KEYMAPS, ...savedKeymaps.visual },
+      common: { ...DEFAULT_KEYMAPS.common, ...savedKeymaps.common },
+      insert: { ...DEFAULT_KEYMAPS.insert, ...savedKeymaps.insert },
+      normal: { ...DEFAULT_KEYMAPS.normal, ...savedKeymaps.normal },
+      visual: { ...DEFAULT_KEYMAPS.visual, ...savedKeymaps.visual },
     };
   }
   return cachedKeymaps;

@@ -1,10 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  COMMON_KEYMAPS,
-  INSERT_KEYMAPS,
-  NORMAL_KEYMAPS,
-  VISUAL_KEYMAPS,
-} from "@/keymaps";
+import { DEFAULT_KEYMAPS } from "@/keymaps";
 import type { Keymap, Keymaps } from "@/utils";
 import {
   detectModifierKey,
@@ -15,12 +10,7 @@ import {
 import "./App.scss";
 
 const App: React.FC = () => {
-  const [keymaps, setKeymaps] = useState<Keymaps>({
-    common: COMMON_KEYMAPS,
-    insert: INSERT_KEYMAPS,
-    normal: NORMAL_KEYMAPS,
-    visual: VISUAL_KEYMAPS,
-  });
+  const [keymaps, setKeymaps] = useState<Keymaps>(DEFAULT_KEYMAPS);
   const [isEditing, setIsEditing] = useState(false);
   const [editingMode, setEditingMode] = useState<string | null>(null);
   const [editingCommand, setEditingCommand] = useState<string | null>(null);
@@ -41,13 +31,7 @@ const App: React.FC = () => {
   };
 
   const handleReset = () => {
-    const defaultKeymaps = {
-      common: COMMON_KEYMAPS,
-      insert: INSERT_KEYMAPS,
-      normal: NORMAL_KEYMAPS,
-      visual: VISUAL_KEYMAPS,
-    };
-    setKeymaps(defaultKeymaps);
+    setKeymaps(DEFAULT_KEYMAPS);
     resetKeymaps().then(() => {
       setMessage("キーマップをデフォルトにリセットしました！");
       setTimeout(() => setMessage(""), 3000);
@@ -57,10 +41,10 @@ const App: React.FC = () => {
   useEffect(() => {
     loadKeymaps().then((savedKeymaps) => {
       setKeymaps({
-        common: { ...COMMON_KEYMAPS, ...savedKeymaps.common },
-        insert: { ...INSERT_KEYMAPS, ...savedKeymaps.insert },
-        normal: { ...NORMAL_KEYMAPS, ...savedKeymaps.normal },
-        visual: { ...VISUAL_KEYMAPS, ...savedKeymaps.visual },
+        common: { ...DEFAULT_KEYMAPS.common, ...savedKeymaps.common },
+        insert: { ...DEFAULT_KEYMAPS.insert, ...savedKeymaps.insert },
+        normal: { ...DEFAULT_KEYMAPS.normal, ...savedKeymaps.normal },
+        visual: { ...DEFAULT_KEYMAPS.visual, ...savedKeymaps.visual },
       });
     });
   }, []);

@@ -1,17 +1,5 @@
-import {
-  COMMON_KEYMAPS,
-  INSERT_KEYMAPS,
-  NORMAL_KEYMAPS,
-  VISUAL_KEYMAPS,
-} from "@/keymaps";
+import { DEFAULT_KEYMAPS } from "@/keymaps";
 import type { Keymaps } from "@/utils";
-
-const DEFAULT_KEYMAPS: Keymaps = {
-  common: COMMON_KEYMAPS,
-  insert: INSERT_KEYMAPS,
-  normal: NORMAL_KEYMAPS,
-  visual: VISUAL_KEYMAPS,
-};
 
 const STORAGE_KEY = "keymaps";
 
