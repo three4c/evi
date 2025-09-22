@@ -166,7 +166,7 @@ const App: React.FC = () => {
       {renderKeymapSection("Insert Mode Keymaps", "insert", keymaps.insert)}
       {renderKeymapSection("Normal Mode Keymaps", "normal", keymaps.normal)}
       {renderKeymapSection("Visual Mode Keymaps", "visual", keymaps.visual)}
-      {renderKeymapSection("Common Keymaps", "common", keymaps.common)}
+      {renderKeymapSection("Normal / Visual Keymaps", "common", keymaps.common)}
 
       <button type="button" onClick={handleReset} disabled={isEditing}>
         デフォルトにリセット
