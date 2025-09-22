@@ -13,11 +13,15 @@
     font-weight: bold;
   }
 
-  &__input-group {
+  &__inputGroup {
     display: flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 4px;
+
+    > * {
+      flex-shrink: 0;
+    }
   }
 
   &__label {
@@ -45,7 +49,16 @@
     cursor: pointer;
   }
 
+  &__buttonGroup {
+    display: flex;
+    gap: 4px;
+  }
+
   &__message {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    margin: 20px;
     padding: 10px;
     border-radius: 4px;
 

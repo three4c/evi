@@ -1,12 +1,11 @@
 import type { Keymaps } from "@/utils";
 
-export const getMaxKeyHistory = (keymaps: Keymaps) => {
-  return Math.max(
+export const getMaxKeyHistory = (keymaps: Keymaps) =>
+  Math.max(
     ...[
-      ...Object.keys(keymaps.normal),
-      ...Object.keys(keymaps.visual),
-      ...Object.keys(keymaps.common),
-      ...Object.keys(keymaps.insert),
+      ...Object.values(keymaps.normal),
+      ...Object.values(keymaps.visual),
+      ...Object.values(keymaps.common),
+      ...Object.values(keymaps.insert),
     ].map((command) => command.split(" ").length),
   );
-};
