@@ -1,6 +1,16 @@
 import { type Command, insertText } from "../utils";
 
 export const NORMAL_COMMANDS: Record<string, Command> = {
+  insert_before: ({ start }) => ({ start, end: start, mode: "insert" }),
+  insert_start: ({ start, end, element }) => {
+    start = end = element.value.lastIndexOf("\n", start) + 1;
+    return { start, end, mode: "insert" };
+  },
+  insert_after: ({ end }) => ({ start: end, end, mode: "insert" }),
+  insert_end: ({ start, end, element }) => {
+    start = end = element.value.indexOf("\n", start);
+    return { start, end, mode: "insert" };
+  },
   left: ({ start, end, col }) => {
     if (col) return { start: start - 1, end: end - 1 };
   },

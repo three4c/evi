@@ -1,4 +1,8 @@
 export const NORMAL_KEYMAPS: Record<string, string> = {
+  i: "insert_before",
+  I: "insert_start",
+  a: "insert_after",
+  A: "insert_end",
   h: "left",
   j: "down",
   k: "up",
