@@ -1,8 +1,10 @@
+name: Biome
+
 on:
   pull_request:
 
 jobs:
-  biome:
+  biome-checks:
     runs-on: ubuntu-latest
     permissions:
       contents: read

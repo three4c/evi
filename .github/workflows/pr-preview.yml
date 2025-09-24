@@ -1,3 +1,5 @@
+name: PR Review
+
 on:
   pull_request:
     types: [labeled, closed]
