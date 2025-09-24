@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { DEFAULT_KEYMAPS } from "@/keymaps";
-import type { Keymap, Keymaps } from "@/utils";
+import type { Keymap, Keymaps, MODE_TYPE } from "@/utils";
 import {
   detectModifierKey,
   loadKeymaps,
@@ -9,44 +9,142 @@ import {
 } from "@/utils";
 import "./App.scss";
 
+type ALL_MODE_TYPE = MODE_TYPE | "common";
+const MESSAGE_DISPLAY_TIME = 3000;
+
 const App: React.FC = () => {
   const [keymaps, setKeymaps] = useState<Keymaps>(DEFAULT_KEYMAPS);
   const [isEditing, setIsEditing] = useState(false);
-  const [editingMode, setEditingMode] = useState<string | null>(null);
+  const [editingMode, setEditingMode] = useState<ALL_MODE_TYPE | null>(null);
   const [editingCommand, setEditingCommand] = useState<string | null>(null);
   const [message, setMessage] = useState("");
+  const [currentKeySequence, setCurrentKeySequence] = useState<string[]>([]);
+  const [validationError, setValidationError] = useState("");
 
-  const handleEdit = (mode: string, command: string) => {
+  const validateKeySequence = (
+    sequence: string[],
+    mode: ALL_MODE_TYPE,
+    command: string,
+  ): string => {
+    if (sequence.length === 0) {
+      return "キーシーケンスが空です";
+    }
+
+    const allKeymapsForMode =
+      mode === "common"
+        ? {
+            ...keymaps.common,
+            ...keymaps.normal,
+            ...keymaps.visual,
+          }
+        : { ...keymaps[mode], ...keymaps.common };
+    const newKeyString = sequence.join(" ");
+
+    // 重複チェック（現在編集中のコマンド以外）
+    for (const [cmd, keyStr] of Object.entries(allKeymapsForMode)) {
+      if (cmd !== command && keyStr === newKeyString) {
+        return `キー "${newKeyString}" は既に "${cmd}" で使用されています`;
+      }
+    }
+
+    // プレフィックス競合チェック
+    for (const [cmd, keyStr] of Object.entries(allKeymapsForMode)) {
+      if (cmd === command) continue;
+
+      const existingKeys = keyStr.split(" ");
+
+      // 既存の1キーマップが新しいシーケンスの最初のキーと同じ場合
+      if (
+        existingKeys.length === 1 &&
+        sequence.length > 1 &&
+        existingKeys[0] === sequence[0]
+      ) {
+        return `キー "${existingKeys[0]}" が既に "${cmd}" で使用されているため、"${newKeyString}" は設定できません`;
+      }
+
+      // 新しいシーケンスが1キーで、既存のマルチキーシーケンスの最初のキーと同じ場合
+      if (
+        sequence.length === 1 &&
+        existingKeys.length > 1 &&
+        sequence[0] === existingKeys[0]
+      ) {
+        return `キー "${sequence[0]}" は "${cmd}" のキーシーケンス "${keyStr}" と競合します`;
+      }
+    }
+
+    return "";
+  };
+
+  const handleEdit = (mode: ALL_MODE_TYPE, command: string) => {
     setIsEditing(true);
     setEditingMode(mode);
     setEditingCommand(command);
+    setCurrentKeySequence([]);
+    setValidationError("");
     setMessage("新しいキーを押してください...");
+    setTimeout(() =>
+      document.querySelector<HTMLInputElement>(".App__input--editing")?.focus(),
+    );
   };
 
   const handleCancel = () => {
     setIsEditing(false);
     setEditingMode(null);
     setEditingCommand(null);
+    setCurrentKeySequence([]);
+    setValidationError("");
     setMessage("");
   };
 
-  const handleReset = () => {
-    setKeymaps(DEFAULT_KEYMAPS);
-    resetKeymaps().then(() => {
-      setMessage("キーマップをデフォルトにリセットしました！");
-      setTimeout(() => setMessage(""), 3000);
+  const handleConfirm = async () => {
+    if (!editingMode || !editingCommand || currentKeySequence.length === 0)
+      return;
+
+    const error = validateKeySequence(
+      currentKeySequence,
+      editingMode,
+      editingCommand,
+    );
+    if (error) {
+      setValidationError(error);
+      return;
+    }
+
+    const newKeyString = currentKeySequence.join(" ");
+    const updatedKeymaps = { ...keymaps };
+    updatedKeymaps[editingMode][editingCommand] = newKeyString;
+
+    setKeymaps(updatedKeymaps);
+    setIsEditing(false);
+    setEditingMode(null);
+    setEditingCommand(null);
+    setCurrentKeySequence([]);
+    setValidationError("");
+
+    await saveKeymaps(updatedKeymaps);
+    setMessage("保存完了！");
+    setTimeout(() => setMessage(""), MESSAGE_DISPLAY_TIME);
+  };
+
+  const updateKeymaps = (savedKeymaps: Keymaps) => {
+    setKeymaps({
+      common: { ...DEFAULT_KEYMAPS.common, ...savedKeymaps.common },
+      insert: { ...DEFAULT_KEYMAPS.insert, ...savedKeymaps.insert },
+      normal: { ...DEFAULT_KEYMAPS.normal, ...savedKeymaps.normal },
+      visual: { ...DEFAULT_KEYMAPS.visual, ...savedKeymaps.visual },
     });
   };
 
+  const handleReset = async () => {
+    setKeymaps(DEFAULT_KEYMAPS);
+    await resetKeymaps();
+    await loadKeymaps().then(updateKeymaps);
+    setMessage("キーマップをデフォルトにリセットしました！");
+    setTimeout(() => setMessage(""), MESSAGE_DISPLAY_TIME);
+  };
+
   useEffect(() => {
-    loadKeymaps().then((savedKeymaps) => {
-      setKeymaps({
-        common: { ...DEFAULT_KEYMAPS.common, ...savedKeymaps.common },
-        insert: { ...DEFAULT_KEYMAPS.insert, ...savedKeymaps.insert },
-        normal: { ...DEFAULT_KEYMAPS.normal, ...savedKeymaps.normal },
-        visual: { ...DEFAULT_KEYMAPS.visual, ...savedKeymaps.visual },
-      });
-    });
+    loadKeymaps().then(updateKeymaps);
   }, []);
 
   useEffect(() => {
@@ -55,7 +153,12 @@ const App: React.FC = () => {
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (!isEditing) return;
+      if (!isEditing || !editingMode || !editingCommand) return;
+
+      // キーボードで確定やキャンセルにフォーカスできるようにする
+      if (["tab", "enter"].includes(e.key.toLowerCase())) {
+        return;
+      }
 
       e.preventDefault();
 
@@ -72,45 +175,47 @@ const App: React.FC = () => {
         return;
       }
 
-      const updatedKeymaps = { ...keymaps };
-      if (editingMode && editingCommand) {
-        updatedKeymaps[editingMode as keyof typeof updatedKeymaps][
-          editingCommand
-        ] = key;
-        setKeymaps(updatedKeymaps);
-        setIsEditing(false);
-        setEditingMode(null);
-        setEditingCommand(null);
+      const newSequence = [...currentKeySequence, key];
+      setCurrentKeySequence(newSequence);
 
-        saveKeymaps(updatedKeymaps).then(() => {
-          setMessage("保存完了！");
-          setTimeout(() => setMessage(""), 3000);
-        });
+      const error = validateKeySequence(
+        newSequence,
+        editingMode,
+        editingCommand,
+      );
+      setValidationError(error);
+
+      if (error) {
+        setMessage("エラー: " + error);
+      } else {
+        setMessage(
+          `キーシーケンス: ${newSequence.join(" ")} - 確定またはキャンセルしてください`,
+        );
       }
     };
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isEditing, keymaps, editingMode, editingCommand]);
+  }, [isEditing, editingMode, editingCommand, currentKeySequence, keymaps]);
 
   const renderKeymapSection = (
     title: string,
-    mode: string,
-    keymapObj: Keymap,
+    mode: ALL_MODE_TYPE,
+    keymap: Keymap,
   ) => (
     <div className="App__section">
       <h3 className="App__subtitle">{title}</h3>
-      {Object.entries(keymapObj).map(([command, key]) => (
-        <div key={command} className="App__input-group">
-          <label className="App__label" htmlFor={`App__input-${command}`}>
+      {Object.entries(keymap).map(([command, key]) => (
+        <div key={command} className="App__inputGroup">
+          <label className="App__label" htmlFor={`App__input--${command}`}>
             {command.replaceAll("_", " ")}:
           </label>
           <input
-            id={`App__input-${command}`}
+            id={`App__input--${command}`}
             type="text"
             value={
               isEditing && editingMode === mode && editingCommand === command
-                ? "待機中..."
+                ? currentKeySequence.join(" ") || "待機中..."
                 : key
             }
             readOnly
@@ -118,24 +223,42 @@ const App: React.FC = () => {
               isEditing && editingMode === mode && editingCommand === command
                 ? "App__input--editing"
                 : ""
+            } ${
+              validationError &&
+              editingMode === mode &&
+              editingCommand === command
+                ? "App__input--error"
+                : ""
             }`}
           />
-          <button
-            type="button"
-            className="App__button"
-            onClick={
-              isEditing && editingMode === mode && editingCommand === command
-                ? handleCancel
-                : () => handleEdit(mode, command)
-            }
-            disabled={
-              isEditing && !(editingMode === mode && editingCommand === command)
-            }
-          >
-            {isEditing && editingMode === mode && editingCommand === command
-              ? "キャンセル"
-              : "編集"}
-          </button>
+          {isEditing && editingMode === mode && editingCommand === command ? (
+            <div className="App__buttonGroup">
+              <button
+                type="button"
+                className="App__button App__button--confirm"
+                onClick={handleConfirm}
+                disabled={currentKeySequence.length === 0 || !!validationError}
+              >
+                確定
+              </button>
+              <button
+                type="button"
+                className="App__button App__button--cancel"
+                onClick={handleCancel}
+              >
+                キャンセル
+              </button>
+            </div>
+          ) : (
+            <button
+              type="button"
+              className="App__button"
+              onClick={() => handleEdit(mode, command)}
+              disabled={isEditing}
+            >
+              編集
+            </button>
+          )}
         </div>
       ))}
     </div>
@@ -148,7 +271,12 @@ const App: React.FC = () => {
       {renderKeymapSection("Visual Mode Keymaps", "visual", keymaps.visual)}
       {renderKeymapSection("Normal / Visual Keymaps", "common", keymaps.common)}
 
-      <button type="button" onClick={handleReset} disabled={isEditing}>
+      <button
+        type="button"
+        className="App__button"
+        onClick={handleReset}
+        disabled={isEditing}
+      >
         デフォルトにリセット
       </button>
 
