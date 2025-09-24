@@ -39,6 +39,7 @@
     "lefthook": "^1.13.1",
     "sass": "^1.93.0",
     "typescript": "^5.9.2",
+    "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.2.4",
     "wxt": "^0.20.6"
   }
