@@ -10,6 +10,7 @@ import {
 import "./App.scss";
 
 type ALL_MODE_TYPE = MODE_TYPE | "common";
+const MESSAGE_DISPLAY_TIME = 3000;
 
 const App: React.FC = () => {
   const [keymaps, setKeymaps] = useState<Keymaps>(DEFAULT_KEYMAPS);
@@ -122,7 +123,7 @@ const App: React.FC = () => {
 
     await saveKeymaps(updatedKeymaps);
     setMessage("保存完了！");
-    setTimeout(() => setMessage(""), 3000);
+    setTimeout(() => setMessage(""), MESSAGE_DISPLAY_TIME);
   };
 
   const updateKeymaps = (savedKeymaps: Keymaps) => {
@@ -139,7 +140,7 @@ const App: React.FC = () => {
     await resetKeymaps();
     await loadKeymaps().then(updateKeymaps);
     setMessage("キーマップをデフォルトにリセットしました！");
-    setTimeout(() => setMessage(""), 3000);
+    setTimeout(() => setMessage(""), MESSAGE_DISPLAY_TIME);
   };
 
   useEffect(() => {
