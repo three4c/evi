@@ -81,6 +81,9 @@ const App: React.FC = () => {
     setCurrentKeySequence([]);
     setValidationError("");
     setMessage("新しいキーを押してください...");
+    setTimeout(() =>
+      document.querySelector<HTMLInputElement>(".App__input--editing")?.focus(),
+    );
   };
 
   const handleCancel = () => {
@@ -150,6 +153,11 @@ const App: React.FC = () => {
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isEditing || !editingMode || !editingCommand) return;
+
+      // キーボードで確定やキャンセルにフォーカスできるようにする
+      if (["tab", "enter"].includes(e.key.toLowerCase())) {
+        return;
+      }
 
       e.preventDefault();
 
