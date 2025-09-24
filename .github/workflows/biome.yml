@@ -1,5 +1,3 @@
-name: Github Actions
-
 on:
   pull_request:
 
