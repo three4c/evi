@@ -1,7 +1,6 @@
-name: Check Biome
+name: Biome
 
 on:
-  push:
   pull_request:
 
 jobs:
