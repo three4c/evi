@@ -9,5 +9,10 @@ vi.stubGlobal("chrome", {
       get: vi.fn().mockResolvedValue({ shortcuts: undefined }),
       set: vi.fn().mockResolvedValue(undefined),
     },
+    onChanged: {
+      addListener: vi.fn(),
+    },
   },
 });
+
+vi.stubGlobal("defineContentScript", (config: unknown) => config);
