@@ -57,6 +57,7 @@ export const NORMAL_COMMANDS: Record<string, Command> = {
       return { start, end };
     }
   },
+  // TODO: 別途実装
   // delete_line: () => {
   //   console.log("delete_line");
   // },
