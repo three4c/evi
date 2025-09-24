@@ -1,0 +1,32 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`<App /> > Snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="App App--dev"
+  >
+    <p
+      class="App__text"
+    >
+      Vite Dev Mode
+    </p>
+    <input
+      class="App__child"
+      type="text"
+    />
+    <textarea
+      class="App__child"
+    >
+      aaaaa
+bbbbb
+ccccc
+    </textarea>
+    <button
+      class="App__child App__button"
+      type="button"
+    >
+      キーボードショートカット設定
+    </button>
+  </div>
+</DocumentFragment>
+`;
