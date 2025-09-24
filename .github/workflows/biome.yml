@@ -5,6 +5,7 @@ on:
 
 jobs:
   quality:
+    name: Biome
     runs-on: ubuntu-latest
     permissions:
       contents: read
