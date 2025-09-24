@@ -1,10 +1,20 @@
-import { type Command, insertText } from "../utils";
+import { type Command, insertText } from "@/utils";
 
 export const NORMAL_COMMANDS: Record<string, Command> = {
-  h: ({ start, end, col }) => {
+  insert_before: ({ start }) => ({ start, end: start, mode: "insert" }),
+  insert_start: ({ start, end, element }) => {
+    start = end = element.value.lastIndexOf("\n", start) + 1;
+    return { start, end, mode: "insert" };
+  },
+  insert_after: ({ end }) => ({ start: end, end, mode: "insert" }),
+  insert_end: ({ start, end, element }) => {
+    start = end = element.value.indexOf("\n", start);
+    return { start, end, mode: "insert" };
+  },
+  left: ({ start, end, col }) => {
     if (col) return { start: start - 1, end: end - 1 };
   },
-  j: ({ start, col, lines, charCount, currentLine }) => {
+  down: ({ start, col, lines, charCount, currentLine }) => {
     if (currentLine + 1 < lines.length) {
       const nextLineLength = lines[currentLine + 1].length;
       const next = charCount + lines[currentLine].length + 1;
@@ -19,7 +29,7 @@ export const NORMAL_COMMANDS: Record<string, Command> = {
       return { start, end: start + 1 };
     }
   },
-  k: ({ start, col, lines, charCount, currentLine }) => {
+  up: ({ start, col, lines, charCount, currentLine }) => {
     if (currentLine > 0) {
       const prevLineLength = lines[currentLine - 1].length;
       const prev = charCount - (lines[currentLine - 1].length + 1);
@@ -34,11 +44,11 @@ export const NORMAL_COMMANDS: Record<string, Command> = {
       return { start, end: start + 1 };
     }
   },
-  l: ({ start, end, col, lines, currentLine }) => {
+  right: ({ start, end, col, lines, currentLine }) => {
     if (col !== lines[currentLine].length - 1)
       return { start: start + 1, end: end + 1 };
   },
-  J: ({ start, end, element }) => {
+  join_line: ({ start, end, element }) => {
     const nextBreak = element.value.indexOf("\n", start);
     if (nextBreak >= 0) {
       start = nextBreak;
@@ -47,8 +57,11 @@ export const NORMAL_COMMANDS: Record<string, Command> = {
       return { start, end };
     }
   },
-  "d d": () => {},
-  o: ({ start, end, element, length }) => {
+  // TODO: 別途実装
+  // delete_line: () => {
+  //   console.log("delete_line");
+  // },
+  insert_below: ({ start, end, element, length }) => {
     if (element.tagName === "TEXTAREA") {
       const nextBreak = element.value.indexOf("\n", start);
       start = nextBreak === -1 ? length : nextBreak;
@@ -57,7 +70,7 @@ export const NORMAL_COMMANDS: Record<string, Command> = {
       return { start, end, mode: "insert" };
     }
   },
-  O: ({ start, end, element }) => {
+  insert_above: ({ start, end, element }) => {
     if (element.tagName === "TEXTAREA") {
       const prevBreak = element.value.lastIndexOf("\n", start - 1);
       start = prevBreak === -1 ? 0 : prevBreak;
@@ -66,7 +79,7 @@ export const NORMAL_COMMANDS: Record<string, Command> = {
       return { start, end, mode: "insert" };
     }
   },
-  p: async ({ start, end, element, lines, currentLine }) => {
+  paste_after: async ({ start, end, element, lines, currentLine }) => {
     const text = await navigator.clipboard.readText();
     if (text) {
       const pos = lines[currentLine].length === 0 ? start : end;
@@ -76,7 +89,7 @@ export const NORMAL_COMMANDS: Record<string, Command> = {
       return { start, end };
     }
   },
-  P: async ({ start, end, element }) => {
+  paste_before: async ({ start, end, element }) => {
     const text = await navigator.clipboard.readText();
     if (text) {
       insertText(element, start, start, text);
@@ -85,7 +98,7 @@ export const NORMAL_COMMANDS: Record<string, Command> = {
       return { start, end };
     }
   },
-  x: ({ start, end, element }) => {
+  cut_char: ({ start, end, element }) => {
     const text = window.getSelection()?.toString();
     if (text) {
       navigator.clipboard.writeText(text);
@@ -93,17 +106,17 @@ export const NORMAL_COMMANDS: Record<string, Command> = {
       return { start, end };
     }
   },
-  X: ({ start, end, element }) => {
+  cut_char_before: ({ start, end, element }) => {
     start = start - 1;
     end = end - 1;
     navigator.clipboard.writeText(element.value.slice(start, start + 1));
     insertText(element, start, end, "");
     return { start, end };
   },
-  u: () => {
+  undo: () => {
     document.execCommand("undo");
   },
-  "ctrl+r": () => {
+  redo: () => {
     document.execCommand("redo");
   },
 };

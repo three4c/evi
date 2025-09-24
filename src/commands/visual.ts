@@ -1,7 +1,7 @@
-import { type Command, insertText } from "../utils";
+import { type Command, insertText } from "@/utils";
 
 export const VISUAL_COMMANDS: Record<string, Command> = {
-  h: ({ start, end, oStart }) => {
+  expand_left: ({ start, end, oStart }) => {
     const isSingleChar = end - start === 1;
     const shouldMoveStart = isSingleChar ? start <= oStart : start < oStart;
     const atLeftEdge = start === 0 && oStart === 0;
@@ -16,7 +16,15 @@ export const VISUAL_COMMANDS: Record<string, Command> = {
     }
     return { start, end };
   },
-  j: ({ start, end, oStart, currentLine, oCurrentLine, lines, length }) => {
+  expand_down: ({
+    start,
+    end,
+    oStart,
+    currentLine,
+    oCurrentLine,
+    lines,
+    length,
+  }) => {
     const clampToTextBounds = (value: number) =>
       Math.max(0, Math.min(value, length));
     const currentLineLength = lines[currentLine].length + 1;
@@ -33,7 +41,15 @@ export const VISUAL_COMMANDS: Record<string, Command> = {
     }
     return { start, end };
   },
-  k: ({ start, end, oEnd, oCurrentLine, endCurrentLine, lines, length }) => {
+  expand_up: ({
+    start,
+    end,
+    oEnd,
+    oCurrentLine,
+    endCurrentLine,
+    lines,
+    length,
+  }) => {
     const clampToTextBounds = (value: number) =>
       Math.max(0, Math.min(value, length));
     const endCurrentLineLength = lines[endCurrentLine].length + 1;
@@ -50,7 +66,7 @@ export const VISUAL_COMMANDS: Record<string, Command> = {
     }
     return { start, end };
   },
-  l: ({ start, end, oEnd, length }) => {
+  expand_right: ({ start, end, oEnd, length }) => {
     const isSingleChar = end - start === 1;
     const shouldMoveEnd = isSingleChar ? end >= oEnd : end > oEnd;
     const atRightEdge = end === length && oEnd === length;
@@ -65,7 +81,7 @@ export const VISUAL_COMMANDS: Record<string, Command> = {
     }
     return { start, end };
   },
-  p: async ({ start, end, element }) => {
+  replace: async ({ start, end, element }) => {
     const text = await navigator.clipboard.readText();
     if (text) {
       insertText(element, start, end, text);
@@ -74,24 +90,14 @@ export const VISUAL_COMMANDS: Record<string, Command> = {
       return { start, end, mode: "normal" };
     }
   },
-  // FIXME: 外部関数化して、pとPを共通にする
-  P: async ({ start, end, element }) => {
-    const text = await navigator.clipboard.readText();
-    if (text) {
-      insertText(element, start, end, text);
-      start = start + text.length - 1;
-      end = start + 1;
-      return { start, end, mode: "normal" };
-    }
-  },
-  y: ({ oStart, oEnd }) => {
+  copy: ({ oStart, oEnd }) => {
     const text = window.getSelection()?.toString();
     if (text) {
       navigator.clipboard.writeText(text);
       return { start: oStart, end: oEnd, mode: "normal" };
     }
   },
-  x: ({ oStart, oEnd, element }) => {
+  cut: ({ oStart, oEnd, element }) => {
     const text = window.getSelection()?.toString();
     if (text) {
       navigator.clipboard.writeText(text);
