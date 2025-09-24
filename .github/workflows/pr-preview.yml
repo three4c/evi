@@ -1,17 +1,17 @@
-name: Chrome Extension PR Preview
+name: Deploy Chrome Extension ZIP
 
 on:
   pull_request:
-    types: [synchronize, closed]
+    types: [labeled, closed]
 
 jobs:
   pr-preview:
+    if: contains(join(github.event.pull_request.labels.*.name, ','), 'pr-preview')
     runs-on: ubuntu-latest
     permissions:
       contents: write
       issues: write
       pull-requests: write
-    if: contains(join(github.event.pull_request.labels.*.name, ','), 'pr-preview')
 
     steps:
       - name: Checkout repository
