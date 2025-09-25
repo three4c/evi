@@ -6,7 +6,10 @@ export const NORMAL_COMMANDS: Record<string, Command> = {
     start = end = element.value.lastIndexOf("\n", start) + 1;
     return { start, end, mode: "insert" };
   },
-  insert_after: ({ end }) => ({ start: end, end, mode: "insert" }),
+  insert_after: ({ end, lines, currentLine }) => {
+    if (!lines[currentLine].length) end--;
+    return { start: end, end, mode: "insert" };
+  },
   insert_end: ({ start, end, element }) => {
     start = end = element.value.indexOf("\n", start);
     return { start, end, mode: "insert" };
