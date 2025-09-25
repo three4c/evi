@@ -32,7 +32,8 @@
       },
       "style": {
         "useComponentExportOnlyModules": "error",
-        "useImportType": "error"
+        "useImportType": "error",
+        "noInferrableTypes": "error"
       }
     }
   },

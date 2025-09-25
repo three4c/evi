@@ -34,7 +34,7 @@ const App: React.FC = () => {
         className="App__settings"
         onClick={openShortcutSettings}
       >
-        ⚙️
+        ⚙
       </button>
     </div>
   );
