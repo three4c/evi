@@ -2,8 +2,9 @@ import { type Command, insertText } from "@/utils";
 
 export const NORMAL_COMMANDS: Record<string, Command> = {
   insert_before: ({ start }) => ({ start, end: start, mode: "insert" }),
-  insert_start: ({ start, end, element }) => {
+  insert_start: ({ start, end, element, lines, currentLine }) => {
     start = end = element.value.lastIndexOf("\n", start) + 1;
+    if (!lines[currentLine].length) start = end = end - 1;
     return { start, end, mode: "insert" };
   },
   insert_after: ({ end, lines, currentLine }) => {
