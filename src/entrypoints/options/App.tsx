@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { DEFAULT_KEYMAPS } from "@/keymaps";
 import type { Keymap, Keymaps, MODE_TYPE } from "@/utils";
 import {
