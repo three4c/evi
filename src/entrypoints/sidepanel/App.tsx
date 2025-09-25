@@ -71,7 +71,7 @@ const App: React.FC = () => {
 
       return "";
     },
-    [],
+    [keymaps.common, keymaps.visual, keymaps.normal, keymaps[mode]],
   );
 
   const handleEdit = (mode: ALL_MODE_TYPE, command: string) => {
