@@ -11,16 +11,23 @@ exports[`<App /> > Snapshot 1`] = `
       <h3
         class="App__subtitle"
       >
-        Normal Mode
+        Insert Mode Keymaps
       </h3>
       <div
-        class="App__input-group"
+        class="App__inputGroup"
       >
+        <label
+          class="App__label"
+          for="App__input--enter_normal_mode"
+        >
+          enter normal mode:
+        </label>
         <input
-          class="App__input "
+          class="App__input  "
+          id="App__input--enter_normal_mode"
           readonly=""
           type="text"
-          value="Ctrl+Shift+E"
+          value="ctrl+E"
         />
         <button
           class="App__button"
@@ -30,6 +37,660 @@ exports[`<App /> > Snapshot 1`] = `
         </button>
       </div>
     </div>
+    <div
+      class="App__section"
+    >
+      <h3
+        class="App__subtitle"
+      >
+        Normal Mode Keymaps
+      </h3>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--insert_before"
+        >
+          insert before:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--insert_before"
+          readonly=""
+          type="text"
+          value="i"
+        />
+        <button
+          class="App__button"
+          type="button"
+        >
+          編集
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--insert_start"
+        >
+          insert start:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--insert_start"
+          readonly=""
+          type="text"
+          value="I"
+        />
+        <button
+          class="App__button"
+          type="button"
+        >
+          編集
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--insert_after"
+        >
+          insert after:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--insert_after"
+          readonly=""
+          type="text"
+          value="a"
+        />
+        <button
+          class="App__button"
+          type="button"
+        >
+          編集
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--insert_end"
+        >
+          insert end:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--insert_end"
+          readonly=""
+          type="text"
+          value="A"
+        />
+        <button
+          class="App__button"
+          type="button"
+        >
+          編集
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--left"
+        >
+          left:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--left"
+          readonly=""
+          type="text"
+          value="h"
+        />
+        <button
+          class="App__button"
+          type="button"
+        >
+          編集
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--down"
+        >
+          down:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--down"
+          readonly=""
+          type="text"
+          value="j"
+        />
+        <button
+          class="App__button"
+          type="button"
+        >
+          編集
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--up"
+        >
+          up:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--up"
+          readonly=""
+          type="text"
+          value="k"
+        />
+        <button
+          class="App__button"
+          type="button"
+        >
+          編集
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--right"
+        >
+          right:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--right"
+          readonly=""
+          type="text"
+          value="l"
+        />
+        <button
+          class="App__button"
+          type="button"
+        >
+          編集
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--join_line"
+        >
+          join line:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--join_line"
+          readonly=""
+          type="text"
+          value="J"
+        />
+        <button
+          class="App__button"
+          type="button"
+        >
+          編集
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--insert_below"
+        >
+          insert below:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--insert_below"
+          readonly=""
+          type="text"
+          value="o"
+        />
+        <button
+          class="App__button"
+          type="button"
+        >
+          編集
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--insert_above"
+        >
+          insert above:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--insert_above"
+          readonly=""
+          type="text"
+          value="O"
+        />
+        <button
+          class="App__button"
+          type="button"
+        >
+          編集
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--paste_after"
+        >
+          paste after:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--paste_after"
+          readonly=""
+          type="text"
+          value="p"
+        />
+        <button
+          class="App__button"
+          type="button"
+        >
+          編集
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--paste_before"
+        >
+          paste before:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--paste_before"
+          readonly=""
+          type="text"
+          value="P"
+        />
+        <button
+          class="App__button"
+          type="button"
+        >
+          編集
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--cut_char"
+        >
+          cut char:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--cut_char"
+          readonly=""
+          type="text"
+          value="x"
+        />
+        <button
+          class="App__button"
+          type="button"
+        >
+          編集
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--cut_char_before"
+        >
+          cut char before:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--cut_char_before"
+          readonly=""
+          type="text"
+          value="X"
+        />
+        <button
+          class="App__button"
+          type="button"
+        >
+          編集
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--undo"
+        >
+          undo:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--undo"
+          readonly=""
+          type="text"
+          value="u"
+        />
+        <button
+          class="App__button"
+          type="button"
+        >
+          編集
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--redo"
+        >
+          redo:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--redo"
+          readonly=""
+          type="text"
+          value="ctrl+r"
+        />
+        <button
+          class="App__button"
+          type="button"
+        >
+          編集
+        </button>
+      </div>
+    </div>
+    <div
+      class="App__section"
+    >
+      <h3
+        class="App__subtitle"
+      >
+        Visual Mode Keymaps
+      </h3>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--expand_left"
+        >
+          expand left:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--expand_left"
+          readonly=""
+          type="text"
+          value="h"
+        />
+        <button
+          class="App__button"
+          type="button"
+        >
+          編集
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--expand_down"
+        >
+          expand down:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--expand_down"
+          readonly=""
+          type="text"
+          value="j"
+        />
+        <button
+          class="App__button"
+          type="button"
+        >
+          編集
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--expand_up"
+        >
+          expand up:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--expand_up"
+          readonly=""
+          type="text"
+          value="k"
+        />
+        <button
+          class="App__button"
+          type="button"
+        >
+          編集
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--expand_right"
+        >
+          expand right:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--expand_right"
+          readonly=""
+          type="text"
+          value="l"
+        />
+        <button
+          class="App__button"
+          type="button"
+        >
+          編集
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--replace"
+        >
+          replace:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--replace"
+          readonly=""
+          type="text"
+          value="p"
+        />
+        <button
+          class="App__button"
+          type="button"
+        >
+          編集
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--copy"
+        >
+          copy:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--copy"
+          readonly=""
+          type="text"
+          value="y"
+        />
+        <button
+          class="App__button"
+          type="button"
+        >
+          編集
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--cut"
+        >
+          cut:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--cut"
+          readonly=""
+          type="text"
+          value="x"
+        />
+        <button
+          class="App__button"
+          type="button"
+        >
+          編集
+        </button>
+      </div>
+    </div>
+    <div
+      class="App__section"
+    >
+      <h3
+        class="App__subtitle"
+      >
+        Normal / Visual Keymaps
+      </h3>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--delete_char_insert"
+        >
+          delete char insert:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--delete_char_insert"
+          readonly=""
+          type="text"
+          value="s"
+        />
+        <button
+          class="App__button"
+          type="button"
+        >
+          編集
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--delete_line_insert"
+        >
+          delete line insert:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--delete_line_insert"
+          readonly=""
+          type="text"
+          value="S"
+        />
+        <button
+          class="App__button"
+          type="button"
+        >
+          編集
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--toggle_visual"
+        >
+          toggle visual:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--toggle_visual"
+          readonly=""
+          type="text"
+          value="v"
+        />
+        <button
+          class="App__button"
+          type="button"
+        >
+          編集
+        </button>
+      </div>
+    </div>
+    <button
+      class="App__button"
+      type="button"
+    >
+      デフォルトにリセット
+    </button>
   </div>
 </DocumentFragment>
 `;

@@ -9,10 +9,9 @@
     "dev:firefox": "wxt -b firefox",
     "build": "wxt build",
     "build:firefox": "wxt build -b firefox",
-    "lint": "biome lint",
-    "lint:fix": "biome lint --write",
-    "format": "biome format",
-    "format:fix": "biome format --write",
+    "check": "biome check",
+    "check:fix": "biome check --write",
+    "check:fix:unsafe": "biome check --write --unsafe",
     "test": "vitest",
     "test:coverage": "vitest --coverage",
     "zip": "wxt zip",
@@ -40,6 +39,7 @@
     "lefthook": "^1.13.1",
     "sass": "^1.93.0",
     "typescript": "^5.9.2",
+    "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.2.4",
     "wxt": "^0.20.6"
   }
