@@ -1,17 +1,17 @@
-name: Chrome Extension PR Preview
+name: PR Preview
 
 on:
   pull_request:
-    types: [synchronize, closed]
+    types: [labeled, closed]
 
 jobs:
   pr-preview:
+    if: contains(join(github.event.pull_request.labels.*.name, ','), 'pr-preview')
     runs-on: ubuntu-latest
     permissions:
       contents: write
       issues: write
       pull-requests: write
-    if: contains(join(github.event.pull_request.labels.*.name, ','), 'pr-preview')
 
     steps:
       - name: Checkout repository
@@ -44,7 +44,7 @@ jobs:
       - name: Build Vite project and create ZIP
         if: env.ACTION == 'build'
         run: |
-          npm install --legacy-peer-deps 
+          npm install
           npm run zip
           BASE_ZIP=$(ls .output/*.zip | head -n 1)
           SAFE_BRANCH_NAME=$(echo $GITHUB_HEAD_REF | tr '/' '-')

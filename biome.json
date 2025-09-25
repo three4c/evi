@@ -10,13 +10,13 @@
   },
   "formatter": {
     "enabled": true,
-    "includes": ["**", "!.output", "!.wxt"],
+    "includes": ["**", "!.output/**", "!.wxt/**", "!coverage/**"],
     "indentStyle": "space",
     "indentWidth": 2
   },
   "linter": {
     "enabled": true,
-    "includes": ["**", "!.output", "!.wxt"],
+    "includes": ["**", "!.output/**", "!.wxt/**", "!coverage/**"],
     "rules": {
       "recommended": true,
       "correctness": {
@@ -32,7 +32,8 @@
       },
       "style": {
         "useComponentExportOnlyModules": "error",
-        "useImportType": "error"
+        "useImportType": "error",
+        "noInferrableTypes": "error"
       }
     }
   },
