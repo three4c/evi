@@ -6,6 +6,7 @@ import {
   loadKeymaps,
   resetKeymaps,
   saveKeymaps,
+  sendKeymaps,
 } from "@/utils";
 import "./App.scss";
 
@@ -121,6 +122,8 @@ const App: React.FC = () => {
     setValidationError("");
 
     await saveKeymaps(updatedKeymaps);
+    await sendKeymaps(updatedKeymaps);
+
     setMessage("保存完了！");
     setTimeout(() => setMessage(""), MESSAGE_DISPLAY_TIME);
   };

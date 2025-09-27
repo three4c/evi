@@ -1,4 +1,10 @@
-import { handleKeyDown, type MODE_TYPE, type Positions } from "@/utils";
+import {
+  handleKeyDown,
+  type MODE_TYPE,
+  onKeymapsMessaged,
+  type Positions,
+  saveKeymaps,
+} from "@/utils";
 
 let initComplete = false;
 let mode: MODE_TYPE = "insert";
@@ -17,5 +23,6 @@ export default defineContentScript({
   matches: ["<all_urls>"],
   main() {
     initVim();
+    onKeymapsMessaged(saveKeymaps);
   },
 });
