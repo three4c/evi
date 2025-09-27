@@ -121,6 +121,10 @@ const App: React.FC = () => {
     setValidationError("");
 
     await saveKeymaps(updatedKeymaps);
+    await chrome.runtime.sendMessage({
+      keymaps: updatedKeymaps,
+    });
+
     setMessage("保存完了！");
     setTimeout(() => setMessage(""), MESSAGE_DISPLAY_TIME);
   };
