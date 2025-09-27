@@ -49,7 +49,7 @@ export const NORMAL_COMMANDS: Record<string, Command> = {
     }
   },
   right: ({ start, end, col, lines, currentLine }) => {
-    if (col !== lines[currentLine].length - 1)
+    if (col !== (lines[currentLine].length || 1) - 1)
       return { start: start + 1, end: end + 1 };
   },
   join_line: ({ start, end, element }) => {
