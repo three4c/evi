@@ -23,3 +23,13 @@ export const onKeymapsChanged = (callback: (keymaps: Keymaps) => void) => {
     }
   });
 };
+
+export const sendKeymaps = async (keymaps: Keymaps): Promise<void> => {
+  chrome.runtime.sendMessage({
+    keymaps,
+  });
+};
+
+export const onKeymapsMessaged = (callback: (keymaps: Keymaps) => void) => {
+  chrome.runtime.onMessage.addListener((msg) => callback(msg.keymaps));
+};

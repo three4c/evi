@@ -1,6 +1,7 @@
 import {
   handleKeyDown,
   type MODE_TYPE,
+  onKeymapsMessaged,
   type Positions,
   saveKeymaps,
 } from "@/utils";
@@ -22,6 +23,6 @@ export default defineContentScript({
   matches: ["<all_urls>"],
   main() {
     initVim();
-    chrome.runtime.onMessage.addListener((msg) => saveKeymaps(msg.keymaps));
+    onKeymapsMessaged(saveKeymaps);
   },
 });
