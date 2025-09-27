@@ -10,8 +10,7 @@ export const NORMAL_KEYMAPS: Keymap = {
   up: "k",
   right: "l",
   join_line: "J",
-  // TODO: 別途実装
-  // delete_line": "d d",
+  delete_line: "d d",
   insert_below: "o",
   insert_above: "O",
   paste_after: "p",

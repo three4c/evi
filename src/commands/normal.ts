@@ -61,10 +61,16 @@ export const NORMAL_COMMANDS: Record<string, Command> = {
       return { start, end };
     }
   },
-  // TODO: 別途実装
-  // delete_line: () => {
-  //   console.log("delete_line");
-  // },
+  delete_line: ({ element, start, end, lines, currentLine, length }) => {
+    const prevBreak = element.value.lastIndexOf("\n", start);
+    const nextBreak = element.value.indexOf("\n", end);
+    const isAtLastLine = currentLine === lines.length - 1;
+    start = prevBreak === -1 ? 0 : prevBreak + (isAtLastLine ? 0 : 1);
+    end = nextBreak === -1 ? length : nextBreak + 1;
+    insertText(element, start, end, "");
+    if (isAtLastLine) start--;
+    return { start, end: start + 1 };
+  },
   insert_below: ({ start, end, element, length }) => {
     if (element.tagName === "TEXTAREA") {
       const nextBreak = element.value.indexOf("\n", start);
