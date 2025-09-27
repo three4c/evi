@@ -1,4 +1,9 @@
-import { handleKeyDown, type MODE_TYPE, type Positions } from "@/utils";
+import {
+  handleKeyDown,
+  type MODE_TYPE,
+  type Positions,
+  saveKeymaps,
+} from "@/utils";
 
 let initComplete = false;
 let mode: MODE_TYPE = "insert";
@@ -18,8 +23,6 @@ export default defineContentScript({
   matches: ["<all_urls>"],
   main() {
     initVim();
-    chrome.runtime.onMessage.addListener((msg) => {
-      // console.log("Received in content script:", msg.keymaps);
-    });
+    chrome.runtime.onMessage.addListener((msg) => saveKeymaps(msg.keymaps));
   },
 });
