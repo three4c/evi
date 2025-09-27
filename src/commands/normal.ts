@@ -71,6 +71,16 @@ export const NORMAL_COMMANDS: Record<string, Command> = {
     if (isAtLastLine) start--;
     return { start, end: start + 1 };
   },
+  delete_after: ({ element, start, end, length, col, lines }) => {
+    const nextBreak = element.value.indexOf("\n", end);
+    if (lines.length > 1 && col === 0) start--;
+    end = nextBreak === -1 ? length : nextBreak;
+    insertText(element, start, end, "");
+    if (start) start--;
+    if (element.value.charAt(start) === "\n") start--;
+    end = start + 1;
+    return { start, end };
+  },
   insert_below: ({ start, end, element, length }) => {
     if (element.tagName === "TEXTAREA") {
       const nextBreak = element.value.indexOf("\n", start);
