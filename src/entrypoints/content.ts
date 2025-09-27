@@ -8,7 +8,6 @@ import {
 let initComplete = false;
 let mode: MODE_TYPE = "insert";
 let pos: Positions = { start: 0, end: 0, oStart: 0, oEnd: 0, oCurrentLine: 0 };
-let keymaps: Keymaps | null = null;
 
 const keydown = async (e: KeyboardEvent) =>
   ({ mode, pos } = await handleKeyDown(e, { mode, pos }));
