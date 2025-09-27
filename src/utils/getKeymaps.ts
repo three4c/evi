@@ -1,5 +1,5 @@
 import { DEFAULT_KEYMAPS } from "@/keymaps";
-import { loadKeymaps } from "@/utils";
+import { type Keymaps, loadKeymaps } from "@/utils";
 
 let cachedKeymaps: Keymaps | null = null;
 
