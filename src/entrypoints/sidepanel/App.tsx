@@ -284,7 +284,7 @@ const App: React.FC = () => {
 
       <button
         type="button"
-        className="App__button"
+        className="App__button App__button--reset"
         onClick={handleReset}
         disabled={isEditing}
       >
