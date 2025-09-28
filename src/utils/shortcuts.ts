@@ -39,3 +39,11 @@ export const openSidePanel = () => {
     .setPanelBehavior({ openPanelOnActionClick: true })
     .catch(() => {});
 };
+
+export const onKeymapsResponse = (callback: (keymaps: Keymaps) => void) => {
+  chrome.runtime.onMessage.addListener((msg, _, sendResponse) => {
+    callback(msg.keymaps);
+    sendResponse({ statusCode: 200 });
+    return true;
+  });
+};
