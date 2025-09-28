@@ -40,9 +40,16 @@ export const openSidePanel = () => {
     .catch(() => {});
 };
 
-export const onKeymapsResponse = (callback: (keymaps: Keymaps) => void) => {
-  chrome.runtime.onMessage.addListener((msg, _, sendResponse) => {
-    callback(msg.keymaps);
+export const onKeymapsTabMessaged = () => {
+  chrome.runtime.onMessage.addListener(({ keymaps }, _, sendResponse) => {
+    chrome.tabs.query({}, (tabs) => {
+      for (const tab of tabs) {
+        if (tab.id) {
+          chrome.tabs.sendMessage(tab.id, { keymaps });
+        }
+      }
+    });
+
     sendResponse({ statusCode: 200 });
     return true;
   });
