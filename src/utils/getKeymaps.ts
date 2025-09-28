@@ -1,12 +1,14 @@
 import { DEFAULT_KEYMAPS } from "@/keymaps";
-import { type Keymaps, loadKeymaps } from "@/utils";
+import { type Keymaps, loadKeymaps, onKeymapsChanged } from "@/utils";
 
 let cachedKeymaps: Keymaps | null = null;
 let isUpdating = false;
 
-onKeymapsChanged(() => {
-  isUpdating = true;
-});
+export const markKeymapsUpdating = () => {
+  onKeymapsChanged(() => {
+    isUpdating = true;
+  });
+};
 
 export const getKeymaps = async () => {
   if (!cachedKeymaps || isUpdating) {

@@ -4,6 +4,7 @@ import type { Keymap, Keymaps, MODE_TYPE } from "@/utils";
 import {
   detectModifierKey,
   loadKeymaps,
+  markKeymapsUpdating,
   resetKeymaps,
   saveKeymaps,
   sendKeymaps,
@@ -147,6 +148,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     loadKeymaps().then(updateKeymaps);
+    markKeymapsUpdating();
   }, [updateKeymaps]);
 
   useEffect(() => {
