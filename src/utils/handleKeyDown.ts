@@ -82,7 +82,7 @@ export const handleKeyDown = async (
     keyHistory = [];
   } else {
     // 見つからなければ、キー履歴に追加してコンビネーションで探す
-    keyHistory.push(key);
+    if (key) keyHistory.push(key);
 
     if (keyHistory.length > maxHistory) {
       keyHistory.shift();
@@ -93,6 +93,10 @@ export const handleKeyDown = async (
 
     if (commandName) {
       newValues = await commands[commandName](combinedArgs);
+      keyHistory = [];
+    }
+
+    if (keyHistory.length === maxHistory) {
       keyHistory = [];
     }
   }
