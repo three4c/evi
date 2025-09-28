@@ -23,7 +23,7 @@ const App: React.FC = () => {
   const [validationError, setValidationError] = useState("");
 
   const validateKeySequence = useCallback(
-    (sequence: string[], mode: ALL_MODE_TYPE, command: string): string => {
+    (sequence: string[], mode: ALL_MODE_TYPE, command: string) => {
       if (sequence.length === 0) {
         return "キーシーケンスが空です";
       }
@@ -72,7 +72,7 @@ const App: React.FC = () => {
 
       return "";
     },
-    [],
+    [keymaps],
   );
 
   const handleEdit = (mode: ALL_MODE_TYPE, command: string) => {

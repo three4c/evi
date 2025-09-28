@@ -4,6 +4,9 @@ import { defineConfig } from "wxt";
 export default defineConfig({
   modules: ["@wxt-dev/module-react"],
   srcDir: "src",
+  runner: {
+    startUrls: ["dev/index.html"],
+  },
   manifest: {
     permissions: ["storage", "clipboardRead", "sidePanel"],
   },
