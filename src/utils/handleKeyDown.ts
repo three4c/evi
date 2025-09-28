@@ -76,7 +76,7 @@ export const handleKeyDown = async (
   // 1キーのコマンドを探す
   let commandName = findCommand(key, keymapsForMode, commands);
 
-  if (commandName) {
+  if (commandName && !keyHistory.length) {
     // 1キーで該当のコマンドが見つかったら発火
     newValues = await commands[commandName](combinedArgs);
     keyHistory = [];

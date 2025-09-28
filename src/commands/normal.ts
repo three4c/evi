@@ -61,6 +61,22 @@ export const NORMAL_COMMANDS: Record<string, Command> = {
       return { start, end };
     }
   },
+  delete_left: ({ element, start, end }) => {
+    start--;
+    end--;
+    insertText(element, start, end, "");
+    return { start, end };
+  },
+  delete_down: () => {
+    return {};
+  },
+  delete_up: () => {
+    return {};
+  },
+  delete_right: ({ element, start, end }) => {
+    insertText(element, start, end, "");
+    return { start, end };
+  },
   delete_line: ({ element, start, end, lines, currentLine, length }) => {
     const prevBreak = element.value.lastIndexOf("\n", start);
     const nextBreak = element.value.indexOf("\n", end);
