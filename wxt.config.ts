@@ -4,7 +4,7 @@ import { defineConfig } from "wxt";
 export default defineConfig({
   modules: ["@wxt-dev/module-react"],
   srcDir: "src",
-  runner: {
+  webExt: {
     startUrls: ["dev/index.html"],
   },
   manifest: {
