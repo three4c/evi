@@ -1,9 +1,9 @@
-export default defineBackground(() => {
-  chrome.sidePanel
-    .setPanelBehavior({ openPanelOnActionClick: true })
-    .catch(() => {});
+import { openSidePanel } from "@/utils/";
 
-  chrome.runtime.onMessage.addListener((msg, _, sendResponse) => {
+export default defineBackground(() => {
+  openSidePanel();
+
+  chrome.runtime.onMessage.addListener((msg) => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       if (tabs[0]?.id) {
         chrome.tabs.sendMessage(tabs[0].id, {
@@ -12,7 +12,6 @@ export default defineBackground(() => {
       }
     });
 
-    sendResponse({ statusCode: 200 });
     return true;
   });
 });

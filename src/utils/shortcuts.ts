@@ -25,11 +25,17 @@ export const onKeymapsChanged = (callback: (keymaps: Keymaps) => void) => {
 };
 
 export const sendKeymaps = async (keymaps: Keymaps): Promise<void> => {
-  chrome.runtime.sendMessage({
+  await chrome.runtime.sendMessage({
     keymaps,
   });
 };
 
 export const onKeymapsMessaged = (callback: (keymaps: Keymaps) => void) => {
-  chrome.runtime.onMessage.addListener((msg) => callback(msg.keymaps));
+  chrome.runtime.onMessage.addListener(({ keymaps }) => callback(keymaps));
+};
+
+export const openSidePanel = () => {
+  chrome.sidePanel
+    .setPanelBehavior({ openPanelOnActionClick: true })
+    .catch(() => {});
 };
