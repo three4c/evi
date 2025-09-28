@@ -14,8 +14,9 @@ const keydown = async (e: KeyboardEvent) =>
   ({ mode, pos } = await handleKeyDown(e, { mode, pos }));
 
 export const initVim = () => {
+  if (initComplete) return;
   window.addEventListener("keydown", keydown);
-  return () => removeEventListener("keydown", keydown);
+  initComplete = true;
 };
 
 export default defineContentScript({
