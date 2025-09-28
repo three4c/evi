@@ -128,17 +128,14 @@ const App: React.FC = () => {
     setTimeout(() => setMessage(""), MESSAGE_DISPLAY_TIME);
   };
 
-  const updateKeymaps = useCallback(
-    () => (savedKeymaps: Keymaps) => {
-      setKeymaps({
-        common: { ...DEFAULT_KEYMAPS.common, ...savedKeymaps.common },
-        insert: { ...DEFAULT_KEYMAPS.insert, ...savedKeymaps.insert },
-        normal: { ...DEFAULT_KEYMAPS.normal, ...savedKeymaps.normal },
-        visual: { ...DEFAULT_KEYMAPS.visual, ...savedKeymaps.visual },
-      });
-    },
-    [],
-  );
+  const updateKeymaps = useCallback((savedKeymaps: Keymaps) => {
+    setKeymaps({
+      common: { ...DEFAULT_KEYMAPS.common, ...savedKeymaps.common },
+      insert: { ...DEFAULT_KEYMAPS.insert, ...savedKeymaps.insert },
+      normal: { ...DEFAULT_KEYMAPS.normal, ...savedKeymaps.normal },
+      visual: { ...DEFAULT_KEYMAPS.visual, ...savedKeymaps.visual },
+    });
+  }, []);
 
   const handleReset = async () => {
     setKeymaps(DEFAULT_KEYMAPS);
