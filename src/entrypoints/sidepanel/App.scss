@@ -1,9 +1,10 @@
 .App {
   font-family: system-ui;
   font-size: 14px;
-  padding: 16px 16px 56px;
+  padding: 32px 16px;
+  margin: 39px 0;
 
-  &__section {
+  &__section:not(:last-of-type) {
     margin-bottom: 32px;
   }
 
@@ -17,9 +18,12 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 8px;
 
-    > * {
+    &:not(:last-child) {
+      margin-bottom: 8px;
+    }
+
+    >* {
       flex-shrink: 0;
     }
   }
@@ -50,8 +54,9 @@
 
     &--reset {
       position: fixed;
-      left: 16px;
-      bottom: 16px;
+      right: 0;
+      bottom: 0;
+      margin: 16px;
     }
   }
 
@@ -63,7 +68,7 @@
   &__message {
     position: fixed;
     right: 0;
-    bottom: 0;
+    top: 0;
     margin: 16px;
     padding: 8px;
     border-radius: 4px;
