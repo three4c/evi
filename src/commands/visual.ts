@@ -81,6 +81,13 @@ export const VISUAL_COMMANDS: Record<string, Command> = {
     }
     return { start, end };
   },
+  delete: ({ element, start, end, length }) => {
+    if (element.value.charAt(start - 1) === "\n" && end === length) start--;
+    insertText(element, start, end, "");
+    if (end === length) start--;
+    end = start + 1;
+    return { start, end, mode: "normal" };
+  },
   replace: async ({ start, end, element }) => {
     const text = await navigator.clipboard.readText();
     if (text) {
