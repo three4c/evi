@@ -1,7 +1,9 @@
 body {
-  background: linear-gradient(180deg,
-      rgba(255, 175, 0, 1) 0%,
-      rgba(255, 34, 101, 1) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 175, 0, 1) 0%,
+    rgba(255, 34, 101, 1) 100%
+  );
   display: flex;
   align-items: center;
   justify-content: center;
