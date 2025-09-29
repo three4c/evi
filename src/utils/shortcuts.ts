@@ -23,3 +23,29 @@ export const onKeymapsChanged = (callback: (keymaps: Keymaps) => void) => {
     }
   });
 };
+
+export const onKeymapsMessaged = (callback: (keymaps: Keymaps) => void) => {
+  chrome.runtime.onMessage.addListener(({ keymaps }) => callback(keymaps));
+};
+
+export const openSidePanel = () => {
+  chrome.sidePanel
+    .setPanelBehavior({ openPanelOnActionClick: true })
+    .catch(() => {});
+};
+
+export const onKeymapsChangedMessaged = () => {
+  chrome.storage.onChanged.addListener((changes, areaName) => {
+    if (areaName === "sync" && changes.keymaps) {
+      chrome.tabs.query({}, (tabs) => {
+        for (const tab of tabs) {
+          if (tab.id) {
+            chrome.tabs.sendMessage(tab.id, {
+              keymaps: changes.keymaps.newValue,
+            });
+          }
+        }
+      });
+    }
+  });
+};

@@ -30,10 +30,11 @@ exports[`<App /> > Snapshot 1`] = `
           value="ctrl+E"
         />
         <button
+          aria-label="編集"
           class="App__button"
           type="button"
         >
-          編集
+          ✏️
         </button>
       </div>
     </div>
@@ -62,10 +63,11 @@ exports[`<App /> > Snapshot 1`] = `
           value="i"
         />
         <button
+          aria-label="編集"
           class="App__button"
           type="button"
         >
-          編集
+          ✏️
         </button>
       </div>
       <div
@@ -85,10 +87,11 @@ exports[`<App /> > Snapshot 1`] = `
           value="I"
         />
         <button
+          aria-label="編集"
           class="App__button"
           type="button"
         >
-          編集
+          ✏️
         </button>
       </div>
       <div
@@ -108,10 +111,11 @@ exports[`<App /> > Snapshot 1`] = `
           value="a"
         />
         <button
+          aria-label="編集"
           class="App__button"
           type="button"
         >
-          編集
+          ✏️
         </button>
       </div>
       <div
@@ -131,10 +135,11 @@ exports[`<App /> > Snapshot 1`] = `
           value="A"
         />
         <button
+          aria-label="編集"
           class="App__button"
           type="button"
         >
-          編集
+          ✏️
         </button>
       </div>
       <div
@@ -154,10 +159,11 @@ exports[`<App /> > Snapshot 1`] = `
           value="h"
         />
         <button
+          aria-label="編集"
           class="App__button"
           type="button"
         >
-          編集
+          ✏️
         </button>
       </div>
       <div
@@ -177,10 +183,11 @@ exports[`<App /> > Snapshot 1`] = `
           value="j"
         />
         <button
+          aria-label="編集"
           class="App__button"
           type="button"
         >
-          編集
+          ✏️
         </button>
       </div>
       <div
@@ -200,10 +207,11 @@ exports[`<App /> > Snapshot 1`] = `
           value="k"
         />
         <button
+          aria-label="編集"
           class="App__button"
           type="button"
         >
-          編集
+          ✏️
         </button>
       </div>
       <div
@@ -223,10 +231,11 @@ exports[`<App /> > Snapshot 1`] = `
           value="l"
         />
         <button
+          aria-label="編集"
           class="App__button"
           type="button"
         >
-          編集
+          ✏️
         </button>
       </div>
       <div
@@ -246,10 +255,11 @@ exports[`<App /> > Snapshot 1`] = `
           value="J"
         />
         <button
+          aria-label="編集"
           class="App__button"
           type="button"
         >
-          編集
+          ✏️
         </button>
       </div>
       <div
@@ -269,10 +279,11 @@ exports[`<App /> > Snapshot 1`] = `
           value="o"
         />
         <button
+          aria-label="編集"
           class="App__button"
           type="button"
         >
-          編集
+          ✏️
         </button>
       </div>
       <div
@@ -292,10 +303,11 @@ exports[`<App /> > Snapshot 1`] = `
           value="O"
         />
         <button
+          aria-label="編集"
           class="App__button"
           type="button"
         >
-          編集
+          ✏️
         </button>
       </div>
       <div
@@ -315,10 +327,11 @@ exports[`<App /> > Snapshot 1`] = `
           value="p"
         />
         <button
+          aria-label="編集"
           class="App__button"
           type="button"
         >
-          編集
+          ✏️
         </button>
       </div>
       <div
@@ -338,10 +351,11 @@ exports[`<App /> > Snapshot 1`] = `
           value="P"
         />
         <button
+          aria-label="編集"
           class="App__button"
           type="button"
         >
-          編集
+          ✏️
         </button>
       </div>
       <div
@@ -361,10 +375,11 @@ exports[`<App /> > Snapshot 1`] = `
           value="x"
         />
         <button
+          aria-label="編集"
           class="App__button"
           type="button"
         >
-          編集
+          ✏️
         </button>
       </div>
       <div
@@ -384,10 +399,11 @@ exports[`<App /> > Snapshot 1`] = `
           value="X"
         />
         <button
+          aria-label="編集"
           class="App__button"
           type="button"
         >
-          編集
+          ✏️
         </button>
       </div>
       <div
@@ -407,10 +423,11 @@ exports[`<App /> > Snapshot 1`] = `
           value="u"
         />
         <button
+          aria-label="編集"
           class="App__button"
           type="button"
         >
-          編集
+          ✏️
         </button>
       </div>
       <div
@@ -430,10 +447,11 @@ exports[`<App /> > Snapshot 1`] = `
           value="ctrl+r"
         />
         <button
+          aria-label="編集"
           class="App__button"
           type="button"
         >
-          編集
+          ✏️
         </button>
       </div>
     </div>
@@ -462,10 +480,11 @@ exports[`<App /> > Snapshot 1`] = `
           value="h"
         />
         <button
+          aria-label="編集"
           class="App__button"
           type="button"
         >
-          編集
+          ✏️
         </button>
       </div>
       <div
@@ -485,10 +504,11 @@ exports[`<App /> > Snapshot 1`] = `
           value="j"
         />
         <button
+          aria-label="編集"
           class="App__button"
           type="button"
         >
-          編集
+          ✏️
         </button>
       </div>
       <div
@@ -508,10 +528,11 @@ exports[`<App /> > Snapshot 1`] = `
           value="k"
         />
         <button
+          aria-label="編集"
           class="App__button"
           type="button"
         >
-          編集
+          ✏️
         </button>
       </div>
       <div
@@ -531,10 +552,11 @@ exports[`<App /> > Snapshot 1`] = `
           value="l"
         />
         <button
+          aria-label="編集"
           class="App__button"
           type="button"
         >
-          編集
+          ✏️
         </button>
       </div>
       <div
@@ -554,10 +576,11 @@ exports[`<App /> > Snapshot 1`] = `
           value="p"
         />
         <button
+          aria-label="編集"
           class="App__button"
           type="button"
         >
-          編集
+          ✏️
         </button>
       </div>
       <div
@@ -577,10 +600,11 @@ exports[`<App /> > Snapshot 1`] = `
           value="y"
         />
         <button
+          aria-label="編集"
           class="App__button"
           type="button"
         >
-          編集
+          ✏️
         </button>
       </div>
       <div
@@ -600,10 +624,11 @@ exports[`<App /> > Snapshot 1`] = `
           value="x"
         />
         <button
+          aria-label="編集"
           class="App__button"
           type="button"
         >
-          編集
+          ✏️
         </button>
       </div>
     </div>
@@ -632,10 +657,11 @@ exports[`<App /> > Snapshot 1`] = `
           value="s"
         />
         <button
+          aria-label="編集"
           class="App__button"
           type="button"
         >
-          編集
+          ✏️
         </button>
       </div>
       <div
@@ -655,10 +681,11 @@ exports[`<App /> > Snapshot 1`] = `
           value="S"
         />
         <button
+          aria-label="編集"
           class="App__button"
           type="button"
         >
-          編集
+          ✏️
         </button>
       </div>
       <div
@@ -678,15 +705,16 @@ exports[`<App /> > Snapshot 1`] = `
           value="v"
         />
         <button
+          aria-label="編集"
           class="App__button"
           type="button"
         >
-          編集
+          ✏️
         </button>
       </div>
     </div>
     <button
-      class="App__button"
+      class="App__button App__button--reset"
       type="button"
     >
       デフォルトにリセット
