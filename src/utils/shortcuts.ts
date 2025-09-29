@@ -24,12 +24,6 @@ export const onKeymapsChanged = (callback: (keymaps: Keymaps) => void) => {
   });
 };
 
-export const sendKeymaps = async (keymaps: Keymaps): Promise<void> => {
-  await chrome.runtime.sendMessage({
-    keymaps,
-  });
-};
-
 export const onKeymapsMessaged = (callback: (keymaps: Keymaps) => void) => {
   chrome.runtime.onMessage.addListener(({ keymaps }) => callback(keymaps));
 };
@@ -40,17 +34,18 @@ export const openSidePanel = () => {
     .catch(() => {});
 };
 
-export const onKeymapsTabMessaged = () => {
-  chrome.runtime.onMessage.addListener(({ keymaps }, _, sendResponse) => {
-    chrome.tabs.query({}, (tabs) => {
-      for (const tab of tabs) {
-        if (tab.id) {
-          chrome.tabs.sendMessage(tab.id, { keymaps });
+export const onKeymapsChangedMessaged = () => {
+  chrome.storage.onChanged.addListener((changes, areaName) => {
+    if (areaName === "sync" && changes.keymaps) {
+      chrome.tabs.query({}, (tabs) => {
+        for (const tab of tabs) {
+          if (tab.id) {
+            chrome.tabs.sendMessage(tab.id, {
+              keymaps: changes.keymaps.newValue,
+            });
+          }
         }
-      }
-    });
-
-    sendResponse({ statusCode: 200 });
-    return true;
+      });
+    }
   });
 };

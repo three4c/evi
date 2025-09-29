@@ -4,10 +4,8 @@ import type { Keymap, Keymaps, MODE_TYPE } from "@/utils";
 import {
   detectModifierKey,
   loadKeymaps,
-  markKeymapsUpdating,
   resetKeymaps,
   saveKeymaps,
-  sendKeymaps,
 } from "@/utils";
 import "./App.scss";
 
@@ -123,8 +121,6 @@ const App: React.FC = () => {
     setValidationError("");
 
     await saveKeymaps(updatedKeymaps);
-    await sendKeymaps(updatedKeymaps);
-
     setMessage("保存完了！");
     setTimeout(() => setMessage(""), MESSAGE_DISPLAY_TIME);
   };
@@ -148,7 +144,6 @@ const App: React.FC = () => {
 
   useEffect(() => {
     loadKeymaps().then(updateKeymaps);
-    markKeymapsUpdating();
   }, [updateKeymaps]);
 
   useEffect(() => {
@@ -248,15 +243,17 @@ const App: React.FC = () => {
                 className="App__button App__button--confirm"
                 onClick={handleConfirm}
                 disabled={currentKeySequence.length === 0 || !!validationError}
+                aria-label="確定"
               >
-                確定
+                &#9989;
               </button>
               <button
                 type="button"
                 className="App__button App__button--cancel"
                 onClick={handleCancel}
+                aria-label="キャンセル"
               >
-                キャンセル
+                &#10060;
               </button>
             </div>
           ) : (
@@ -265,8 +262,9 @@ const App: React.FC = () => {
               className="App__button"
               onClick={() => handleEdit(mode, command)}
               disabled={isEditing}
+              aria-label="編集"
             >
-              編集
+              &#x270F;&#xFE0F;
             </button>
           )}
         </div>

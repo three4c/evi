@@ -1,6 +1,6 @@
-import { onKeymapsTabMessaged, openSidePanel } from "@/utils/";
+import { onKeymapsChangedMessaged, openSidePanel } from "@/utils/";
 
 export default defineBackground(() => {
   openSidePanel();
-  onKeymapsTabMessaged();
+  onKeymapsChangedMessaged();
 });
