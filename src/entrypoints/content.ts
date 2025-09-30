@@ -26,6 +26,8 @@ export default defineContentScript({
 
     const keydown = async (e: KeyboardEvent) =>
       ({ mode, pos } = await handleKeyDown(e, { mode, pos }, keymaps));
+    const resetMode = () => (mode = "insert");
     window.addEventListener("keydown", keydown);
+    window.addEventListener("focusout", resetMode);
   },
 });
