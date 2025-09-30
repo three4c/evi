@@ -4,7 +4,10 @@ import { defineConfig } from "wxt";
 export default defineConfig({
   modules: ["@wxt-dev/module-react"],
   srcDir: "src",
+  webExt: {
+    startUrls: ["dev/index.html"],
+  },
   manifest: {
-    permissions: ["storage", "clipboardRead"],
+    permissions: ["storage", "clipboardRead", "sidePanel"],
   },
 });

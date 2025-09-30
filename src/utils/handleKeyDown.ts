@@ -4,12 +4,11 @@ import {
   NORMAL_COMMANDS,
   VISUAL_COMMANDS,
 } from "@/commands";
-import type { Args, Command, Keymap } from "@/utils";
+import type { Args, Command, Keymap, Keymaps } from "@/utils";
 import {
   detectModifierKey,
   findCommand,
   getElement,
-  getKeymaps,
   getLines,
   getMaxKeyHistory,
 } from "@/utils";
@@ -20,6 +19,7 @@ let keyHistory: string[] = [];
 export const handleKeyDown = async (
   e: KeyboardEvent,
   args: Args,
+  keymaps: Keymaps,
 ): Promise<Args> => {
   const activeElement = document.activeElement;
   const element = getElement(activeElement);
@@ -27,7 +27,6 @@ export const handleKeyDown = async (
     return { mode: args.mode, pos: args.pos };
 
   const { mode } = args;
-  const keymaps = await getKeymaps();
 
   const combinedArgs = {
     mode,

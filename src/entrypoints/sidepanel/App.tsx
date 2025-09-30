@@ -22,7 +22,7 @@ const App: React.FC = () => {
   const [validationError, setValidationError] = useState("");
 
   const validateKeySequence = useCallback(
-    (sequence: string[], mode: ALL_MODE_TYPE, command: string): string => {
+    (sequence: string[], mode: ALL_MODE_TYPE, command: string) => {
       if (sequence.length === 0) {
         return "キーシーケンスが空です";
       }
@@ -71,7 +71,7 @@ const App: React.FC = () => {
 
       return "";
     },
-    [],
+    [keymaps],
   );
 
   const handleEdit = (mode: ALL_MODE_TYPE, command: string) => {
@@ -125,17 +125,14 @@ const App: React.FC = () => {
     setTimeout(() => setMessage(""), MESSAGE_DISPLAY_TIME);
   };
 
-  const updateKeymaps = useCallback(
-    () => (savedKeymaps: Keymaps) => {
-      setKeymaps({
-        common: { ...DEFAULT_KEYMAPS.common, ...savedKeymaps.common },
-        insert: { ...DEFAULT_KEYMAPS.insert, ...savedKeymaps.insert },
-        normal: { ...DEFAULT_KEYMAPS.normal, ...savedKeymaps.normal },
-        visual: { ...DEFAULT_KEYMAPS.visual, ...savedKeymaps.visual },
-      });
-    },
-    [],
-  );
+  const updateKeymaps = useCallback((savedKeymaps: Keymaps) => {
+    setKeymaps({
+      common: { ...DEFAULT_KEYMAPS.common, ...savedKeymaps.common },
+      insert: { ...DEFAULT_KEYMAPS.insert, ...savedKeymaps.insert },
+      normal: { ...DEFAULT_KEYMAPS.normal, ...savedKeymaps.normal },
+      visual: { ...DEFAULT_KEYMAPS.visual, ...savedKeymaps.visual },
+    });
+  }, []);
 
   const handleReset = async () => {
     setKeymaps(DEFAULT_KEYMAPS);
@@ -246,15 +243,17 @@ const App: React.FC = () => {
                 className="App__button App__button--confirm"
                 onClick={handleConfirm}
                 disabled={currentKeySequence.length === 0 || !!validationError}
+                aria-label="確定"
               >
-                確定
+                &#9989;
               </button>
               <button
                 type="button"
                 className="App__button App__button--cancel"
                 onClick={handleCancel}
+                aria-label="キャンセル"
               >
-                キャンセル
+                &#10060;
               </button>
             </div>
           ) : (
@@ -263,8 +262,9 @@ const App: React.FC = () => {
               className="App__button"
               onClick={() => handleEdit(mode, command)}
               disabled={isEditing}
+              aria-label="編集"
             >
-              編集
+              &#x270F;&#xFE0F;
             </button>
           )}
         </div>
@@ -281,7 +281,7 @@ const App: React.FC = () => {
 
       <button
         type="button"
-        className="App__button"
+        className="App__button App__button--reset"
         onClick={handleReset}
         disabled={isEditing}
       >
