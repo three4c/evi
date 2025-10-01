@@ -36,6 +36,11 @@ export type Keymaps = {
   visual: Keymap;
 };
 
+export interface Badge {
+  text: string;
+  color: [number, number, number, number];
+}
+
 /** Vimコマンド関数のシグニチャ */
 export type Command = (
   args: CombinedArgs,

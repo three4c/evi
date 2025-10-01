@@ -9,5 +9,9 @@ export default defineConfig({
   },
   manifest: {
     permissions: ["storage", "clipboardRead", "sidePanel"],
+    action: {
+      default_title: "evi - displays current mode",
+      default_icon: {},
+    },
   },
 });

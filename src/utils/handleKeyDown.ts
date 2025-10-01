@@ -6,11 +6,14 @@ import {
 } from "@/commands";
 import type { Args, Command, Keymap, Keymaps } from "@/utils";
 import {
+  type Badge,
   detectModifierKey,
   findCommand,
   getElement,
   getLines,
   getMaxKeyHistory,
+  modeMap,
+  sendMessage,
 } from "@/utils";
 
 const DOM_ARRAY = ["INPUT", "TEXTAREA"];
@@ -44,6 +47,15 @@ export const handleKeyDown = async (
       const newValues = await INSERT_COMMANDS[commandName](combinedArgs);
       keyHistory = [];
       const { mode: newMode, ...newPos } = newValues || {};
+
+      if (newMode && newMode !== mode) {
+        const { text, color } = modeMap[newMode];
+        sendMessage<Badge>({
+          text,
+          color,
+        });
+      }
+
       return {
         pos: { ...args.pos, ...newPos },
         mode: newMode ?? mode,
@@ -102,6 +114,15 @@ export const handleKeyDown = async (
   );
 
   const { mode: newMode, ...newPos } = newValues || {};
+
+  if (newMode && newMode !== mode) {
+    const { text, color } = modeMap[newMode];
+    sendMessage<Badge>({
+      text,
+      color,
+    });
+  }
+
   return {
     pos: { ...args.pos, ...newPos },
     mode: newMode ?? mode,

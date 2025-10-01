@@ -6,5 +6,6 @@ export * from "./getLines";
 export * from "./getMaxKeyHistory";
 export * from "./handleKeyDown";
 export * from "./insertText";
+export * from "./modeMap";
 export * from "./shortcuts";
 export * from "./types";

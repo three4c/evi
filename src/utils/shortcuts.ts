@@ -24,10 +24,6 @@ export const onKeymapsChanged = (callback: (keymaps: Keymaps) => void) => {
   });
 };
 
-export const onKeymapsMessaged = (callback: (keymaps: Keymaps) => void) => {
-  chrome.runtime.onMessage.addListener(({ keymaps }) => callback(keymaps));
-};
-
 export const openSidePanel = () => {
   chrome.sidePanel
     .setPanelBehavior({ openPanelOnActionClick: true })
@@ -48,4 +44,20 @@ export const onKeymapsChangedMessaged = () => {
       });
     }
   });
+};
+
+export const saveBadge = (
+  text: string,
+  color: [number, number, number, number],
+) => {
+  chrome.action.setBadgeText({ text });
+  chrome.action.setBadgeBackgroundColor({ color });
+};
+
+export const sendMessage = <T>(args: T) => {
+  chrome.runtime.sendMessage({ args });
+};
+
+export const onMessage = <T>(callback: (args: T) => void) => {
+  chrome.runtime.onMessage.addListener(({ args }) => callback(args));
 };

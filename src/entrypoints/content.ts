@@ -1,8 +1,9 @@
 import {
   getKeymaps,
   handleKeyDown,
+  type Keymaps,
   type MODE_TYPE,
-  onKeymapsMessaged,
+  onMessage,
   type Positions,
   saveKeymaps,
 } from "@/utils";
@@ -19,7 +20,7 @@ export default defineContentScript({
       oCurrentLine: 0,
     };
     let keymaps = await getKeymaps();
-    onKeymapsMessaged(async (updateKeymaps) => {
+    onMessage<Keymaps>(async (updateKeymaps) => {
       await saveKeymaps(updateKeymaps);
       keymaps = await getKeymaps();
     });
