@@ -37,8 +37,8 @@ export type Keymaps = {
 };
 
 export interface Badge {
-  text: string;
-  color: [number, number, number, number];
+  text?: string;
+  color?: [number, number, number, number];
 }
 
 /** Vimコマンド関数のシグニチャ */

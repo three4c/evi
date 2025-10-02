@@ -49,7 +49,9 @@ export const onKeymapsChangedMessaged = () => {
 export const saveBadge = (args: Badge, tabId: number) => {
   const { text, color } = args;
   chrome.action.setBadgeText({ text, tabId });
-  chrome.action.setBadgeBackgroundColor({ color, tabId });
+  if (color) {
+    chrome.action.setBadgeBackgroundColor({ color, tabId });
+  }
 };
 
 export const sendMessage = <T>(args: T) => {
@@ -60,6 +62,14 @@ export const onMessage = <T>(callback: (args: T, tabId: number) => void) => {
   chrome.runtime.onMessage.addListener((message, sender) => {
     if (sender.tab?.id) {
       callback(message.args, sender.tab.id);
+    }
+  });
+};
+
+export const onUpdate = (callback: (tabId: number) => void) => {
+  chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
+    if (changeInfo.status === "loading") {
+      callback(tabId);
     }
   });
 };

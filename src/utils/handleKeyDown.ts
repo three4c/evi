@@ -56,7 +56,7 @@ export const handleKeyDown = async (
             color,
           });
         } else {
-          sendMessage<Badge>({ text: "", color: [0, 0, 0, 0] });
+          sendMessage<Badge>({});
         }
       }
 
@@ -127,7 +127,7 @@ export const handleKeyDown = async (
         color,
       });
     } else {
-      sendMessage<Badge>({ text: "", color: [0, 0, 0, 0] });
+      sendMessage<Badge>({});
     }
   }
 
