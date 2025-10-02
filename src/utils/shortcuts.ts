@@ -1,5 +1,5 @@
 import { DEFAULT_KEYMAPS } from "@/keymaps";
-import type { Keymaps } from "@/utils";
+import type { Badge, Keymaps } from "@/utils";
 
 const STORAGE_KEY = "keymaps";
 
@@ -46,18 +46,20 @@ export const onKeymapsChangedMessaged = () => {
   });
 };
 
-export const saveBadge = (
-  text: string,
-  color: [number, number, number, number],
-) => {
-  chrome.action.setBadgeText({ text });
-  chrome.action.setBadgeBackgroundColor({ color });
+export const saveBadge = (args: Badge, tabId: number) => {
+  const { text, color } = args;
+  chrome.action.setBadgeText({ text, tabId });
+  chrome.action.setBadgeBackgroundColor({ color, tabId });
 };
 
 export const sendMessage = <T>(args: T) => {
   chrome.runtime.sendMessage({ args });
 };
 
-export const onMessage = <T>(callback: (args: T) => void) => {
-  chrome.runtime.onMessage.addListener(({ args }) => callback(args));
+export const onMessage = <T>(callback: (args: T, tabId: number) => void) => {
+  chrome.runtime.onMessage.addListener((message, sender) => {
+    if (sender.tab?.id) {
+      callback(message.args, sender.tab.id);
+    }
+  });
 };

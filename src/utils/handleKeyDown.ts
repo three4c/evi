@@ -6,6 +6,7 @@ import {
 } from "@/commands";
 import type { Args, Command, Keymap, Keymaps } from "@/utils";
 import {
+  type Badge,
   detectModifierKey,
   findCommand,
   getElement,
@@ -50,12 +51,12 @@ export const handleKeyDown = async (
       if (newMode && newMode !== mode) {
         if (newMode !== "insert") {
           const { text, color } = modeMap[newMode];
-          sendMessage({
+          sendMessage<Badge>({
             text,
             color,
           });
         } else {
-          sendMessage({});
+          sendMessage<Badge>({ text: "", color: [0, 0, 0, 0] });
         }
       }
 
@@ -121,12 +122,12 @@ export const handleKeyDown = async (
   if (newMode && newMode !== mode) {
     if (newMode !== "insert") {
       const { text, color } = modeMap[newMode];
-      sendMessage({
+      sendMessage<Badge>({
         text,
         color,
       });
     } else {
-      sendMessage({});
+      sendMessage<Badge>({ text: "", color: [0, 0, 0, 0] });
     }
   }
 

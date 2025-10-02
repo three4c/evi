@@ -9,5 +9,5 @@ import {
 export default defineBackground(() => {
   openSidePanel();
   onKeymapsChangedMessaged();
-  onMessage<Badge>(({ text, color }) => saveBadge(text, color));
+  onMessage<Badge>((badge, tabId) => saveBadge(badge, tabId));
 });
