@@ -1,5 +1,5 @@
 import { DEFAULT_KEYMAPS } from "@/keymaps";
-import type { Keymaps } from "@/utils";
+import type { Badge, Keymaps } from "@/utils";
 
 const STORAGE_KEY = "keymaps";
 
@@ -24,10 +24,6 @@ export const onKeymapsChanged = (callback: (keymaps: Keymaps) => void) => {
   });
 };
 
-export const onKeymapsMessaged = (callback: (keymaps: Keymaps) => void) => {
-  chrome.runtime.onMessage.addListener(({ keymaps }) => callback(keymaps));
-};
-
 export const openSidePanel = () => {
   chrome.sidePanel
     .setPanelBehavior({ openPanelOnActionClick: true })
@@ -46,6 +42,34 @@ export const onKeymapsChangedMessaged = () => {
           }
         }
       });
+    }
+  });
+};
+
+export const saveBadge = (args: Badge, tabId: number) => {
+  const { text, color } = args;
+  chrome.action.setBadgeText({ text, tabId });
+  if (color) {
+    chrome.action.setBadgeBackgroundColor({ color, tabId });
+  }
+};
+
+export const sendMessage = <T>(args: T) => {
+  chrome.runtime.sendMessage({ args });
+};
+
+export const onMessage = <T>(callback: (args: T, tabId: number) => void) => {
+  chrome.runtime.onMessage.addListener((message, sender) => {
+    if (sender.tab?.id) {
+      callback(message.args, sender.tab.id);
+    }
+  });
+};
+
+export const onUpdate = (callback: (tabId: number) => void) => {
+  chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
+    if (changeInfo.status === "loading") {
+      callback(tabId);
     }
   });
 };
