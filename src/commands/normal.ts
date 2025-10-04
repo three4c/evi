@@ -61,10 +61,66 @@ export const NORMAL_COMMANDS: Record<string, Command> = {
       return { start, end };
     }
   },
-  // TODO: 別途実装
-  // delete_line: () => {
-  //   console.log("delete_line");
-  // },
+  delete_left: ({ element, start, end }) => {
+    start--;
+    end--;
+    insertText(element, start, end, "");
+    return { start, end };
+  },
+  delete_down: ({ element, start, end, lines, currentLine, length }) => {
+    const isAtLastLine = currentLine === lines.length - 1;
+    if (isAtLastLine) return { start, end };
+    const isEmptyLine = lines[currentLine].length === 0;
+    const prevBreak = element.value.lastIndexOf("\n", start);
+    const nextBreak = element.value.indexOf("\n", end - (isEmptyLine ? 1 : 0));
+    const secondNextBreak = element.value.indexOf("\n", nextBreak + 1);
+    const isAtSecondLastLine = currentLine === lines.length - 2;
+    start = prevBreak === -1 ? 0 : prevBreak + (isAtSecondLastLine ? 0 : 1);
+    end = secondNextBreak === -1 ? length : secondNextBreak + 1;
+    insertText(element, start, end, "");
+    if (isAtSecondLastLine) start--;
+    return { start, end: start + 1 };
+  },
+  delete_up: ({ element, start, end, col, lines, currentLine, length }) => {
+    const isAtFirstLine = currentLine === 0;
+    if (isAtFirstLine) return { start, end };
+    const prevBreak = element.value.lastIndexOf("\n", start);
+    const secondPrevBreak = element.value.lastIndexOf("\n", prevBreak - 1);
+    const nextBreak = element.value.indexOf("\n", end);
+    const isAtSecondLine = currentLine === 1;
+    const isAtLastLine = currentLine === lines.length - 1;
+    start =
+      secondPrevBreak === -1 ? 0 : secondPrevBreak + (isAtLastLine ? 0 : 1);
+    end = nextBreak === -1 ? length : nextBreak + 1;
+    insertText(element, start, end, "");
+    if (!isAtSecondLine) start--;
+    if (element.value.charAt(start) === "\n") start--;
+    return { start, end: start + 1 };
+  },
+  delete_right: ({ element, start, end }) => {
+    insertText(element, start, end, "");
+    return { start, end };
+  },
+  delete_line: ({ element, start, end, lines, currentLine, length }) => {
+    const prevBreak = element.value.lastIndexOf("\n", start);
+    const nextBreak = element.value.indexOf("\n", end);
+    const isAtLastLine = currentLine === lines.length - 1;
+    start = prevBreak === -1 ? 0 : prevBreak + (isAtLastLine ? 0 : 1);
+    end = nextBreak === -1 ? length : nextBreak + 1;
+    insertText(element, start, end, "");
+    if (isAtLastLine) start--;
+    return { start, end: start + 1 };
+  },
+  delete_after: ({ element, start, end, length, col, lines }) => {
+    const nextBreak = element.value.indexOf("\n", end);
+    if (lines.length > 1 && col === 0) start--;
+    end = nextBreak === -1 ? length : nextBreak;
+    insertText(element, start, end, "");
+    if (start) start--;
+    if (element.value.charAt(start) === "\n") start--;
+    end = start + 1;
+    return { start, end };
+  },
   insert_below: ({ start, end, element, length }) => {
     if (element.tagName === "TEXTAREA") {
       const nextBreak = element.value.indexOf("\n", start);
