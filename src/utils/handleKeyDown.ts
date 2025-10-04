@@ -137,6 +137,6 @@ export const handleKeyDown = async (
 
   return {
     pos: { ...args.pos, ...newPos },
-    mode: element.value.length === 0 ? "insert" : (newMode ?? mode),
+    mode: newMode ?? mode,
   };
 };
