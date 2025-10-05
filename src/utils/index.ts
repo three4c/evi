@@ -5,6 +5,7 @@ export * from "./getKeymaps";
 export * from "./getLines";
 export * from "./getMaxKeyHistory";
 export * from "./handleKeyDown";
+export * from "./initCursorMarker";
 export * from "./insertText";
 export * from "./modeMap";
 export * from "./shortcuts";

@@ -1,0 +1,85 @@
+import { getLines, type MODE_TYPE } from "@/utils";
+
+export const initCursorMarker = (
+  element: HTMLTextAreaElement | HTMLInputElement,
+) => {
+  if (element._markerHost) return;
+
+  const host = document.createElement("div");
+  host.style.position = "absolute";
+  host.style.top = "0";
+  host.style.left = "0";
+  host.style.width = "0";
+  host.style.height = "0";
+  host.style.pointerEvents = "none";
+  host.style.zIndex = "9999";
+  document.body.appendChild(host);
+
+  const shadow = host.attachShadow({ mode: "closed" });
+
+  const marker = document.createElement("div");
+  marker.style.position = "absolute";
+  marker.style.backgroundColor = "Highlight";
+  marker.style.display = "none";
+  shadow.appendChild(marker);
+
+  element._markerHost = host;
+  element._marker = marker;
+};
+
+export const updateCursorMarker = (
+  element: HTMLTextAreaElement | HTMLInputElement,
+  mode: MODE_TYPE,
+) => {
+  const marker = element._marker;
+  if (!marker) return;
+
+  const style = getComputedStyle(element);
+  const rect = element.getBoundingClientRect();
+
+  const { value } = element;
+  const { lines, currentLine } = getLines(element, element.selectionStart || 0);
+  const lineCount = lines.length;
+  const isEmpty = value === "";
+  const isLastLineEmpty = value.endsWith("\n");
+
+  const shouldShow =
+    mode !== "insert" &&
+    ((isEmpty && currentLine === 0) ||
+      (isLastLineEmpty && currentLine === lineCount - 1));
+
+  if (!shouldShow) {
+    marker.style.display = "none";
+    element.style.caretColor = "";
+    return;
+  }
+
+  const borderTop = parseFloat(style.borderTopWidth);
+  const borderLeft = parseFloat(style.borderLeftWidth);
+  const paddingTop = parseFloat(style.paddingTop);
+  const paddingLeft = parseFloat(style.paddingLeft);
+  const lineHeight = parseFloat(style.lineHeight) || parseFloat(style.fontSize);
+  const fontSize = parseFloat(style.fontSize);
+
+  const topOffset =
+    currentLine === 0
+      ? borderTop + paddingTop
+      : borderTop + paddingTop + (lineCount - 1) * lineHeight;
+  const leftOffset = borderLeft + paddingLeft;
+
+  marker.style.display = "block";
+  marker.style.width = `${fontSize * 0.5}px`;
+  marker.style.height = `${lineHeight}px`;
+  marker.style.top = `${rect.top + window.scrollY + topOffset - element.scrollTop}px`;
+  marker.style.left = `${rect.left + window.scrollX + leftOffset}px`;
+  element.style.caretColor = "transparent";
+};
+
+export const hideCursorMarker = (
+  element: HTMLTextAreaElement | HTMLInputElement,
+) => {
+  if (element._marker) {
+    element._marker.style.display = "none";
+    element.style.caretColor = "";
+  }
+};

@@ -12,8 +12,11 @@ import {
   getElement,
   getLines,
   getMaxKeyHistory,
+  hideCursorMarker,
+  initCursorMarker,
   modeMap,
   sendMessage,
+  updateCursorMarker,
 } from "@/utils";
 
 const DOM_ARRAY = ["INPUT", "TEXTAREA"];
@@ -30,6 +33,11 @@ export const handleKeyDown = async (
     return { mode: args.mode, pos: args.pos };
 
   const { mode } = args;
+
+  if (!element._marker) {
+    initCursorMarker(element);
+    element.addEventListener("focusout", () => hideCursorMarker(element));
+  }
 
   const combinedArgs = {
     mode,
@@ -59,6 +67,8 @@ export const handleKeyDown = async (
           sendMessage<Badge>({});
         }
       }
+
+      updateCursorMarker(element, newMode ?? mode);
 
       return {
         pos: { ...args.pos, ...newPos },
@@ -134,6 +144,8 @@ export const handleKeyDown = async (
       sendMessage<Badge>({});
     }
   }
+
+  updateCursorMarker(element, newMode ?? mode);
 
   return {
     pos: { ...args.pos, ...newPos },
