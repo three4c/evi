@@ -49,21 +49,19 @@ export const updateDummyCaret = (element: ElementType, mode?: MODE_TYPE) => {
 
   if (!isEmpty && !isLastLineEmpty) return;
 
+  cachedMode = mode || cachedMode;
+
   const style = getComputedStyle(element);
   const rect = element.getBoundingClientRect();
 
   const { lines, currentLine } = getLines(element, element.selectionStart || 0);
-  const lineCount = lines.length;
 
-  cachedMode = mode || cachedMode;
-  const shouldShow =
-    cachedMode !== "insert" &&
-    ((isEmpty && currentLine === 0) ||
-      (isLastLineEmpty && currentLine === lineCount - 1));
+  const finalLineIndex = lines.length - 1;
+  const isAtFirstEmptyLine = isEmpty && currentLine === 0;
+  const isAtLastEmptyLine = isLastLineEmpty && currentLine === finalLineIndex;
 
-  if (!shouldShow) {
-    caret.style.display = "none";
-    element.style.caretColor = "";
+  if (!(cachedMode !== "insert" && (isAtFirstEmptyLine || isAtLastEmptyLine))) {
+    hideDummyCaret(element);
     return;
   }
 
@@ -77,15 +75,20 @@ export const updateDummyCaret = (element: ElementType, mode?: MODE_TYPE) => {
   const topOffset =
     currentLine === 0
       ? borderTop + paddingTop
-      : borderTop + paddingTop + (lineCount - 1) * lineHeight;
+      : borderTop + paddingTop + finalLineIndex * lineHeight;
   const leftOffset = borderLeft + paddingLeft;
 
+  const top = rect.top + window.scrollY + topOffset - element.scrollTop;
   caret.style.display = "block";
   caret.style.width = `${fontSize * 0.5}px`;
   caret.style.height = `${lineHeight}px`;
-  caret.style.top = `${rect.top + window.scrollY + topOffset - element.scrollTop}px`;
+  caret.style.top = `${top}px`;
   caret.style.left = `${rect.left + window.scrollX + leftOffset}px`;
   element.style.caretColor = "transparent";
+
+  if (rect.bottom < top + lineHeight) {
+    hideDummyCaret(element);
+  }
 };
 
 export const hideDummyCaret = (element: ElementType) => {
