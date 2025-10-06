@@ -12,10 +12,10 @@ import {
   getElement,
   getLines,
   getMaxKeyHistory,
-  initCursorMarker,
+  initDummyCaret,
   modeMap,
   sendMessage,
-  updateCursorMarker,
+  updateDummyCaret,
 } from "@/utils";
 
 const DOM_ARRAY = ["INPUT", "TEXTAREA"];
@@ -33,7 +33,7 @@ export const handleKeyDown = async (
 
   const { mode } = args;
 
-  initCursorMarker(element);
+  initDummyCaret(element);
 
   const combinedArgs = {
     mode,
@@ -64,7 +64,7 @@ export const handleKeyDown = async (
         }
       }
 
-      updateCursorMarker(element, newMode ?? mode);
+      updateDummyCaret(element, newMode ?? mode);
 
       return {
         pos: { ...args.pos, ...newPos },
@@ -141,7 +141,7 @@ export const handleKeyDown = async (
     }
   }
 
-  updateCursorMarker(element, newMode ?? mode);
+  updateDummyCaret(element, newMode ?? mode);
 
   return {
     pos: { ...args.pos, ...newPos },

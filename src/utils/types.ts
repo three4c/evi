@@ -49,10 +49,10 @@ export type Command = (
   | Partial<Positions & { mode?: MODE_TYPE }>
   | undefined;
 
-interface DummyMarkerProps {
-  _markerHost?: HTMLDivElement;
-  _marker?: HTMLDivElement;
+interface DummyCaretProps {
+  _dummyCaretHost?: HTMLDivElement;
+  _dummyCaret?: HTMLDivElement;
 }
-type TextAreaElement = HTMLTextAreaElement & DummyMarkerProps;
-type InputElement = HTMLInputElement & DummyMarkerProps;
+type TextAreaElement = HTMLTextAreaElement & DummyCaretProps;
+type InputElement = HTMLInputElement & DummyCaretProps;
 export type ElementType = TextAreaElement | InputElement | null;

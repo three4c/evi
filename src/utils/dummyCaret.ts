@@ -1,7 +1,7 @@
 import { type ElementType, getLines, type MODE_TYPE } from "@/utils";
 
-export const initCursorMarker = (element: ElementType) => {
-  if (!element || element._markerHost) return;
+export const initDummyCaret = (element: ElementType) => {
+  if (!element || element._dummyCaretHost) return;
 
   const host = document.createElement("div");
   host.style.position = "absolute";
@@ -22,21 +22,21 @@ export const initCursorMarker = (element: ElementType) => {
   marker.style.display = "none";
   shadow.appendChild(marker);
 
-  element._markerHost = host;
-  element._marker = marker;
-  element.addEventListener("focusout", () => hideCursorMarker(element));
+  element._dummyCaretHost = host;
+  element._dummyCaret = marker;
+  element.addEventListener("focusout", () => hideDummyCaret(element));
   let rafId: number;
   element.addEventListener("scroll", () => {
     cancelAnimationFrame(rafId);
-    rafId = requestAnimationFrame(() => updateCursorMarker(element));
+    rafId = requestAnimationFrame(() => updateDummyCaret(element));
   });
 };
 
 let cachedMode = "insert";
-export const updateCursorMarker = (element: ElementType, mode?: MODE_TYPE) => {
-  if (!element?._marker) return;
+export const updateDummyCaret = (element: ElementType, mode?: MODE_TYPE) => {
+  if (!element?._dummyCaret) return;
 
-  const { value, _marker: marker } = element;
+  const { value, _dummyCaret: marker } = element;
   const isEmpty = value === "";
   const isLastLineEmpty = value.endsWith("\n");
 
@@ -81,8 +81,8 @@ export const updateCursorMarker = (element: ElementType, mode?: MODE_TYPE) => {
   element.style.caretColor = "transparent";
 };
 
-export const hideCursorMarker = (element: ElementType) => {
-  if (!element?._marker) return;
-  element._marker.style.display = "none";
+export const hideDummyCaret = (element: ElementType) => {
+  if (!element?._dummyCaret) return;
+  element._dummyCaret.style.display = "none";
   element.style.caretColor = "";
 };
