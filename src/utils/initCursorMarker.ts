@@ -17,6 +17,7 @@ export const initCursorMarker = (element: ElementType) => {
 
   const marker = document.createElement("div");
   marker.style.position = "absolute";
+  // @see: https://developer.mozilla.org/docs/Web/CSS/system-color#highlight
   marker.style.backgroundColor = "Highlight";
   marker.style.display = "none";
   shadow.appendChild(marker);
