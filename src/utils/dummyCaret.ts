@@ -2,25 +2,32 @@ import { type ElementType, getLines, type MODE_TYPE } from "@/utils";
 
 export const initDummyCaret = (element: ElementType) => {
   if (!element || element._dummyCaretHost) return;
+  const ID = "__evi_dummy_caret__";
 
-  const host = document.createElement("div");
-  host.style.position = "absolute";
-  host.style.top = "0";
-  host.style.left = "0";
-  host.style.width = "0";
-  host.style.height = "0";
-  host.style.pointerEvents = "none";
-  host.style.zIndex = "9999";
-  document.body.appendChild(host);
-
-  const shadow = host.attachShadow({ mode: "closed" });
+  let host = document.querySelector<HTMLDivElement>(`#${ID}`);
+  let shadow: ShadowRoot | null;
+  if (!host) {
+    host = document.createElement("div");
+    host.id = ID;
+    host.style.position = "absolute";
+    host.style.top = "0";
+    host.style.left = "0";
+    host.style.width = "0";
+    host.style.height = "0";
+    host.style.pointerEvents = "none";
+    host.style.zIndex = "9999";
+    document.body.appendChild(host);
+    shadow = host.attachShadow({ mode: "open" });
+  } else {
+    shadow = host.shadowRoot;
+  }
 
   const marker = document.createElement("div");
   marker.style.position = "absolute";
   // @see: https://developer.mozilla.org/docs/Web/CSS/system-color#highlight
   marker.style.backgroundColor = "Highlight";
   marker.style.display = "none";
-  shadow.appendChild(marker);
+  shadow?.appendChild(marker);
 
   element._dummyCaretHost = host;
   element._dummyCaret = marker;
