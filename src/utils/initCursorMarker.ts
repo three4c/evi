@@ -23,6 +23,7 @@ export const initCursorMarker = (element: ElementType) => {
 
   element._markerHost = host;
   element._marker = marker;
+  element.addEventListener("focusout", () => hideCursorMarker(element));
 };
 
 export const updateCursorMarker = (element: ElementType, mode: MODE_TYPE) => {

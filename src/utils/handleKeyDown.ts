@@ -4,7 +4,7 @@ import {
   NORMAL_COMMANDS,
   VISUAL_COMMANDS,
 } from "@/commands";
-import type { Args, Command, ElementType, Keymap, Keymaps } from "@/utils";
+import type { Args, Command, Keymap, Keymaps } from "@/utils";
 import {
   type Badge,
   detectModifierKey,
@@ -12,7 +12,6 @@ import {
   getElement,
   getLines,
   getMaxKeyHistory,
-  hideCursorMarker,
   initCursorMarker,
   modeMap,
   sendMessage,
@@ -28,16 +27,13 @@ export const handleKeyDown = async (
   keymaps: Keymaps,
 ): Promise<Args> => {
   const activeElement = document.activeElement;
-  const element: ElementType = getElement(activeElement);
+  const element = getElement(activeElement);
   if (!element || !DOM_ARRAY.includes(element.tagName))
     return { mode: args.mode, pos: args.pos };
 
   const { mode } = args;
 
-  if (!element._marker) {
-    initCursorMarker(element);
-    element.addEventListener("focusout", () => hideCursorMarker(element));
-  }
+  initCursorMarker(element);
 
   const combinedArgs = {
     mode,
