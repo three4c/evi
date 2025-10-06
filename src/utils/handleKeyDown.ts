@@ -4,7 +4,7 @@ import {
   NORMAL_COMMANDS,
   VISUAL_COMMANDS,
 } from "@/commands";
-import type { Args, Command, Keymap, Keymaps } from "@/utils";
+import type { Args, Command, ElementType, Keymap, Keymaps } from "@/utils";
 import {
   type Badge,
   detectModifierKey,
@@ -28,7 +28,7 @@ export const handleKeyDown = async (
   keymaps: Keymaps,
 ): Promise<Args> => {
   const activeElement = document.activeElement;
-  const element = getElement(activeElement);
+  const element: ElementType = getElement(activeElement);
   if (!element || !DOM_ARRAY.includes(element.tagName))
     return { mode: args.mode, pos: args.pos };
 

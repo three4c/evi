@@ -1,9 +1,7 @@
-import { getLines, type MODE_TYPE } from "@/utils";
+import { type ElementType, getLines, type MODE_TYPE } from "@/utils";
 
-export const initCursorMarker = (
-  element: HTMLTextAreaElement | HTMLInputElement,
-) => {
-  if (element._markerHost) return;
+export const initCursorMarker = (element: ElementType) => {
+  if (!element || element._markerHost) return;
 
   const host = document.createElement("div");
   host.style.position = "absolute";
@@ -27,17 +25,13 @@ export const initCursorMarker = (
   element._marker = marker;
 };
 
-export const updateCursorMarker = (
-  element: HTMLTextAreaElement | HTMLInputElement,
-  mode: MODE_TYPE,
-) => {
-  const marker = element._marker;
-  if (!marker) return;
+export const updateCursorMarker = (element: ElementType, mode: MODE_TYPE) => {
+  if (!element?._marker) return;
 
   const style = getComputedStyle(element);
   const rect = element.getBoundingClientRect();
 
-  const { value } = element;
+  const { value, _marker: marker } = element;
   const { lines, currentLine } = getLines(element, element.selectionStart || 0);
   const lineCount = lines.length;
   const isEmpty = value === "";
@@ -75,11 +69,8 @@ export const updateCursorMarker = (
   element.style.caretColor = "transparent";
 };
 
-export const hideCursorMarker = (
-  element: HTMLTextAreaElement | HTMLInputElement,
-) => {
-  if (element._marker) {
-    element._marker.style.display = "none";
-    element.style.caretColor = "";
-  }
+export const hideCursorMarker = (element: ElementType) => {
+  if (!element?._marker) return;
+  element._marker.style.display = "none";
+  element.style.caretColor = "";
 };

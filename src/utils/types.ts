@@ -48,3 +48,11 @@ export type Command = (
   | Promise<Partial<Positions & { mode?: MODE_TYPE }> | undefined>
   | Partial<Positions & { mode?: MODE_TYPE }>
   | undefined;
+
+interface DummyMarkerProps {
+  _markerHost?: HTMLDivElement;
+  _marker?: HTMLDivElement;
+}
+type TextAreaElement = HTMLTextAreaElement & DummyMarkerProps;
+type InputElement = HTMLInputElement & DummyMarkerProps;
+export type ElementType = TextAreaElement | InputElement | null;
