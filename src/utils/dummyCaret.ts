@@ -22,15 +22,15 @@ export const initDummyCaret = (element: ElementType) => {
     shadow = host.shadowRoot;
   }
 
-  const marker = document.createElement("div");
-  marker.style.position = "absolute";
+  const caret = document.createElement("div");
+  caret.style.position = "absolute";
   // @see: https://developer.mozilla.org/docs/Web/CSS/system-color#highlight
-  marker.style.backgroundColor = "Highlight";
-  marker.style.display = "none";
-  shadow?.appendChild(marker);
+  caret.style.backgroundColor = "Highlight";
+  caret.style.display = "none";
+  shadow?.appendChild(caret);
 
   element._dummyCaretHost = host;
-  element._dummyCaret = marker;
+  element._dummyCaret = caret;
   element.addEventListener("focusout", () => hideDummyCaret(element));
   let rafId: number;
   element.addEventListener("scroll", () => {
@@ -43,7 +43,7 @@ let cachedMode = "insert";
 export const updateDummyCaret = (element: ElementType, mode?: MODE_TYPE) => {
   if (!element?._dummyCaret) return;
 
-  const { value, _dummyCaret: marker } = element;
+  const { value, _dummyCaret: caret } = element;
   const isEmpty = value === "";
   const isLastLineEmpty = value.endsWith("\n");
 
@@ -62,7 +62,7 @@ export const updateDummyCaret = (element: ElementType, mode?: MODE_TYPE) => {
       (isLastLineEmpty && currentLine === lineCount - 1));
 
   if (!shouldShow) {
-    marker.style.display = "none";
+    caret.style.display = "none";
     element.style.caretColor = "";
     return;
   }
@@ -80,11 +80,11 @@ export const updateDummyCaret = (element: ElementType, mode?: MODE_TYPE) => {
       : borderTop + paddingTop + (lineCount - 1) * lineHeight;
   const leftOffset = borderLeft + paddingLeft;
 
-  marker.style.display = "block";
-  marker.style.width = `${fontSize * 0.5}px`;
-  marker.style.height = `${lineHeight}px`;
-  marker.style.top = `${rect.top + window.scrollY + topOffset - element.scrollTop}px`;
-  marker.style.left = `${rect.left + window.scrollX + leftOffset}px`;
+  caret.style.display = "block";
+  caret.style.width = `${fontSize * 0.5}px`;
+  caret.style.height = `${lineHeight}px`;
+  caret.style.top = `${rect.top + window.scrollY + topOffset - element.scrollTop}px`;
+  caret.style.left = `${rect.left + window.scrollX + leftOffset}px`;
   element.style.caretColor = "transparent";
 };
 
