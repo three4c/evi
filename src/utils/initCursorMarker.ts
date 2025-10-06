@@ -25,22 +25,32 @@ export const initCursorMarker = (element: ElementType) => {
   element._markerHost = host;
   element._marker = marker;
   element.addEventListener("focusout", () => hideCursorMarker(element));
+  let rafId: number;
+  element.addEventListener("scroll", () => {
+    cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(() => updateCursorMarker(element));
+  });
 };
 
-export const updateCursorMarker = (element: ElementType, mode: MODE_TYPE) => {
+let cachedMode = "insert";
+export const updateCursorMarker = (element: ElementType, mode?: MODE_TYPE) => {
   if (!element?._marker) return;
+
+  const { value, _marker: marker } = element;
+  const isEmpty = value === "";
+  const isLastLineEmpty = value.endsWith("\n");
+
+  if (!isEmpty && !isLastLineEmpty) return;
 
   const style = getComputedStyle(element);
   const rect = element.getBoundingClientRect();
 
-  const { value, _marker: marker } = element;
   const { lines, currentLine } = getLines(element, element.selectionStart || 0);
   const lineCount = lines.length;
-  const isEmpty = value === "";
-  const isLastLineEmpty = value.endsWith("\n");
 
+  cachedMode = mode || cachedMode;
   const shouldShow =
-    mode !== "insert" &&
+    cachedMode !== "insert" &&
     ((isEmpty && currentLine === 0) ||
       (isLastLineEmpty && currentLine === lineCount - 1));
 
