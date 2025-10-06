@@ -12,8 +12,10 @@ import {
   getElement,
   getLines,
   getMaxKeyHistory,
+  initDummyCaret,
   modeMap,
   sendMessage,
+  updateDummyCaret,
 } from "@/utils";
 
 const DOM_ARRAY = ["INPUT", "TEXTAREA"];
@@ -30,6 +32,8 @@ export const handleKeyDown = async (
     return { mode: args.mode, pos: args.pos };
 
   const { mode } = args;
+
+  initDummyCaret(element);
 
   const combinedArgs = {
     mode,
@@ -59,6 +63,8 @@ export const handleKeyDown = async (
           sendMessage<Badge>({});
         }
       }
+
+      updateDummyCaret(element, newMode ?? mode);
 
       return {
         pos: { ...args.pos, ...newPos },
@@ -134,6 +140,8 @@ export const handleKeyDown = async (
       sendMessage<Badge>({});
     }
   }
+
+  updateDummyCaret(element, newMode ?? mode);
 
   return {
     pos: { ...args.pos, ...newPos },

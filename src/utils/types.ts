@@ -48,3 +48,11 @@ export type Command = (
   | Promise<Partial<Positions & { mode?: MODE_TYPE }> | undefined>
   | Partial<Positions & { mode?: MODE_TYPE }>
   | undefined;
+
+interface DummyCaretProps {
+  _dummyCaretHost?: HTMLDivElement;
+  _dummyCaret?: HTMLDivElement;
+}
+type TextAreaElement = HTMLTextAreaElement & DummyCaretProps;
+type InputElement = HTMLInputElement & DummyCaretProps;
+export type ElementType = TextAreaElement | InputElement | null;
