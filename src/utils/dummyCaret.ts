@@ -47,7 +47,10 @@ export const updateDummyCaret = (element: ElementType, mode?: MODE_TYPE) => {
   const isEmpty = value === "";
   const isLastLineEmpty = value.endsWith("\n");
 
-  if (!isEmpty && !isLastLineEmpty) return;
+  if (!isEmpty && !isLastLineEmpty) {
+    hideDummyCaret(element);
+    return;
+  }
 
   cachedMode = mode || cachedMode;
 
