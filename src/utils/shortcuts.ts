@@ -1,5 +1,5 @@
 import { DEFAULT_KEYMAPS } from "@/keymaps";
-import type { Badge, Keymaps } from "@/utils";
+import type { Badge, Keymaps, MODE_TYPE } from "@/utils";
 
 const STORAGE_KEY = "keymaps";
 
@@ -47,7 +47,16 @@ export const onKeymapsChangedMessaged = () => {
 };
 
 export const saveBadge = (args: Badge, tabId: number) => {
-  const { text, color } = args;
+  const modeMap: Record<
+    MODE_TYPE,
+    { text?: "NOR" | "VIS"; color?: [number, number, number, number] }
+  > = {
+    insert: {},
+    normal: { text: "NOR", color: [100, 149, 237, 255] },
+    visual: { text: "VIS", color: [255, 140, 0, 255] },
+  };
+
+  const { text, color } = modeMap[args.text];
   chrome.action.setBadgeText({ text, tabId });
   if (color) {
     chrome.action.setBadgeBackgroundColor({ color, tabId });

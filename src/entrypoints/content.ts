@@ -31,7 +31,7 @@ export default defineContentScript({
       ({ mode, pos } = await handleKeyDown(e, { mode, pos }, keymaps));
     const resetMode = () => {
       mode = "insert";
-      sendMessage<Badge>({});
+      sendMessage<Badge>({ text: mode });
     };
     window.addEventListener("keydown", keydown);
     window.addEventListener("focusout", resetMode);
