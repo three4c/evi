@@ -1,4 +1,5 @@
 import {
+  type Badge,
   getKeymaps,
   handleKeyDown,
   type Keymaps,
@@ -6,6 +7,7 @@ import {
   onMessage,
   type Positions,
   saveKeymaps,
+  sendMessage,
 } from "@/utils";
 
 export default defineContentScript({
@@ -27,7 +29,10 @@ export default defineContentScript({
 
     const keydown = async (e: KeyboardEvent) =>
       ({ mode, pos } = await handleKeyDown(e, { mode, pos }, keymaps));
-    const resetMode = () => (mode = "insert");
+    const resetMode = () => {
+      mode = "insert";
+      sendMessage<Badge>({});
+    };
     window.addEventListener("keydown", keydown);
     window.addEventListener("focusout", resetMode);
   },
