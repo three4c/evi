@@ -1,5 +1,5 @@
 import { DEFAULT_KEYMAPS } from "@/keymaps";
-import type { Badge, Keymaps, MODE_TYPE } from "@/utils";
+import type { Badge, Keymaps, ModeType } from "@/utils";
 
 const STORAGE_KEY = "keymaps";
 
@@ -48,7 +48,7 @@ export const onKeymapsChangedMessaged = () => {
 
 export const saveBadge = (args: Badge, tabId: number) => {
   const modeMap: Record<
-    MODE_TYPE,
+    ModeType,
     { text?: "NOR" | "VIS"; color?: [number, number, number, number] }
   > = {
     insert: {},

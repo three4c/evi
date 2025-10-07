@@ -3,7 +3,7 @@ import {
   getKeymaps,
   handleKeyDown,
   type Keymaps,
-  type MODE_TYPE,
+  type ModeType,
   onMessage,
   type Positions,
   saveKeymaps,
@@ -13,7 +13,7 @@ import {
 export default defineContentScript({
   matches: ["<all_urls>"],
   async main() {
-    let mode: MODE_TYPE = "insert";
+    let mode: ModeType = "insert";
     let pos: Positions = {
       start: 0,
       end: 0,

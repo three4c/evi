@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { DEFAULT_KEYMAPS } from "@/keymaps";
-import type { Keymap, Keymaps, MODE_TYPE } from "@/utils";
+import type { Keymap, Keymaps, ModeType } from "@/utils";
 import {
   detectModifierKey,
   loadKeymaps,
@@ -9,7 +9,7 @@ import {
 } from "@/utils";
 import "./App.scss";
 
-type ALL_MODE_TYPE = MODE_TYPE | "common";
+type ALL_MODE_TYPE = ModeType | "common";
 const MESSAGE_DISPLAY_TIME = 3000;
 
 const App: React.FC = () => {
