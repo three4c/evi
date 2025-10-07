@@ -46,16 +46,16 @@ export const onKeymapsChangedMessaged = () => {
   });
 };
 
-export const saveBadge = (args: Badge, tabId: number) => {
-  const modeMap: Record<
-    Badge["text"],
-    { text?: "NOR" | "VIS"; color?: [number, number, number, number] }
-  > = {
-    insert: {},
-    normal: { text: "NOR", color: [100, 149, 237, 255] },
-    visual: { text: "VIS", color: [255, 140, 0, 255] },
-  };
+const modeMap: Record<
+  Badge["text"],
+  { text?: "NOR" | "VIS"; color?: [number, number, number, number] }
+> = {
+  insert: {},
+  normal: { text: "NOR", color: [100, 149, 237, 255] },
+  visual: { text: "VIS", color: [255, 140, 0, 255] },
+};
 
+export const saveBadge = (args: Badge, tabId: number) => {
   const { text, color } = modeMap[args.text];
   chrome.action.setBadgeText({ text, tabId });
   if (color) {
