@@ -12,7 +12,6 @@ import {
   getElement,
   getLines,
   getMaxKeyHistory,
-  modeMap,
   sendMessage,
 } from "@/utils";
 
@@ -49,15 +48,9 @@ export const handleKeyDown = async (
       const { mode: newMode, ...newPos } = newValues || {};
 
       if (newMode && newMode !== mode) {
-        if (newMode !== "insert") {
-          const { text, color } = modeMap[newMode];
-          sendMessage<Badge>({
-            text,
-            color,
-          });
-        } else {
-          sendMessage<Badge>({});
-        }
+        sendMessage<Badge>({
+          text: newMode,
+        });
       }
 
       return {
@@ -120,15 +113,9 @@ export const handleKeyDown = async (
   );
 
   if (newMode && newMode !== mode) {
-    if (newMode !== "insert") {
-      const { text, color } = modeMap[newMode];
-      sendMessage<Badge>({
-        text,
-        color,
-      });
-    } else {
-      sendMessage<Badge>({});
-    }
+    sendMessage<Badge>({
+      text: newMode,
+    });
   }
 
   if (newMode === "insert") {

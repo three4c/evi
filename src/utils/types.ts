@@ -1,4 +1,4 @@
-export type MODE_TYPE = "normal" | "insert" | "visual";
+export type ModeType = "normal" | "insert" | "visual";
 
 export type Positions = {
   start: number;
@@ -12,7 +12,7 @@ export type Positions = {
 };
 
 export type Args = {
-  mode: MODE_TYPE;
+  mode: ModeType;
   pos: Positions;
 };
 
@@ -37,14 +37,13 @@ export type Keymaps = {
 };
 
 export interface Badge {
-  text?: string;
-  color?: [number, number, number, number];
+  text: ModeType;
 }
 
 /** Vimコマンド関数のシグニチャ */
 export type Command = (
   args: CombinedArgs,
 ) =>
-  | Promise<Partial<Positions & { mode?: MODE_TYPE }> | undefined>
-  | Partial<Positions & { mode?: MODE_TYPE }>
+  | Promise<Partial<Positions & { mode?: ModeType }> | undefined>
+  | Partial<Positions & { mode?: ModeType }>
   | undefined;
