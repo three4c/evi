@@ -112,12 +112,12 @@ export const handleKeyDown = async (
     }
   }
 
-  element.setSelectionRange(
-    newValues?.start ?? args.pos.start,
-    newValues?.end ?? args.pos.end,
-  );
-
   const { mode: newMode, ...newPos } = newValues || {};
+
+  element.setSelectionRange(
+    newPos.start ?? args.pos.start,
+    newPos.end ?? args.pos.end,
+  );
 
   if (newMode && newMode !== mode) {
     if (newMode !== "insert") {
@@ -129,6 +129,10 @@ export const handleKeyDown = async (
     } else {
       sendMessage<Badge>({});
     }
+  }
+
+  if (newMode === "insert") {
+    element.style.fontFamily = "";
   }
 
   return {
