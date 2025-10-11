@@ -169,6 +169,19 @@ const App: React.FC = () => {
         return;
       }
 
+      if (e.key === "Backspace") {
+        setCurrentKeySequence((prev) => {
+          const updated = prev.slice(0, -1);
+          setMessage(
+            updated.length > 0
+              ? `キーシーケンス: ${updated.join(" ")}`
+              : "新しいキーを押してください...",
+          );
+          return updated;
+        });
+        return;
+      }
+
       if (e.key.length !== 1) {
         setMessage("文字キーを入力してください");
         return;
