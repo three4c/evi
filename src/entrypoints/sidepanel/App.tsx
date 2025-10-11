@@ -154,22 +154,23 @@ const App: React.FC = () => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isEditing || !editingMode || !editingCommand) return;
 
+      if (["enter"].includes(e.key.toLowerCase())) {
+        if (currentKeySequence.length > 0 && !validationError) {
+          handleConfirm();
+        } else {
+          setMessage("有効なキーを入力してください");
+        }
+        return;
+      }
+
       // キーボードで確定やキャンセルにフォーカスできるようにする
-      if (["tab", "enter"].includes(e.key.toLowerCase())) {
+      if (["tab"].includes(e.key.toLowerCase())) {
         return;
       }
 
       e.preventDefault();
 
-      const key = detectModifierKey(e);
-
-      const modifierKeys = ["ctrl", "alt", "meta", "cmd", "command"];
-      if (modifierKeys.includes(e.key.toLowerCase())) {
-        setMessage("追加のキーを押してください...");
-        return;
-      }
-
-      if (e.key === "Backspace") {
+      if (["backspace", "delete"].includes(e.key.toLowerCase())) {
         setCurrentKeySequence((prev) => {
           const updated = prev.slice(0, -1);
           setMessage(
@@ -179,6 +180,14 @@ const App: React.FC = () => {
           );
           return updated;
         });
+        return;
+      }
+
+      const key = detectModifierKey(e);
+
+      const modifierKeys = ["ctrl", "alt", "meta", "cmd", "command"];
+      if (modifierKeys.includes(e.key.toLowerCase())) {
+        setMessage("追加のキーを押してください...");
         return;
       }
 
