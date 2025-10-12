@@ -12,7 +12,6 @@ import {
   getElement,
   getLines,
   getMaxKeyHistory,
-  modeMap,
   sendMessage,
 } from "@/utils";
 
@@ -49,15 +48,9 @@ export const handleKeyDown = async (
       const { mode: newMode, ...newPos } = newValues || {};
 
       if (newMode && newMode !== mode) {
-        if (newMode !== "insert") {
-          const { text, color } = modeMap[newMode];
-          sendMessage<Badge>({
-            text,
-            color,
-          });
-        } else {
-          sendMessage<Badge>({});
-        }
+        sendMessage<Badge>({
+          text: newMode,
+        });
       }
 
       return {
@@ -116,23 +109,21 @@ export const handleKeyDown = async (
     }
   }
 
-  element.setSelectionRange(
-    newValues?.start ?? args.pos.start,
-    newValues?.end ?? args.pos.end,
-  );
-
   const { mode: newMode, ...newPos } = newValues || {};
 
+  element.setSelectionRange(
+    newPos.start ?? args.pos.start,
+    newPos.end ?? args.pos.end,
+  );
+
   if (newMode && newMode !== mode) {
-    if (newMode !== "insert") {
-      const { text, color } = modeMap[newMode];
-      sendMessage<Badge>({
-        text,
-        color,
-      });
-    } else {
-      sendMessage<Badge>({});
-    }
+    sendMessage<Badge>({
+      text: newMode,
+    });
+  }
+
+  if (newMode === "insert") {
+    element.style.fontFamily = "";
   }
 
   return {

@@ -11,6 +11,7 @@ export const INSERT_COMMANDS: Record<string, Command> = {
     }
     end = start + 1;
     element.setSelectionRange(start, end);
+    element.style.fontFamily = "ui-monospace, monospace";
     return { start, end, mode: "normal" };
   },
 };
