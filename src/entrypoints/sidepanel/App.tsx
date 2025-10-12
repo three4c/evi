@@ -74,7 +74,7 @@ const App: React.FC = () => {
     [keymaps],
   );
 
-  const handleEdit = (mode: ALL_MODE_TYPE, command: string) => {
+  const handleEdit = (mode: ALL_MODE_TYPE, command: string) => () => {
     setIsEditing(true);
     setEditingMode(mode);
     setEditingCommand(command);
@@ -95,7 +95,7 @@ const App: React.FC = () => {
     setMessage("");
   };
 
-  const handleConfirm = async () => {
+  const handleConfirm = useCallback(async () => {
     if (!editingMode || !editingCommand || currentKeySequence.length === 0)
       return;
 
@@ -123,7 +123,13 @@ const App: React.FC = () => {
     await saveKeymaps(updatedKeymaps);
     setMessage("保存完了！");
     setTimeout(() => setMessage(""), MESSAGE_DISPLAY_TIME);
-  };
+  }, [
+    currentKeySequence,
+    editingCommand,
+    editingMode,
+    keymaps,
+    validateKeySequence,
+  ]);
 
   const updateKeymaps = useCallback((savedKeymaps: Keymaps) => {
     setKeymaps({
@@ -142,88 +148,69 @@ const App: React.FC = () => {
     setTimeout(() => setMessage(""), MESSAGE_DISPLAY_TIME);
   };
 
-  useEffect(() => {
-    loadKeymaps().then(updateKeymaps);
-  }, [updateKeymaps]);
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (!isEditing || !editingMode || !editingCommand) return;
 
-  useEffect(() => {
-    if (!isEditing) {
+    if (["enter"].includes(e.key.toLowerCase())) {
+      if (currentKeySequence.length > 0 && !validationError) {
+        handleConfirm();
+      } else {
+        setMessage("有効なキーを入力してください");
+      }
       return;
     }
 
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (!isEditing || !editingMode || !editingCommand) return;
+    // キーボードで確定やキャンセルにフォーカスできるようにする
+    if (["tab"].includes(e.key.toLowerCase())) {
+      return;
+    }
 
-      if (["enter"].includes(e.key.toLowerCase())) {
-        if (currentKeySequence.length > 0 && !validationError) {
-          handleConfirm();
-        } else {
-          setMessage("有効なキーを入力してください");
-        }
-        return;
-      }
+    e.preventDefault();
 
-      // キーボードで確定やキャンセルにフォーカスできるようにする
-      if (["tab"].includes(e.key.toLowerCase())) {
-        return;
-      }
-
-      e.preventDefault();
-
-      if (["backspace", "delete"].includes(e.key.toLowerCase())) {
-        setCurrentKeySequence((prev) => {
-          const updated = prev.slice(0, -1);
-          setMessage(
-            updated.length > 0
-              ? `キーシーケンス: ${updated.join(" ")}`
-              : "新しいキーを押してください...",
-          );
-          return updated;
-        });
-        return;
-      }
-
-      const key = detectModifierKey(e);
-
-      const modifierKeys = ["ctrl", "alt", "meta", "cmd", "command"];
-      if (modifierKeys.includes(e.key.toLowerCase())) {
-        setMessage("追加のキーを押してください...");
-        return;
-      }
-
-      if (e.key.length !== 1) {
-        setMessage("文字キーを入力してください");
-        return;
-      }
-
-      const newSequence = [...currentKeySequence, key];
-      setCurrentKeySequence(newSequence);
-
-      const error = validateKeySequence(
-        newSequence,
-        editingMode,
-        editingCommand,
-      );
-      setValidationError(error);
-
-      if (error) {
-        setMessage(`エラー: ${error}`);
-      } else {
+    if (["backspace", "delete"].includes(e.key.toLowerCase())) {
+      setCurrentKeySequence((prev) => {
+        const updated = prev.slice(0, -1);
         setMessage(
-          `キーシーケンス: ${newSequence.join(" ")} - 確定またはキャンセルしてください`,
+          updated.length > 0
+            ? `キーシーケンス: ${updated.join(" ")}`
+            : "新しいキーを押してください...",
         );
-      }
-    };
+        return updated;
+      });
+      return;
+    }
 
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [
-    isEditing,
-    editingMode,
-    editingCommand,
-    currentKeySequence,
-    validateKeySequence,
-  ]);
+    const key = detectModifierKey(e.nativeEvent);
+
+    const modifierKeys = ["ctrl", "alt", "meta", "cmd", "command"];
+    if (modifierKeys.includes(e.key.toLowerCase())) {
+      setMessage("追加のキーを押してください...");
+      return;
+    }
+
+    if (e.key.length !== 1) {
+      setMessage("文字キーを入力してください");
+      return;
+    }
+
+    const newSequence = [...currentKeySequence, key];
+    setCurrentKeySequence(newSequence);
+
+    const error = validateKeySequence(newSequence, editingMode, editingCommand);
+    setValidationError(error);
+
+    if (error) {
+      setMessage(`エラー: ${error}`);
+    } else {
+      setMessage(
+        `キーシーケンス: ${newSequence.join(" ")} - 確定またはキャンセルしてください`,
+      );
+    }
+  };
+
+  useEffect(() => {
+    loadKeymaps().then(updateKeymaps);
+  }, [updateKeymaps]);
 
   const renderKeymapSection = (
     title: string,
@@ -257,6 +244,7 @@ const App: React.FC = () => {
                 ? "App__input--error"
                 : ""
             }`}
+            onKeyDown={handleKeyDown}
           />
           {isEditing && editingMode === mode && editingCommand === command ? (
             <div className="App__buttonGroup">
@@ -282,7 +270,7 @@ const App: React.FC = () => {
             <button
               type="button"
               className="App__button"
-              onClick={() => handleEdit(mode, command)}
+              onClick={handleEdit(mode, command)}
               disabled={isEditing}
               aria-label="編集"
             >
