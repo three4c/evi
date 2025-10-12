@@ -1,4 +1,4 @@
-import { type ElementType, getLines, type MODE_TYPE } from "@/utils";
+import { type ElementType, getLines, type ModeType } from "@/utils";
 
 export const initDummyCaret = (element: ElementType) => {
   if (!element || element._dummyCaretHost) return;
@@ -40,7 +40,7 @@ export const initDummyCaret = (element: ElementType) => {
 };
 
 let cachedMode = "insert";
-export const updateDummyCaret = (element: ElementType, mode?: MODE_TYPE) => {
+export const updateDummyCaret = (element: ElementType, mode?: ModeType) => {
   if (!element?._dummyCaret) return;
 
   const { value, _dummyCaret: caret } = element;
