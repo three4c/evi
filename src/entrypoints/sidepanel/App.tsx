@@ -1,21 +1,21 @@
 import { useCallback, useEffect, useState } from "react";
 import { DEFAULT_KEYMAPS } from "@/keymaps";
-import type { Keymap, Keymaps, ModeType } from "@/utils";
+import type { AllModeType, Keymaps } from "@/utils";
 import {
   detectModifierKey,
   loadKeymaps,
   resetKeymaps,
   saveKeymaps,
 } from "@/utils";
+import { KeymapSection } from "./KeymapSection";
 import "./App.scss";
 
-type ALL_MODE_TYPE = ModeType | "common";
 const MESSAGE_DISPLAY_TIME = 3000;
 
 const App: React.FC = () => {
   const [keymaps, setKeymaps] = useState<Keymaps>(DEFAULT_KEYMAPS);
   const [isEditing, setIsEditing] = useState(false);
-  const [editingMode, setEditingMode] = useState<ALL_MODE_TYPE | null>(null);
+  const [editingMode, setEditingMode] = useState<AllModeType | null>(null);
   const [editingCommand, setEditingCommand] = useState<string | null>(null);
   const [message, setMessage] = useState("");
   const [currentKeySequence, setCurrentKeySequence] = useState<string[]>([]);
@@ -23,7 +23,7 @@ const App: React.FC = () => {
 
   const validateKeySequence = (
     sequence: string[],
-    mode: ALL_MODE_TYPE,
+    mode: AllModeType,
     command: string,
   ) => {
     if (sequence.length === 0) {
@@ -75,16 +75,13 @@ const App: React.FC = () => {
     return "";
   };
 
-  const handleEdit = (mode: ALL_MODE_TYPE, command: string) => () => {
+  const handleEdit = (mode: AllModeType, command: string) => {
     setIsEditing(true);
     setEditingMode(mode);
     setEditingCommand(command);
     setCurrentKeySequence([]);
     setValidationError("");
     setMessage("新しいキーを押してください...");
-    setTimeout(() =>
-      document.querySelector<HTMLInputElement>(".App__input--editing")?.focus(),
-    );
   };
 
   const handleCancel = () => {
@@ -207,83 +204,44 @@ const App: React.FC = () => {
     loadKeymaps().then(updateKeymaps);
   }, [updateKeymaps]);
 
-  const renderKeymapSection = (
-    title: string,
-    mode: ALL_MODE_TYPE,
-    keymap: Keymap,
-  ) => (
-    <div className="App__section">
-      <h3 className="App__subtitle">{title}</h3>
-      {Object.entries(keymap).map(([command, key]) => (
-        <div key={command} className="App__inputGroup">
-          <label className="App__label" htmlFor={`App__input--${command}`}>
-            {command.replaceAll("_", " ")}:
-          </label>
-          <input
-            id={`App__input--${command}`}
-            type="text"
-            value={
-              isEditing && editingMode === mode && editingCommand === command
-                ? currentKeySequence.join(" ") || "待機中..."
-                : key
-            }
-            readOnly
-            className={`App__input ${
-              isEditing && editingMode === mode && editingCommand === command
-                ? "App__input--editing"
-                : ""
-            } ${
-              validationError &&
-              editingMode === mode &&
-              editingCommand === command
-                ? "App__input--error"
-                : ""
-            }`}
-            onKeyDown={handleKeyDown}
-            onFocus={handleEdit(mode, command)}
-          />
-          {isEditing && editingMode === mode && editingCommand === command ? (
-            <div className="App__buttonGroup">
-              <button
-                type="button"
-                className="App__button App__button--confirm"
-                onClick={handleConfirm}
-                disabled={currentKeySequence.length === 0 || !!validationError}
-                aria-label="確定"
-              >
-                &#9989;
-              </button>
-              <button
-                type="button"
-                className="App__button App__button--cancel"
-                onClick={handleCancel}
-                aria-label="キャンセル"
-              >
-                &#10060;
-              </button>
-            </div>
-          ) : (
-            <button
-              type="button"
-              className="App__button"
-              onClick={handleEdit(mode, command)}
-              disabled={isEditing}
-              aria-label="編集"
-            >
-              &#x270F;&#xFE0F;
-            </button>
-          )}
-        </div>
-      ))}
-    </div>
-  );
+  const keymapSectionProps = {
+    isEditing,
+    editingMode,
+    editingCommand,
+    currentKeySequence,
+    validationError,
+    handleKeyDown,
+    handleEdit,
+    handleConfirm,
+    handleCancel,
+  };
 
   return (
     <div className="App">
-      {renderKeymapSection("Insert Mode Keymaps", "insert", keymaps.insert)}
-      {renderKeymapSection("Normal Mode Keymaps", "normal", keymaps.normal)}
-      {renderKeymapSection("Visual Mode Keymaps", "visual", keymaps.visual)}
-      {renderKeymapSection("Normal / Visual Keymaps", "common", keymaps.common)}
+      <KeymapSection
+        title="Insert Mode Keymaps"
+        mode="insert"
+        keymap={keymaps.insert}
+        {...keymapSectionProps}
+      />
+      <KeymapSection
+        title="Normal Mode Keymaps"
+        mode="normal"
+        keymap={keymaps.normal}
+        {...keymapSectionProps}
+      />
+      <KeymapSection
+        title="Visual Mode Keymaps"
+        mode="visual"
+        keymap={keymaps.visual}
+        {...keymapSectionProps}
+      />
+      <KeymapSection
+        title="Normal / Visual Keymaps"
+        mode="common"
+        keymap={keymaps.common}
+        {...keymapSectionProps}
+      />
 
       <button
         type="button"
