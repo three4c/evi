@@ -20,6 +20,7 @@ const App: React.FC = () => {
   const [message, setMessage] = useState("");
   const [currentKeySequence, setCurrentKeySequence] = useState<string[]>([]);
   const [validationError, setValidationError] = useState("");
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
   const validateKeySequence = useCallback(
     (sequence: string[], mode: ALL_MODE_TYPE, command: string) => {
@@ -81,6 +82,9 @@ const App: React.FC = () => {
     setCurrentKeySequence([]);
     setValidationError("");
     setMessage("新しいキーを押してください...");
+    setTimeout(() =>
+      document.querySelector<HTMLInputElement>(".App__input--editing")?.focus(),
+    );
   };
 
   const handleCancel = () => {
@@ -222,6 +226,7 @@ const App: React.FC = () => {
             {command.replaceAll("_", " ")}:
           </label>
           <input
+            ref={inputRef}
             id={`App__input--${command}`}
             type="text"
             value={
@@ -244,6 +249,37 @@ const App: React.FC = () => {
             onKeyDown={handleKeyDown}
             onFocus={handleEdit(mode, command)}
           />
+          {isEditing && editingMode === mode && editingCommand === command ? (
+            <div className="App__buttonGroup">
+              <button
+                type="button"
+                className="App__button App__button--confirm"
+                onClick={handleConfirm}
+                disabled={currentKeySequence.length === 0 || !!validationError}
+                aria-label="確定"
+              >
+                &#9989;
+              </button>
+              <button
+                type="button"
+                className="App__button App__button--cancel"
+                onClick={handleCancel}
+                aria-label="キャンセル"
+              >
+                &#10060;
+              </button>
+            </div>
+          ) : (
+            <button
+              type="button"
+              className="App__button"
+              onClick={handleEdit(mode, command)}
+              disabled={isEditing}
+              aria-label="編集"
+            >
+              &#x270F;&#xFE0F;
+            </button>
+          )}
         </div>
       ))}
     </div>
@@ -257,28 +293,14 @@ const App: React.FC = () => {
       {renderKeymapSection("Normal / Visual Keymaps", "common", keymaps.common)}
 
       <div className="App__buttonGroup">
-        {isEditing ? (
-          <React.Fragment>
-            <button
-              type="button"
-              className="App__button"
-              onClick={handleCancel}
-            >
-              キャンセル
-            </button>
-            <button
-              type="button"
-              className="App__button"
-              onClick={handleConfirm}
-            >
-              保存
-            </button>
-          </React.Fragment>
-        ) : (
-          <button type="button" className="App__button" onClick={handleReset}>
-            デフォルトに戻す
-          </button>
-        )}
+        <button
+          type="button"
+          className="App__button App__button--reset"
+          onClick={handleReset}
+          disabled={isEditing}
+        >
+          デフォルトに戻す
+        </button>
       </div>
 
       {message && (
