@@ -208,13 +208,6 @@ exports[`<App /> > Snapshot 1`] = `
           type="text"
           value="d h"
         />
-        <button
-          aria-label="編集"
-          class="App__button"
-          type="button"
-        >
-          ✏️
-        </button>
       </div>
       <div
         class="App__inputGroup"
@@ -232,13 +225,6 @@ exports[`<App /> > Snapshot 1`] = `
           type="text"
           value="d j"
         />
-        <button
-          aria-label="編集"
-          class="App__button"
-          type="button"
-        >
-          ✏️
-        </button>
       </div>
       <div
         class="App__inputGroup"
@@ -256,13 +242,6 @@ exports[`<App /> > Snapshot 1`] = `
           type="text"
           value="d k"
         />
-        <button
-          aria-label="編集"
-          class="App__button"
-          type="button"
-        >
-          ✏️
-        </button>
       </div>
       <div
         class="App__inputGroup"
@@ -280,13 +259,6 @@ exports[`<App /> > Snapshot 1`] = `
           type="text"
           value="d l"
         />
-        <button
-          aria-label="編集"
-          class="App__button"
-          type="button"
-        >
-          ✏️
-        </button>
       </div>
       <div
         class="App__inputGroup"
@@ -304,13 +276,6 @@ exports[`<App /> > Snapshot 1`] = `
           type="text"
           value="d d"
         />
-        <button
-          aria-label="編集"
-          class="App__button"
-          type="button"
-        >
-          ✏️
-        </button>
       </div>
       <div
         class="App__inputGroup"
@@ -328,13 +293,6 @@ exports[`<App /> > Snapshot 1`] = `
           type="text"
           value="D"
         />
-        <button
-          aria-label="編集"
-          class="App__button"
-          type="button"
-        >
-          ✏️
-        </button>
       </div>
       <div
         class="App__inputGroup"
@@ -565,13 +523,6 @@ exports[`<App /> > Snapshot 1`] = `
           type="text"
           value="d"
         />
-        <button
-          aria-label="編集"
-          class="App__button"
-          type="button"
-        >
-          ✏️
-        </button>
       </div>
       <div
         class="App__inputGroup"
