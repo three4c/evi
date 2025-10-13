@@ -885,7 +885,7 @@ exports[`<App /> > Snapshot 1`] = `
       class="App__button App__button--reset"
       type="button"
     >
-      デフォルトに戻す
+      デフォルトにリセット
     </button>
   </div>
 </DocumentFragment>

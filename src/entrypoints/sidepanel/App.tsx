@@ -296,7 +296,7 @@ const App: React.FC = () => {
         onClick={handleReset}
         disabled={isEditing}
       >
-        デフォルトに戻す
+        デフォルトにリセット
       </button>
 
       {message && (
