@@ -20,7 +20,7 @@ jobs:
       - name: Install Deps
         run: bun install --frozen-lockfile
       - name: Test
-        run: bun run test:coverage
+        run: bun run test --coverage.enabled true
       - name: Report Coverage
         if: always()
         uses: davelosert/vitest-coverage-report-action@v2
