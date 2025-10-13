@@ -21,58 +21,59 @@ const App: React.FC = () => {
   const [currentKeySequence, setCurrentKeySequence] = useState<string[]>([]);
   const [validationError, setValidationError] = useState("");
 
-  const validateKeySequence = useCallback(
-    (sequence: string[], mode: ALL_MODE_TYPE, command: string) => {
-      if (sequence.length === 0) {
-        return "キーシーケンスが空です";
+  const validateKeySequence = (
+    sequence: string[],
+    mode: ALL_MODE_TYPE,
+    command: string,
+  ) => {
+    if (sequence.length === 0) {
+      return "キーシーケンスが空です";
+    }
+
+    const allKeymapsForMode =
+      mode === "common"
+        ? {
+            ...keymaps.common,
+            ...keymaps.normal,
+            ...keymaps.visual,
+          }
+        : { ...keymaps[mode], ...keymaps.common };
+    const newKeyString = sequence.join(" ");
+
+    // 重複チェック（現在編集中のコマンド以外）
+    for (const [cmd, keyStr] of Object.entries(allKeymapsForMode)) {
+      if (cmd !== command && keyStr === newKeyString) {
+        return `キー "${newKeyString}" は既に "${cmd}" で使用されています`;
+      }
+    }
+
+    // プレフィックス競合チェック
+    for (const [cmd, keyStr] of Object.entries(allKeymapsForMode)) {
+      if (cmd === command) continue;
+
+      const existingKeys = keyStr.split(" ");
+
+      // 既存の1キーマップが新しいシーケンスの最初のキーと同じ場合
+      if (
+        existingKeys.length === 1 &&
+        sequence.length > 1 &&
+        existingKeys[0] === sequence[0]
+      ) {
+        return `キー "${existingKeys[0]}" が既に "${cmd}" で使用されているため、"${newKeyString}" は設定できません`;
       }
 
-      const allKeymapsForMode =
-        mode === "common"
-          ? {
-              ...keymaps.common,
-              ...keymaps.normal,
-              ...keymaps.visual,
-            }
-          : { ...keymaps[mode], ...keymaps.common };
-      const newKeyString = sequence.join(" ");
-
-      // 重複チェック（現在編集中のコマンド以外）
-      for (const [cmd, keyStr] of Object.entries(allKeymapsForMode)) {
-        if (cmd !== command && keyStr === newKeyString) {
-          return `キー "${newKeyString}" は既に "${cmd}" で使用されています`;
-        }
+      // 新しいシーケンスが1キーで、既存のマルチキーシーケンスの最初のキーと同じ場合
+      if (
+        sequence.length === 1 &&
+        existingKeys.length > 1 &&
+        sequence[0] === existingKeys[0]
+      ) {
+        return `キー "${sequence[0]}" は "${cmd}" のキーシーケンス "${keyStr}" と競合します`;
       }
+    }
 
-      // プレフィックス競合チェック
-      for (const [cmd, keyStr] of Object.entries(allKeymapsForMode)) {
-        if (cmd === command) continue;
-
-        const existingKeys = keyStr.split(" ");
-
-        // 既存の1キーマップが新しいシーケンスの最初のキーと同じ場合
-        if (
-          existingKeys.length === 1 &&
-          sequence.length > 1 &&
-          existingKeys[0] === sequence[0]
-        ) {
-          return `キー "${existingKeys[0]}" が既に "${cmd}" で使用されているため、"${newKeyString}" は設定できません`;
-        }
-
-        // 新しいシーケンスが1キーで、既存のマルチキーシーケンスの最初のキーと同じ場合
-        if (
-          sequence.length === 1 &&
-          existingKeys.length > 1 &&
-          sequence[0] === existingKeys[0]
-        ) {
-          return `キー "${sequence[0]}" は "${cmd}" のキーシーケンス "${keyStr}" と競合します`;
-        }
-      }
-
-      return "";
-    },
-    [keymaps],
-  );
+    return "";
+  };
 
   const handleEdit = (mode: ALL_MODE_TYPE, command: string) => () => {
     setIsEditing(true);
@@ -95,7 +96,7 @@ const App: React.FC = () => {
     setMessage("");
   };
 
-  const handleConfirm = useCallback(async () => {
+  const handleConfirm = async () => {
     if (!editingMode || !editingCommand || currentKeySequence.length === 0)
       return;
 
@@ -123,13 +124,7 @@ const App: React.FC = () => {
     await saveKeymaps(updatedKeymaps);
     setMessage("保存完了！");
     setTimeout(() => setMessage(""), MESSAGE_DISPLAY_TIME);
-  }, [
-    currentKeySequence,
-    editingCommand,
-    editingMode,
-    keymaps,
-    validateKeySequence,
-  ]);
+  };
 
   const updateKeymaps = useCallback((savedKeymaps: Keymaps) => {
     setKeymaps({
