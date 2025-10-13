@@ -276,7 +276,7 @@ const App: React.FC = () => {
           </React.Fragment>
         ) : (
           <button type="button" className="App__button" onClick={handleReset}>
-            "デフォルトに戻す"
+            デフォルトに戻す
           </button>
         )}
       </div>
