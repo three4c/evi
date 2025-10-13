@@ -42,5 +42,8 @@
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.2.4",
     "wxt": "^0.20.6"
+  },
+  "engines": {
+    "node": "23.5.0"
   }
 }
