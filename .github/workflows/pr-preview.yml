@@ -19,18 +19,13 @@ jobs:
         with:
           persist-credentials: true
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
+      - name: Install Bun
+        run: |
+          curl -fsSL https://bun.sh/install | BUN_VERSION="1.9.7" bash
+          echo "$HOME/.bun/bin" >> $GITHUB_PATH
 
-      - name: Cache Node modules
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+      - name: Install Deps
+        run: bun install
 
       - name: Determine action
         id: pr_action
@@ -44,8 +39,7 @@ jobs:
       - name: Build Vite project and create ZIP
         if: env.ACTION == 'build'
         run: |
-          npm install
-          npm run zip
+          bun zip
           BASE_ZIP=$(ls .output/*.zip | head -n 1)
           SAFE_BRANCH_NAME=$(echo $GITHUB_HEAD_REF | tr '/' '-')
           ZIP_NAME="pr-preview-${SAFE_BRANCH_NAME}.zip"
@@ -103,7 +97,6 @@ jobs:
         run: |
           SAFE_BRANCH_NAME=$(echo $GITHUB_HEAD_REF | tr '/' '-')
           ZIP_NAME="pr-preview-${SAFE_BRANCH_NAME}.zip"
-          echo "Removing ZIP: $ZIP_NAME from gh-pages"
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           git fetch origin gh-pages

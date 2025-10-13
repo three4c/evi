@@ -11,15 +11,21 @@ jobs:
       pull-requests: write
 
     steps:
-    - uses: actions/checkout@v4
-    - name: 'Install Node'
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-    - name: 'Install Deps'
-      run: npm install
-    - name: 'Test'
-      run: npx vitest --coverage.enabled true
-    - name: 'Report Coverage'
-      if: always()
-      uses:  davelosert/vitest-coverage-report-action@v2
+      - uses: actions/checkout@v4
+
+      - name: Install Bun
+        run: |
+          curl -fsSL https://bun.sh/install | BUN_VERSION="1.9.7" bash
+          echo "$HOME/.bun/bin" >> $GITHUB_PATH
+
+      - name: Install Deps
+        run: bun install
+
+      - name: Test
+        run: bun run test:coverage
+
+      - name: Report Coverage
+        if: always()
+        uses: davelosert/vitest-coverage-report-action@v2
+        with:
+          jsonSummaryPath: ./coverage/coverage-summary.json
