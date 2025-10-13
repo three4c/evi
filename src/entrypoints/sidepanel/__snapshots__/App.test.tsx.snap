@@ -197,6 +197,150 @@ exports[`<App /> > Snapshot 1`] = `
       >
         <label
           class="App__label"
+          for="App__input--delete_left"
+        >
+          delete left:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--delete_left"
+          readonly=""
+          type="text"
+          value="d h"
+        />
+        <button
+          aria-label="編集"
+          class="App__button"
+          type="button"
+        >
+          ✏️
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--delete_down"
+        >
+          delete down:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--delete_down"
+          readonly=""
+          type="text"
+          value="d j"
+        />
+        <button
+          aria-label="編集"
+          class="App__button"
+          type="button"
+        >
+          ✏️
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--delete_up"
+        >
+          delete up:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--delete_up"
+          readonly=""
+          type="text"
+          value="d k"
+        />
+        <button
+          aria-label="編集"
+          class="App__button"
+          type="button"
+        >
+          ✏️
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--delete_right"
+        >
+          delete right:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--delete_right"
+          readonly=""
+          type="text"
+          value="d l"
+        />
+        <button
+          aria-label="編集"
+          class="App__button"
+          type="button"
+        >
+          ✏️
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--delete_line"
+        >
+          delete line:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--delete_line"
+          readonly=""
+          type="text"
+          value="d d"
+        />
+        <button
+          aria-label="編集"
+          class="App__button"
+          type="button"
+        >
+          ✏️
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--delete_after"
+        >
+          delete after:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--delete_after"
+          readonly=""
+          type="text"
+          value="D"
+        />
+        <button
+          aria-label="編集"
+          class="App__button"
+          type="button"
+        >
+          ✏️
+        </button>
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
           for="App__input--insert_below"
         >
           insert below:
@@ -404,6 +548,30 @@ exports[`<App /> > Snapshot 1`] = `
           type="text"
           value="l"
         />
+      </div>
+      <div
+        class="App__inputGroup"
+      >
+        <label
+          class="App__label"
+          for="App__input--delete"
+        >
+          delete:
+        </label>
+        <input
+          class="App__input  "
+          id="App__input--delete"
+          readonly=""
+          type="text"
+          value="d"
+        />
+        <button
+          aria-label="編集"
+          class="App__button"
+          type="button"
+        >
+          ✏️
+        </button>
       </div>
       <div
         class="App__inputGroup"

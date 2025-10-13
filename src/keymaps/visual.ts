@@ -5,6 +5,7 @@ export const VISUAL_KEYMAPS: Keymap = {
   expand_down: "j",
   expand_up: "k",
   expand_right: "l",
+  delete: "d",
   replace: "p",
   copy: "y",
   cut: "x",

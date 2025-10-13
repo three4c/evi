@@ -11,6 +11,8 @@ export const insertText = (
     document.execCommand("insertText", false, " ");
     element.setSelectionRange(0, 1);
     document.execCommand("delete");
+  } else if (value === "") {
+    document.execCommand("delete");
   } else {
     // ブラウザのテキスト変更履歴にのせるため、execCommandを使用
     document.execCommand("insertText", false, value);
