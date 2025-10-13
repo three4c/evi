@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { DEFAULT_KEYMAPS } from "@/keymaps";
 import type { Keymap, Keymaps, ModeType } from "@/utils";
 import {
@@ -20,7 +20,6 @@ const App: React.FC = () => {
   const [message, setMessage] = useState("");
   const [currentKeySequence, setCurrentKeySequence] = useState<string[]>([]);
   const [validationError, setValidationError] = useState("");
-  const inputRef = React.useRef<HTMLInputElement>(null);
 
   const validateKeySequence = useCallback(
     (sequence: string[], mode: ALL_MODE_TYPE, command: string) => {
@@ -226,7 +225,6 @@ const App: React.FC = () => {
             {command.replaceAll("_", " ")}:
           </label>
           <input
-            ref={inputRef}
             id={`App__input--${command}`}
             type="text"
             value={
@@ -292,16 +290,14 @@ const App: React.FC = () => {
       {renderKeymapSection("Visual Mode Keymaps", "visual", keymaps.visual)}
       {renderKeymapSection("Normal / Visual Keymaps", "common", keymaps.common)}
 
-      <div className="App__buttonGroup">
-        <button
-          type="button"
-          className="App__button App__button--reset"
-          onClick={handleReset}
-          disabled={isEditing}
-        >
-          デフォルトに戻す
-        </button>
-      </div>
+      <button
+        type="button"
+        className="App__button App__button--reset"
+        onClick={handleReset}
+        disabled={isEditing}
+      >
+        デフォルトに戻す
+      </button>
 
       {message && (
         <div
