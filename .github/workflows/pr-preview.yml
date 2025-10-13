@@ -25,7 +25,7 @@ jobs:
           echo "$HOME/.bun/bin" >> $GITHUB_PATH
 
       - name: Install Deps
-        run: bun install --frozen-lockfile
+        run: bun install
 
       - name: Determine action
         id: pr_action
