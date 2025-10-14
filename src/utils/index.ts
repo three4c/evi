@@ -1,4 +1,5 @@
 export * from "./detectModifierKey";
+export * from "./dummyCaret";
 export * from "./findCommand";
 export * from "./getElement";
 export * from "./getKeymaps";
