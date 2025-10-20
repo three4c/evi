@@ -12,7 +12,6 @@ const App: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [message, setMessage] = useState("");
 
-  // 共通のメッセージ表示関数
   const showMessage = useCallback((msg: string) => {
     setMessage(msg);
     setTimeout(() => setMessage(""), MESSAGE_DISPLAY_TIME);
