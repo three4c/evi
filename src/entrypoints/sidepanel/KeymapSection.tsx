@@ -77,7 +77,7 @@ const KeymapItem: React.FC<KeymapItemProps> = (props) => {
     return "";
   };
 
-  const handleEdit = (mode: AllModeType, command: string) => {
+  const handleEdit = (mode: AllModeType, command: string) => () => {
     setEditingMode(mode);
     setEditingCommand(command);
     setCurrentKeySequence([]);
@@ -206,7 +206,6 @@ const KeymapItem: React.FC<KeymapItemProps> = (props) => {
           validationError && isActive ? "App__input--error" : ""
         }`}
         onKeyDown={handleKeyDown}
-        onFocus={() => handleEdit(props.mode, props.command)}
         ref={inputRef}
       />
       {isActive ? (
@@ -233,7 +232,7 @@ const KeymapItem: React.FC<KeymapItemProps> = (props) => {
         <button
           type="button"
           className="App__button"
-          onClick={() => handleEdit(props.mode, props.command)}
+          onClick={handleEdit(props.mode, props.command)}
           aria-label="編集"
           ref={buttonRef}
         >
