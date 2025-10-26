@@ -1,4 +1,5 @@
 export type ModeType = "normal" | "insert" | "visual";
+export type AllModeType = ModeType | "common";
 
 export type Positions = {
   start: number;
