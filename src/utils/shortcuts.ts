@@ -38,6 +38,7 @@ export const onKeymapsChangedMessaged = () => {
           if (tab.id) {
             chrome.tabs.sendMessage(tab.id, {
               keymaps: changes.keymaps.newValue,
+              tabId: tab.id,
             });
           }
         }
@@ -69,8 +70,8 @@ export const sendMessage = <T>(args: T) => {
 
 export const onMessage = <T>(callback: (args: T, tabId: number) => void) => {
   chrome.runtime.onMessage.addListener((message, sender) => {
-    if (sender.tab?.id) {
-      callback(message.args, sender.tab.id);
+    if (sender.tab?.id || message.tabId) {
+      callback(message.args, sender.tab?.id || message.tabId);
     }
   });
 };
