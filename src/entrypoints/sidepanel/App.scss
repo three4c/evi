@@ -1,4 +1,5 @@
 .App {
+  color: #333;
   font-family: system-ui;
   font-size: 14px;
   padding: 32px 16px;
@@ -51,6 +52,14 @@
     border-radius: 4px;
     background-color: #fff;
     cursor: pointer;
+
+    &--confirm {
+      color: #3CB371;
+    }
+
+    &--cancel {
+      color: #FF6347;
+    }
 
     &--reset {
       position: fixed;

@@ -1,3 +1,9 @@
+import {
+  faCircleCheck,
+  faCircleXmark,
+  faPen,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useState } from "react";
 import { DEFAULT_KEYMAPS } from "@/keymaps";
 import type { AllModeType, Keymap, Keymaps } from "@/utils";
@@ -217,7 +223,7 @@ const KeymapItem: React.FC<KeymapItemProps> = (props) => {
             disabled={currentKeySequence.length === 0 || !!validationError}
             aria-label="確定"
           >
-            &#9989;
+            <FontAwesomeIcon icon={faCircleCheck} />
           </button>
           <button
             type="button"
@@ -225,7 +231,7 @@ const KeymapItem: React.FC<KeymapItemProps> = (props) => {
             onClick={handleCancel}
             aria-label="キャンセル"
           >
-            &#10060;
+            <FontAwesomeIcon icon={faCircleXmark} />
           </button>
         </div>
       ) : (
@@ -236,7 +242,7 @@ const KeymapItem: React.FC<KeymapItemProps> = (props) => {
           aria-label="編集"
           ref={buttonRef}
         >
-          &#x270F;&#xFE0F;
+          <FontAwesomeIcon icon={faPen} />
         </button>
       )}
     </div>

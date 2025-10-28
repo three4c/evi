@@ -122,10 +122,6 @@ export const handleKeyDown = async (
     });
   }
 
-  if (newMode === "insert") {
-    element.style.fontFamily = "";
-  }
-
   return {
     pos: { ...args.pos, ...newPos },
     mode: newMode ?? mode,
