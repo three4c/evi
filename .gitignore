@@ -25,3 +25,7 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+# Happy css modules
+*.module.scss.d.ts
+*.module.scss.d.ts.map
