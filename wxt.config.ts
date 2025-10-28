@@ -1,3 +1,4 @@
+import happyCssModules from "vite-plugin-happy-css-modules";
 import { defineConfig } from "wxt";
 
 // See https://wxt.dev/api/config.html
@@ -13,5 +14,14 @@ export default defineConfig({
       default_title: "evi - displays current mode",
       default_icon: {},
     },
+  },
+  vite() {
+    return {
+      plugins: [
+        happyCssModules({
+          pattern: "**/*.module.scss",
+        }),
+      ],
+    };
   },
 });

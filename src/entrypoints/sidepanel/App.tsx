@@ -1,9 +1,10 @@
+import clsx from "clsx";
 import { useCallback, useEffect, useState } from "react";
 import { DEFAULT_KEYMAPS } from "@/keymaps";
 import type { Keymaps } from "@/utils";
 import { loadKeymaps, resetKeymaps } from "@/utils";
+import styles from "./App.module.scss";
 import { KeymapSection } from "./KeymapSection";
-import "./App.scss";
 
 const MESSAGE_DISPLAY_TIME = 3000;
 
@@ -38,7 +39,7 @@ const App: React.FC = () => {
   }, [updateKeymaps]);
 
   return (
-    <div className="App">
+    <div className={styles.App}>
       {(["insert", "normal", "visual", "common"] as const).map((mode) => (
         <KeymapSection
           key={mode}
@@ -53,7 +54,7 @@ const App: React.FC = () => {
 
       <button
         type="button"
-        className="App__button App__button--reset"
+        className={clsx(styles.App__button, styles["App__button--reset"])}
         onClick={handleReset}
         disabled={isEditing}
       >
@@ -62,11 +63,10 @@ const App: React.FC = () => {
 
       {message && (
         <div
-          className={`App__message ${
-            message.includes("エラー")
-              ? "App__message--error"
-              : "App__message--success"
-          }`}
+          className={clsx(styles.App__message, {
+            [styles["App__message--error"]]: message.includes("エラー"),
+            [styles["App__message--success"]]: !message.includes("エラー"),
+          })}
         >
           {message}
         </div>

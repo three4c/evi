@@ -1,4 +1,3 @@
-# Logs
 logs
 *.log
 npm-debug.log*
@@ -15,7 +14,6 @@ stats-*.json
 web-ext.config.ts
 coverage
 
-# Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
@@ -25,3 +23,6 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+*.module.scss.d.ts
+*.module.scss.d.ts.map
