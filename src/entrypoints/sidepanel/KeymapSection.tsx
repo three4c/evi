@@ -217,6 +217,7 @@ const KeymapItem: React.FC<KeymapItemProps> = (props) => {
           [styles["KeymapSection__input--editing"]]: isActive,
         })}
         onKeyDown={handleKeyDown}
+        onBlur={handleCancel}
         ref={inputRef}
       />
       {isActive ? (
@@ -265,11 +266,11 @@ export const KeymapSection: React.FC<KeymapSectionProps> = (props) => (
     <h3 className={styles.KeymapSection__subtitle}>{props.title}</h3>
     {Object.entries(props.keymap).map(([command, keyValue]) => (
       <KeymapItem
+        {...props}
         key={command}
         command={command}
         keyValue={keyValue}
         keymaps={DEFAULT_KEYMAPS}
-        {...props}
       />
     ))}
   </div>
