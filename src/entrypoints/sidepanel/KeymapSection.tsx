@@ -4,10 +4,12 @@ import {
   faPen,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import clsx from "clsx";
 import { useRef, useState } from "react";
 import { DEFAULT_KEYMAPS } from "@/keymaps";
 import type { AllModeType, Keymap, Keymaps } from "@/utils";
 import { detectModifierKey, saveKeymaps } from "@/utils";
+import styles from "./KeymapSection.module.scss";
 
 interface BaseKeymapProps {
   mode: AllModeType;
@@ -195,12 +197,15 @@ const KeymapItem: React.FC<KeymapItemProps> = (props) => {
     editingMode === props.mode && editingCommand === props.command;
 
   return (
-    <div key={props.command} className="App__inputGroup">
-      <label className="App__label" htmlFor={`App__input--${props.command}`}>
+    <div key={props.command} className={styles.KeymapSection__inputGroup}>
+      <label
+        className={styles.KeymapSection__label}
+        htmlFor={`KeymapSection__input--${props.command}`}
+      >
         {props.command.replaceAll("_", " ")}:
       </label>
       <input
-        id={`App__input--${props.command}`}
+        id={`KeymapSection__input--${props.command}`}
         type="text"
         value={
           isActive
@@ -208,17 +213,21 @@ const KeymapItem: React.FC<KeymapItemProps> = (props) => {
             : props.keyValue
         }
         readOnly
-        className={`App__input ${isActive ? "App__input--editing" : ""} ${
-          validationError && isActive ? "App__input--error" : ""
-        }`}
+        className={clsx(styles.KeymapSection__input, {
+          [styles["KeymapSection__input--editing"]]: isActive,
+        })}
         onKeyDown={handleKeyDown}
+        onBlur={handleCancel}
         ref={inputRef}
       />
       {isActive ? (
-        <div className="App__buttonGroup">
+        <div className={styles.KeymapSection__buttonGroup}>
           <button
             type="button"
-            className="App__button App__button--confirm"
+            className={clsx(
+              styles.KeymapSection__button,
+              styles["KeymapSection__button--confirm"],
+            )}
             onClick={handleConfirm}
             disabled={currentKeySequence.length === 0 || !!validationError}
             aria-label="確定"
@@ -227,7 +236,10 @@ const KeymapItem: React.FC<KeymapItemProps> = (props) => {
           </button>
           <button
             type="button"
-            className="App__button App__button--cancel"
+            className={clsx(
+              styles.KeymapSection__button,
+              styles["KeymapSection__button--cancel"],
+            )}
             onClick={handleCancel}
             aria-label="キャンセル"
           >
@@ -237,7 +249,7 @@ const KeymapItem: React.FC<KeymapItemProps> = (props) => {
       ) : (
         <button
           type="button"
-          className="App__button"
+          className={styles.KeymapSection__button}
           onClick={handleEdit(props.mode, props.command)}
           aria-label="編集"
           ref={buttonRef}
@@ -250,15 +262,15 @@ const KeymapItem: React.FC<KeymapItemProps> = (props) => {
 };
 
 export const KeymapSection: React.FC<KeymapSectionProps> = (props) => (
-  <div className="App__section">
-    <h3 className="App__subtitle">{props.title}</h3>
+  <div className={styles.KeymapSection__section}>
+    <h3 className={styles.KeymapSection__subtitle}>{props.title}</h3>
     {Object.entries(props.keymap).map(([command, keyValue]) => (
       <KeymapItem
+        {...props}
         key={command}
         command={command}
         keyValue={keyValue}
         keymaps={DEFAULT_KEYMAPS}
-        {...props}
       />
     ))}
   </div>
