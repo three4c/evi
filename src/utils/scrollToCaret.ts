@@ -4,42 +4,42 @@ const SCROLL_PADDING_LINES = 2;
 const DEFAULT_LINE_HEIGHT = 16;
 
 /**
- * Scrolls the textarea to ensure the caret is visible within the viewport.
- * Only works for textarea elements (input elements don't support scrolling).
+ * キャレットが画面内に見えるようにtextareaをスクロールする
+ * textarea要素のみ対応（input要素はスクロール非対応）
  *
- * @param element - The input or textarea element
- * @param caretPosition - The caret position (start of selection)
+ * @param element - inputまたはtextarea要素
+ * @param caretPosition - キャレット位置（選択範囲の開始位置）
  */
 export const scrollToCaret = (
   element: HTMLInputElement | HTMLTextAreaElement,
   caretPosition: number,
 ): void => {
-  // Only textarea elements support scrolling
+  // textarea要素のみスクロール対応
   if (element.tagName !== "TEXTAREA") return;
 
   const textarea = element as HTMLTextAreaElement;
 
-  // Get line info using existing utility (currentLine is 0-based)
+  // 既存のユーティリティを使って行情報を取得（currentLineは0-based）
   const { currentLine } = getLines(element, caretPosition);
 
-  // Calculate line height from computed styles
+  // 計算スタイルから行の高さを取得
   const style = window.getComputedStyle(textarea);
   const lineHeight =
     Number.parseFloat(style.lineHeight) ||
     Number.parseFloat(style.fontSize) ||
     DEFAULT_LINE_HEIGHT;
 
-  // Calculate positions
+  // 位置を計算
   const caretTop = currentLine * lineHeight;
   const scrollTop = textarea.scrollTop;
   const clientHeight = textarea.clientHeight;
   const padding = lineHeight * SCROLL_PADDING_LINES;
 
-  // Scroll up if caret is too close to top edge
+  // キャレットが上端に近い場合は上にスクロール
   if (caretTop < scrollTop + padding) {
     textarea.scrollTop = Math.max(0, caretTop - padding);
   }
-  // Scroll down if caret is too close to bottom edge
+  // キャレットが下端に近い場合は下にスクロール
   else if (caretTop + lineHeight > scrollTop + clientHeight - padding) {
     textarea.scrollTop = caretTop + lineHeight - clientHeight + padding;
   }
