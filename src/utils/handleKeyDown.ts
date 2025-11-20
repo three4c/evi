@@ -117,7 +117,7 @@ export const handleKeyDown = async (
     newPos.end ?? args.pos.end,
   );
 
-  // Auto-scroll to keep caret visible in normal mode
+  // normal mode時にキャレットが見える範囲に自動スクロール
   if (mode === "normal") {
     scrollToCaret(element, newPos.start ?? args.pos.start);
   }
