@@ -1,6 +1,7 @@
 import { getLines } from "@/utils";
 
 const SCROLL_PADDING_LINES = 2;
+const DEFAULT_LINE_HEIGHT = 16;
 
 /**
  * Scrolls the textarea to ensure the caret is visible within the viewport.
@@ -18,7 +19,7 @@ export const scrollToCaret = (
 
   const textarea = element as HTMLTextAreaElement;
 
-  // Get line info using existing utility
+  // Get line info using existing utility (currentLine is 0-based)
   const { currentLine } = getLines(element, caretPosition);
 
   // Calculate line height from computed styles
@@ -26,7 +27,7 @@ export const scrollToCaret = (
   const lineHeight =
     Number.parseFloat(style.lineHeight) ||
     Number.parseFloat(style.fontSize) ||
-    16;
+    DEFAULT_LINE_HEIGHT;
 
   // Calculate positions
   const caretTop = currentLine * lineHeight;
