@@ -12,6 +12,7 @@ import {
   getElement,
   getLines,
   getMaxKeyHistory,
+  scrollToCaret,
   sendMessage,
 } from "@/utils";
 
@@ -115,6 +116,11 @@ export const handleKeyDown = async (
     newPos.start ?? args.pos.start,
     newPos.end ?? args.pos.end,
   );
+
+  // normal mode時にキャレットが見える範囲に自動スクロール
+  if (mode === "normal") {
+    scrollToCaret(element, newPos.start ?? args.pos.start);
+  }
 
   if (newMode && newMode !== mode) {
     sendMessage<Badge>({
