@@ -128,7 +128,7 @@ export const NORMAL_COMMANDS: Record<string, Command> = {
     return { start, end };
   },
   insert_below: ({ start, end, element, length }) => {
-    // Support multiline elements (TEXTAREA and contenteditable, but not INPUT)
+    // 複数行をサポートする要素（TEXTAREAとcontenteditable、INPUTは除外）
     if (!(element instanceof HTMLInputElement)) {
       const text = getText(element);
       const nextBreak = text.indexOf("\n", start);
@@ -139,7 +139,7 @@ export const NORMAL_COMMANDS: Record<string, Command> = {
     }
   },
   insert_above: ({ start, end, element }) => {
-    // Support multiline elements (TEXTAREA and contenteditable, but not INPUT)
+    // 複数行をサポートする要素（TEXTAREAとcontenteditable、INPUTは除外）
     if (!(element instanceof HTMLInputElement)) {
       const text = getText(element);
       const prevBreak = text.lastIndexOf("\n", start - 1);

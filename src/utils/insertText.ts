@@ -9,7 +9,7 @@ export const insertText = (
   end: number,
   value: string,
 ) => {
-  // Set selection range (works for both INPUT/TEXTAREA and contenteditable)
+  // 選択範囲を設定（INPUT/TEXTAREAとcontenteditableの両方に対応）
   if (
     element instanceof HTMLInputElement ||
     element instanceof HTMLTextAreaElement

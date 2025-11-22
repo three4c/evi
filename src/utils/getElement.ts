@@ -8,7 +8,7 @@ export const getElement = (
     return element;
   }
 
-  // Check if element is contenteditable
+  // contenteditable要素かをチェック
   if (element instanceof HTMLElement && element.isContentEditable) {
     return element;
   }

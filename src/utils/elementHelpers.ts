@@ -1,9 +1,9 @@
 /**
- * Helper functions to abstract differences between INPUT/TEXTAREA and contenteditable elements
+ * INPUT/TEXTAREAとcontenteditable要素の違いを吸収するヘルパー関数群
  */
 
 /**
- * Check if an element is contenteditable
+ * 要素がcontenteditableかどうかを判定
  */
 export const isContentEditable = (
   element: Element | null,
@@ -12,7 +12,7 @@ export const isContentEditable = (
 };
 
 /**
- * Get text content from an element (works with INPUT, TEXTAREA, and contenteditable)
+ * 要素からテキスト内容を取得（INPUT、TEXTAREA、contenteditableに対応）
  */
 export const getText = (
   element: HTMLInputElement | HTMLTextAreaElement | HTMLElement,
@@ -24,16 +24,16 @@ export const getText = (
     return element.value;
   }
 
-  // For contenteditable, convert HTML to plain text
-  // Replace <br> and <div> with newlines
+  // contenteditableの場合、HTMLをプレーンテキストに変換
+  // <br>と<div>を改行に置換
   const clone = element.cloneNode(true) as HTMLElement;
 
-  // Replace <br> with newline
+  // <br>を改行に置換
   clone.querySelectorAll("br").forEach((br) => {
     br.replaceWith("\n");
   });
 
-  // Replace block elements with newlines
+  // ブロック要素を改行に置換
   clone.querySelectorAll("div, p").forEach((block, index) => {
     if (index > 0) {
       block.prepend(document.createTextNode("\n"));
@@ -44,7 +44,7 @@ export const getText = (
 };
 
 /**
- * Get text length from an element
+ * 要素のテキストの長さを取得
  */
 export const getTextLength = (
   element: HTMLInputElement | HTMLTextAreaElement | HTMLElement,
@@ -53,7 +53,7 @@ export const getTextLength = (
 };
 
 /**
- * Get current selection range from an element
+ * 要素の現在の選択範囲を取得
  */
 export const getSelectionRange = (
   element: HTMLInputElement | HTMLTextAreaElement | HTMLElement,
@@ -68,7 +68,7 @@ export const getSelectionRange = (
     };
   }
 
-  // For contenteditable, calculate offset from window selection
+  // contenteditableの場合、window.getSelection()からオフセットを計算
   const selection = window.getSelection();
   if (!selection || selection.rangeCount === 0) {
     return { start: 0, end: 0 };
@@ -76,7 +76,7 @@ export const getSelectionRange = (
 
   const range = selection.getRangeAt(0);
 
-  // Calculate start and end offsets relative to element's text content
+  // 要素のテキスト内容を基準にした開始・終了オフセットを計算
   const preSelectionRange = range.cloneRange();
   preSelectionRange.selectNodeContents(element);
   preSelectionRange.setEnd(range.startContainer, range.startOffset);
@@ -88,7 +88,7 @@ export const getSelectionRange = (
 };
 
 /**
- * Set selection range on an element
+ * 要素の選択範囲を設定
  */
 export const setSelectionRange = (
   element: HTMLInputElement | HTMLTextAreaElement | HTMLElement,
@@ -103,7 +103,7 @@ export const setSelectionRange = (
     return;
   }
 
-  // For contenteditable, use Range API
+  // contenteditableの場合、Range APIを使用
   const selection = window.getSelection();
   if (!selection) return;
 
@@ -121,7 +121,7 @@ export const setSelectionRange = (
       selection.removeAllRanges();
       selection.addRange(range);
     } catch (_e) {
-      // If setting range fails, just place cursor at start
+      // 範囲設定が失敗した場合は、開始位置にカーソルを配置
       range.setStart(startNode, startOffset);
       range.setEnd(startNode, startOffset);
       selection.removeAllRanges();
@@ -131,16 +131,16 @@ export const setSelectionRange = (
 };
 
 /**
- * Helper: Get text content length from a Range, accounting for line breaks
+ * ヘルパー: Rangeのテキスト内容の長さを取得（改行を考慮）
  */
 const getTextContentLength = (range: Range): number => {
   const container = document.createElement("div");
   container.appendChild(range.cloneContents());
 
-  // Count <br> as newlines
+  // <br>を改行としてカウント
   const brCount = container.querySelectorAll("br").length;
 
-  // Count block elements as newlines (except the first one)
+  // ブロック要素を改行としてカウント（最初の要素は除く）
   const blockCount = Math.max(
     0,
     container.querySelectorAll("div, p").length - 1,
@@ -150,7 +150,7 @@ const getTextContentLength = (range: Range): number => {
 };
 
 /**
- * Helper: Find the text node and offset for a given character position
+ * ヘルパー: 指定された文字位置に対応するテキストノードとオフセットを検索
  */
 const getNodeAndOffset = (
   element: HTMLElement,
@@ -163,7 +163,7 @@ const getNodeAndOffset = (
     NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT,
     {
       acceptNode: (node) => {
-        // Accept text nodes and <br> elements
+        // テキストノードと<br>要素を受け入れる
         if (node.nodeType === Node.TEXT_NODE) {
           return NodeFilter.FILTER_ACCEPT;
         }
@@ -194,9 +194,9 @@ const getNodeAndOffset = (
       node.nodeType === Node.ELEMENT_NODE &&
       (node as Element).tagName === "BR"
     ) {
-      // <br> counts as 1 character (newline)
+      // <br>を1文字（改行）としてカウント
       if (currentOffset + 1 >= targetOffset) {
-        // Place cursor after the <br>
+        // <br>の後にカーソルを配置
         const childNodes = node.parentNode?.childNodes || [];
         const nodeIndex = Array.prototype.findIndex.call(
           childNodes,
@@ -213,7 +213,7 @@ const getNodeAndOffset = (
     node = walker.nextNode();
   }
 
-  // If we couldn't find the exact position, return the last text node or element itself
+  // 正確な位置が見つからない場合、最後のテキストノードまたは要素自体を返す
   return {
     node: element.lastChild || element,
     offset: element.lastChild?.textContent?.length || 0,

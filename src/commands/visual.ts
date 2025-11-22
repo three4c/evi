@@ -110,7 +110,7 @@ export const VISUAL_COMMANDS: Record<string, Command> = {
     const text = window.getSelection()?.toString();
     if (text) {
       navigator.clipboard.writeText(text);
-      // Get current selection range and delete the text
+      // 現在の選択範囲を取得してテキストを削除
       const { start, end } = getSelectionRange(element);
       insertText(element, start, end, "");
       return { start: oStart, end: oEnd, mode: "normal" };
