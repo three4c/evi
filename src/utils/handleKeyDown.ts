@@ -14,8 +14,11 @@ import {
   getMaxKeyHistory,
   sendMessage,
 } from "@/utils";
+import {
+  getTextLength,
+  setSelectionRange as setSelection,
+} from "./elementHelpers";
 
-const DOM_ARRAY = ["INPUT", "TEXTAREA"];
 let keyHistory: string[] = [];
 
 export const handleKeyDown = async (
@@ -25,15 +28,14 @@ export const handleKeyDown = async (
 ): Promise<Args> => {
   const activeElement = document.activeElement;
   const element = getElement(activeElement);
-  if (!element || !DOM_ARRAY.includes(element.tagName))
-    return { mode: args.mode, pos: args.pos };
+  if (!element) return { mode: args.mode, pos: args.pos };
 
   const { mode } = args;
 
   const combinedArgs = {
     mode,
     element,
-    length: element.value.length,
+    length: getTextLength(element),
     endCurrentLine: getLines(element, args.pos.end).currentLine,
     ...args.pos,
     ...getLines(element, args.pos.start),
@@ -111,7 +113,8 @@ export const handleKeyDown = async (
 
   const { mode: newMode, ...newPos } = newValues || {};
 
-  element.setSelectionRange(
+  setSelection(
+    element,
     newPos.start ?? args.pos.start,
     newPos.end ?? args.pos.end,
   );

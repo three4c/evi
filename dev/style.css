@@ -44,6 +44,7 @@ body {
 }
 
 .App__child {
+  background-color: #fff;
   border: none;
   border-radius: 4px;
   padding: 8px;
