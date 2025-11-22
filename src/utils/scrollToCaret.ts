@@ -15,15 +15,13 @@ export const scrollToCaret = (
   caretPosition: number,
 ): void => {
   // textarea要素のみスクロール対応
-  if (element.tagName !== "TEXTAREA") return;
-
-  const textarea = element as HTMLTextAreaElement;
+  if (!(element instanceof HTMLTextAreaElement)) return;
 
   // 既存のユーティリティを使って行情報を取得（currentLineは0-based）
   const { currentLine } = getLines(element, caretPosition);
 
   // 計算スタイルから行の高さを取得
-  const style = window.getComputedStyle(textarea);
+  const style = window.getComputedStyle(element);
   const lineHeight =
     Number.parseFloat(style.lineHeight) ||
     Number.parseFloat(style.fontSize) ||
@@ -31,16 +29,16 @@ export const scrollToCaret = (
 
   // 位置を計算
   const caretTop = currentLine * lineHeight;
-  const scrollTop = textarea.scrollTop;
-  const clientHeight = textarea.clientHeight;
+  const scrollTop = element.scrollTop;
+  const clientHeight = element.clientHeight;
   const padding = lineHeight * SCROLL_PADDING_LINES;
 
   // キャレットが上端に近い場合は上にスクロール
   if (caretTop < scrollTop + padding) {
-    textarea.scrollTop = Math.max(0, caretTop - padding);
+    element.scrollTop = Math.max(0, caretTop - padding);
   }
   // キャレットが下端に近い場合は下にスクロール
   else if (caretTop + lineHeight > scrollTop + clientHeight - padding) {
-    textarea.scrollTop = caretTop + lineHeight - clientHeight + padding;
+    element.scrollTop = caretTop + lineHeight - clientHeight + padding;
   }
 };
