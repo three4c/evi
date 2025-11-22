@@ -1,11 +1,13 @@
+import { getText } from "./elementHelpers";
+
 export const getLines = (
-  element: HTMLInputElement | HTMLTextAreaElement,
+  element: HTMLInputElement | HTMLTextAreaElement | HTMLElement,
   start: number,
 ) => {
   let charCount = 0;
   let currentLine = 0;
   let col = 0;
-  const lines = element.value.split("\n");
+  const lines = getText(element).split("\n");
 
   for (let i = 0; i < lines.length; i++) {
     const linesLength = lines[i].length + 1;

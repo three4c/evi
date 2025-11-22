@@ -24,7 +24,7 @@ export interface CombinedArgs extends Positions, Omit<Args, "pos"> {
   lines: string[];
   charCount: number;
   col: number;
-  element: HTMLInputElement | HTMLTextAreaElement;
+  element: HTMLInputElement | HTMLTextAreaElement | HTMLElement;
   length: number;
 }
 

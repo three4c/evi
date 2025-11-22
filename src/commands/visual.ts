@@ -1,4 +1,5 @@
 import { type Command, insertText } from "@/utils";
+import { getSelectionRange, getText } from "@/utils/elementHelpers";
 
 export const VISUAL_COMMANDS: Record<string, Command> = {
   expand_left: ({ start, end, oStart }) => {
@@ -82,7 +83,8 @@ export const VISUAL_COMMANDS: Record<string, Command> = {
     return { start, end };
   },
   delete: ({ element, start, end, length }) => {
-    if (element.value.charAt(start - 1) === "\n" && end === length) start--;
+    const text = getText(element);
+    if (text.charAt(start - 1) === "\n" && end === length) start--;
     insertText(element, start, end, "");
     if (end === length) start--;
     end = start + 1;
@@ -108,7 +110,9 @@ export const VISUAL_COMMANDS: Record<string, Command> = {
     const text = window.getSelection()?.toString();
     if (text) {
       navigator.clipboard.writeText(text);
-      element.setRangeText("");
+      // 現在の選択範囲を取得してテキストを削除
+      const { start, end } = getSelectionRange(element);
+      insertText(element, start, end, "");
       return { start: oStart, end: oEnd, mode: "normal" };
     }
   },
