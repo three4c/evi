@@ -167,10 +167,7 @@ const getNodeAndOffset = (
         if (node.nodeType === Node.TEXT_NODE) {
           return NodeFilter.FILTER_ACCEPT;
         }
-        if (
-          node.nodeType === Node.ELEMENT_NODE &&
-          (node as Element).tagName === "BR"
-        ) {
+        if (node instanceof Element && node.tagName === "BR") {
           return NodeFilter.FILTER_ACCEPT;
         }
         return NodeFilter.FILTER_SKIP;
@@ -190,10 +187,7 @@ const getNodeAndOffset = (
         };
       }
       currentOffset += textLength;
-    } else if (
-      node.nodeType === Node.ELEMENT_NODE &&
-      (node as Element).tagName === "BR"
-    ) {
+    } else if (node instanceof Element && node.tagName === "BR") {
       // <br>を1文字（改行）としてカウント
       if (currentOffset + 1 >= targetOffset) {
         // <br>の後にカーソルを配置
