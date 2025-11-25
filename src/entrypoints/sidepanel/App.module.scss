@@ -1,0 +1,43 @@
+.App {
+  color: #333;
+  font-family: system-ui;
+  font-size: 14px;
+  padding: 32px 16px;
+  margin: 39px 0;
+
+  &__message {
+    position: fixed;
+    right: 0;
+    top: 0;
+    margin: 16px;
+    padding: 8px;
+    border-radius: 4px;
+
+    &--error {
+      background-color: #ffebee;
+      border: 1px solid #ffcdd2;
+      color: #c62828;
+    }
+
+    &--success {
+      background-color: #e8f5e8;
+      border: 1px solid #c8e6c9;
+      color: #2e7d32;
+    }
+  }
+
+  &__button {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+
+    &--reset {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      margin: 16px;
+    }
+  }
+}

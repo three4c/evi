@@ -1,0 +1,1312 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`<App /> > Snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="_App_c3e4df"
+  >
+    <div
+      class="_KeymapSection__section_38fddf"
+    >
+      <h3
+        class="_KeymapSection__subtitle_38fddf"
+      >
+        Insert Mode Keymaps
+      </h3>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--enter_normal_mode"
+        >
+          enter normal mode:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--enter_normal_mode"
+          readonly=""
+          type="text"
+          value="ctrl+E"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div
+      class="_KeymapSection__section_38fddf"
+    >
+      <h3
+        class="_KeymapSection__subtitle_38fddf"
+      >
+        Normal Mode Keymaps
+      </h3>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--insert_before"
+        >
+          insert before:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--insert_before"
+          readonly=""
+          type="text"
+          value="i"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--insert_start"
+        >
+          insert start:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--insert_start"
+          readonly=""
+          type="text"
+          value="I"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--insert_after"
+        >
+          insert after:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--insert_after"
+          readonly=""
+          type="text"
+          value="a"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--insert_end"
+        >
+          insert end:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--insert_end"
+          readonly=""
+          type="text"
+          value="A"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--left"
+        >
+          left:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--left"
+          readonly=""
+          type="text"
+          value="h"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--down"
+        >
+          down:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--down"
+          readonly=""
+          type="text"
+          value="j"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--up"
+        >
+          up:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--up"
+          readonly=""
+          type="text"
+          value="k"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--right"
+        >
+          right:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--right"
+          readonly=""
+          type="text"
+          value="l"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--join_line"
+        >
+          join line:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--join_line"
+          readonly=""
+          type="text"
+          value="J"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--delete_left"
+        >
+          delete left:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--delete_left"
+          readonly=""
+          type="text"
+          value="d h"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--delete_down"
+        >
+          delete down:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--delete_down"
+          readonly=""
+          type="text"
+          value="d j"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--delete_up"
+        >
+          delete up:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--delete_up"
+          readonly=""
+          type="text"
+          value="d k"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--delete_right"
+        >
+          delete right:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--delete_right"
+          readonly=""
+          type="text"
+          value="d l"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--delete_line"
+        >
+          delete line:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--delete_line"
+          readonly=""
+          type="text"
+          value="d d"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--delete_after"
+        >
+          delete after:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--delete_after"
+          readonly=""
+          type="text"
+          value="D"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--insert_below"
+        >
+          insert below:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--insert_below"
+          readonly=""
+          type="text"
+          value="o"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--insert_above"
+        >
+          insert above:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--insert_above"
+          readonly=""
+          type="text"
+          value="O"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--paste_after"
+        >
+          paste after:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--paste_after"
+          readonly=""
+          type="text"
+          value="p"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--paste_before"
+        >
+          paste before:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--paste_before"
+          readonly=""
+          type="text"
+          value="P"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--cut_char"
+        >
+          cut char:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--cut_char"
+          readonly=""
+          type="text"
+          value="x"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--cut_char_before"
+        >
+          cut char before:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--cut_char_before"
+          readonly=""
+          type="text"
+          value="X"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--undo"
+        >
+          undo:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--undo"
+          readonly=""
+          type="text"
+          value="u"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--redo"
+        >
+          redo:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--redo"
+          readonly=""
+          type="text"
+          value="ctrl+r"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div
+      class="_KeymapSection__section_38fddf"
+    >
+      <h3
+        class="_KeymapSection__subtitle_38fddf"
+      >
+        Visual Mode Keymaps
+      </h3>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--expand_left"
+        >
+          expand left:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--expand_left"
+          readonly=""
+          type="text"
+          value="h"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--expand_down"
+        >
+          expand down:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--expand_down"
+          readonly=""
+          type="text"
+          value="j"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--expand_up"
+        >
+          expand up:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--expand_up"
+          readonly=""
+          type="text"
+          value="k"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--expand_right"
+        >
+          expand right:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--expand_right"
+          readonly=""
+          type="text"
+          value="l"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--delete"
+        >
+          delete:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--delete"
+          readonly=""
+          type="text"
+          value="d"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--replace"
+        >
+          replace:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--replace"
+          readonly=""
+          type="text"
+          value="p"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--copy"
+        >
+          copy:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--copy"
+          readonly=""
+          type="text"
+          value="y"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--cut"
+        >
+          cut:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--cut"
+          readonly=""
+          type="text"
+          value="x"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div
+      class="_KeymapSection__section_38fddf"
+    >
+      <h3
+        class="_KeymapSection__subtitle_38fddf"
+      >
+        Common Mode Keymaps
+      </h3>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--delete_char_insert"
+        >
+          delete char insert:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--delete_char_insert"
+          readonly=""
+          type="text"
+          value="s"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--delete_line_insert"
+        >
+          delete line insert:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--delete_line_insert"
+          readonly=""
+          type="text"
+          value="S"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="_KeymapSection__inputGroup_38fddf"
+      >
+        <label
+          class="_KeymapSection__label_38fddf"
+          for="KeymapSection__input--toggle_visual"
+        >
+          toggle visual:
+        </label>
+        <input
+          class="_KeymapSection__input_38fddf"
+          id="KeymapSection__input--toggle_visual"
+          readonly=""
+          type="text"
+          value="v"
+        />
+        <button
+          aria-label="編集"
+          class="_KeymapSection__button_38fddf"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-pen"
+            data-icon="pen"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M352.9 21.2L308 66.1 445.9 204 490.8 159.1C504.4 145.6 512 127.2 512 108s-7.6-37.6-21.2-51.1L455.1 21.2C441.6 7.6 423.2 0 404 0s-37.6 7.6-51.1 21.2zM274.1 100L58.9 315.1c-10.7 10.7-18.5 24.1-22.6 38.7L.9 481.6c-2.3 8.3 0 17.3 6.2 23.4s15.1 8.5 23.4 6.2l127.8-35.5c14.6-4.1 27.9-11.8 38.7-22.6L412 237.9 274.1 100z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <button
+      class="_App__button_c3e4df _App__button--reset_c3e4df"
+      type="button"
+    >
+      デフォルトにリセット
+    </button>
+  </div>
+</DocumentFragment>
+`;

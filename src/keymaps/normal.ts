@@ -1,0 +1,27 @@
+import type { Keymap } from "@/utils";
+
+export const NORMAL_KEYMAPS: Keymap = {
+  insert_before: "i",
+  insert_start: "I",
+  insert_after: "a",
+  insert_end: "A",
+  left: "h",
+  down: "j",
+  up: "k",
+  right: "l",
+  join_line: "J",
+  delete_left: "d h",
+  delete_down: "d j",
+  delete_up: "d k",
+  delete_right: "d l",
+  delete_line: "d d",
+  delete_after: "D",
+  insert_below: "o",
+  insert_above: "O",
+  paste_after: "p",
+  paste_before: "P",
+  cut_char: "x",
+  cut_char_before: "X",
+  undo: "u",
+  redo: "ctrl+r",
+};
