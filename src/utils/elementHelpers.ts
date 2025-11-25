@@ -37,9 +37,7 @@ export const getText = (
         }
         if (
           node instanceof Element &&
-          (node.tagName === "BR" ||
-            node.tagName === "DIV" ||
-            node.tagName === "P")
+          ["BR", "DIV", "P"].includes(node.tagName)
         ) {
           return NodeFilter.FILTER_ACCEPT;
         }
@@ -59,7 +57,7 @@ export const getText = (
       if (node.tagName === "BR") {
         text += "\n";
         prevWasBlock = false;
-      } else if (node.tagName === "DIV" || node.tagName === "P") {
+      } else if (["DIV", "P"].includes(node.tagName)) {
         // 最初のブロック要素以外は改行を追加
         if (text.length > 0 && !prevWasBlock) {
           text += "\n";
@@ -179,9 +177,7 @@ const getTextContentLength = (range: Range): number => {
         }
         if (
           node instanceof Element &&
-          (node.tagName === "BR" ||
-            node.tagName === "DIV" ||
-            node.tagName === "P")
+          ["BR", "DIV", "P"].includes(node.tagName)
         ) {
           return NodeFilter.FILTER_ACCEPT;
         }
@@ -201,7 +197,7 @@ const getTextContentLength = (range: Range): number => {
       if (node.tagName === "BR") {
         length += 1;
         prevWasBlock = false;
-      } else if (node.tagName === "DIV" || node.tagName === "P") {
+      } else if (["DIV", "P"].includes(node.tagName)) {
         if (length > 0 && !prevWasBlock) {
           length += 1;
         }
@@ -233,9 +229,7 @@ const getNodeAndOffset = (
         }
         if (
           node instanceof Element &&
-          (node.tagName === "BR" ||
-            node.tagName === "DIV" ||
-            node.tagName === "P")
+          ["BR", "DIV", "P"].includes(node.tagName)
         ) {
           return NodeFilter.FILTER_ACCEPT;
         }
@@ -289,7 +283,7 @@ const getNodeAndOffset = (
         }
         currentOffset += 1;
         prevWasBlock = false;
-      } else if (node.tagName === "DIV" || node.tagName === "P") {
+      } else if (["DIV", "P"].includes(node.tagName)) {
         // ブロック要素による改行
         if (currentOffset > 0 && !prevWasBlock) {
           if (currentOffset >= targetOffset) {
