@@ -25,22 +25,52 @@ export const getText = (
   }
 
   // contenteditableの場合、HTMLをプレーンテキストに変換
-  // <br>と<div>を改行に置換
-  const clone = element.cloneNode(true) as HTMLElement;
+  // DOM構造を走査して正確にテキストを抽出
+  let text = "";
+  const walker = document.createTreeWalker(
+    element,
+    NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT,
+    {
+      acceptNode: (node) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          return NodeFilter.FILTER_ACCEPT;
+        }
+        if (
+          node instanceof Element &&
+          (node.tagName === "BR" ||
+            node.tagName === "DIV" ||
+            node.tagName === "P")
+        ) {
+          return NodeFilter.FILTER_ACCEPT;
+        }
+        return NodeFilter.FILTER_SKIP;
+      },
+    },
+  );
 
-  // <br>を改行に置換
-  clone.querySelectorAll("br").forEach((br) => {
-    br.replaceWith("\n");
-  });
+  let node: Node | null = walker.nextNode();
+  let prevWasBlock = false;
 
-  // ブロック要素を改行に置換
-  clone.querySelectorAll("div, p").forEach((block, index) => {
-    if (index > 0) {
-      block.prepend(document.createTextNode("\n"));
+  while (node) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      text += node.textContent || "";
+      prevWasBlock = false;
+    } else if (node instanceof Element) {
+      if (node.tagName === "BR") {
+        text += "\n";
+        prevWasBlock = false;
+      } else if (node.tagName === "DIV" || node.tagName === "P") {
+        // 最初のブロック要素以外は改行を追加
+        if (text.length > 0 && !prevWasBlock) {
+          text += "\n";
+        }
+        prevWasBlock = true;
+      }
     }
-  });
+    node = walker.nextNode();
+  }
 
-  return clone.textContent || "";
+  return text;
 };
 
 /**
@@ -137,16 +167,51 @@ const getTextContentLength = (range: Range): number => {
   const container = document.createElement("div");
   container.appendChild(range.cloneContents());
 
-  // <br>を改行としてカウント
-  const brCount = container.querySelectorAll("br").length;
-
-  // ブロック要素を改行としてカウント（最初の要素は除く）
-  const blockCount = Math.max(
-    0,
-    container.querySelectorAll("div, p").length - 1,
+  // getText()と同じロジックで長さを計算
+  let length = 0;
+  const walker = document.createTreeWalker(
+    container,
+    NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT,
+    {
+      acceptNode: (node) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          return NodeFilter.FILTER_ACCEPT;
+        }
+        if (
+          node instanceof Element &&
+          (node.tagName === "BR" ||
+            node.tagName === "DIV" ||
+            node.tagName === "P")
+        ) {
+          return NodeFilter.FILTER_ACCEPT;
+        }
+        return NodeFilter.FILTER_SKIP;
+      },
+    },
   );
 
-  return (container.textContent || "").length + brCount + blockCount;
+  let node: Node | null = walker.nextNode();
+  let prevWasBlock = false;
+
+  while (node) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      length += node.textContent?.length || 0;
+      prevWasBlock = false;
+    } else if (node instanceof Element) {
+      if (node.tagName === "BR") {
+        length += 1;
+        prevWasBlock = false;
+      } else if (node.tagName === "DIV" || node.tagName === "P") {
+        if (length > 0 && !prevWasBlock) {
+          length += 1;
+        }
+        prevWasBlock = true;
+      }
+    }
+    node = walker.nextNode();
+  }
+
+  return length;
 };
 
 /**
@@ -163,11 +228,15 @@ const getNodeAndOffset = (
     NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT,
     {
       acceptNode: (node) => {
-        // テキストノードと<br>要素を受け入れる
         if (node.nodeType === Node.TEXT_NODE) {
           return NodeFilter.FILTER_ACCEPT;
         }
-        if (node instanceof Element && node.tagName === "BR") {
+        if (
+          node instanceof Element &&
+          (node.tagName === "BR" ||
+            node.tagName === "DIV" ||
+            node.tagName === "P")
+        ) {
           return NodeFilter.FILTER_ACCEPT;
         }
         return NodeFilter.FILTER_SKIP;
@@ -176,6 +245,8 @@ const getNodeAndOffset = (
   );
 
   let node: Node | null = walker.nextNode();
+  let prevWasBlock = false;
+  let lastTextNode: Node | null = null;
 
   while (node) {
     if (node.nodeType === Node.TEXT_NODE) {
@@ -187,29 +258,69 @@ const getNodeAndOffset = (
         };
       }
       currentOffset += textLength;
-    } else if (node instanceof Element && node.tagName === "BR") {
-      // <br>を1文字（改行）としてカウント
-      if (currentOffset + 1 >= targetOffset) {
-        // <br>の後にカーソルを配置
-        const childNodes = node.parentNode?.childNodes || [];
-        const nodeIndex = Array.prototype.findIndex.call(
-          childNodes,
-          (child) => child === node,
-        );
-        return {
-          node: node.parentNode || element,
-          offset: nodeIndex + 1,
-        };
+      lastTextNode = node;
+      prevWasBlock = false;
+    } else if (node instanceof Element) {
+      if (node.tagName === "BR") {
+        // <br>を1文字（改行）としてカウント
+        if (currentOffset >= targetOffset) {
+          // <br>の前にカーソルを配置
+          const childNodes = node.parentNode?.childNodes || [];
+          const nodeIndex = Array.prototype.findIndex.call(
+            childNodes,
+            (child) => child === node,
+          );
+          return {
+            node: node.parentNode || element,
+            offset: nodeIndex,
+          };
+        }
+        if (currentOffset + 1 > targetOffset) {
+          // <br>の後にカーソルを配置
+          const childNodes = node.parentNode?.childNodes || [];
+          const nodeIndex = Array.prototype.findIndex.call(
+            childNodes,
+            (child) => child === node,
+          );
+          return {
+            node: node.parentNode || element,
+            offset: nodeIndex + 1,
+          };
+        }
+        currentOffset += 1;
+        prevWasBlock = false;
+      } else if (node.tagName === "DIV" || node.tagName === "P") {
+        // ブロック要素による改行
+        if (currentOffset > 0 && !prevWasBlock) {
+          if (currentOffset >= targetOffset) {
+            // ブロック要素の直前にカーソルを配置
+            if (lastTextNode) {
+              return {
+                node: lastTextNode,
+                offset: lastTextNode.textContent?.length || 0,
+              };
+            }
+          }
+          currentOffset += 1;
+        }
+        prevWasBlock = true;
       }
-      currentOffset += 1;
     }
 
     node = walker.nextNode();
   }
 
-  // 正確な位置が見つからない場合、最後のテキストノードまたは要素自体を返す
+  // 正確な位置が見つからない場合
+  if (lastTextNode) {
+    return {
+      node: lastTextNode,
+      offset: lastTextNode.textContent?.length || 0,
+    };
+  }
+
+  // テキストノードが存在しない場合、要素自体を返す
   return {
-    node: element.lastChild || element,
-    offset: element.lastChild?.textContent?.length || 0,
+    node: element,
+    offset: 0,
   };
 };

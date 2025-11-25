@@ -1,5 +1,6 @@
 const SCROLL_PADDING_LINES = 2;
 const DEFAULT_LINE_HEIGHT = 16;
+const SCROLL_PADDING_PX = 32; // ContentEditable用のピクセル単位のパディング
 
 // 測定用div要素のキャッシュ（textarea要素ごとに保持）
 const measureDivCache = new WeakMap<HTMLTextAreaElement, HTMLDivElement>();
@@ -28,44 +29,84 @@ const getOrCreateMeasureDiv = (element: HTMLTextAreaElement) => {
 };
 
 /**
- * キャレットが画面内に見えるようにtextareaをスクロールする
- * textarea要素のみ対応（input要素はスクロール非対応）
+ * キャレットが画面内に見えるようにスクロールする
+ * textarea要素とcontenteditable要素に対応（input要素はスクロール非対応）
  * テキストの折り返しを考慮して正確な位置を計算する
  *
- * @param element - inputまたはtextarea要素
+ * @param element - input、textarea、またはcontenteditable要素
  * @param caretPosition - キャレット位置（選択範囲の開始位置）
  * @returns input要素の場合は何もせずに早期リターンする
  */
 export const scrollToCaret = (
-  element: HTMLInputElement | HTMLTextAreaElement,
+  element: HTMLInputElement | HTMLTextAreaElement | HTMLElement,
   caretPosition: number,
 ) => {
-  // textarea要素のみスクロール対応
-  if (!(element instanceof HTMLTextAreaElement)) return;
+  // input要素はスクロール非対応
+  if (element instanceof HTMLInputElement) return;
 
-  // 計算スタイルから行の高さを取得
-  const style = window.getComputedStyle(element);
-  const lineHeightStr = style.lineHeight;
-  const parsedLineHeight = Number.parseFloat(lineHeightStr);
-  const lineHeight =
-    lineHeightStr === "normal" || Number.isNaN(parsedLineHeight)
-      ? Number.parseFloat(style.fontSize) || DEFAULT_LINE_HEIGHT
-      : parsedLineHeight;
+  // contenteditable要素の場合
+  if (element instanceof HTMLElement && element.isContentEditable) {
+    scrollToCaretContentEditable(element);
+    return;
+  }
 
-  // 折り返しを考慮してキャレットの実際のY位置を計算
-  const caretTop = getCaretTopPosition(element, caretPosition, style);
+  // textarea要素の場合
+  if (element instanceof HTMLTextAreaElement) {
+    // 計算スタイルから行の高さを取得
+    const style = window.getComputedStyle(element);
+    const lineHeightStr = style.lineHeight;
+    const parsedLineHeight = Number.parseFloat(lineHeightStr);
+    const lineHeight =
+      lineHeightStr === "normal" || Number.isNaN(parsedLineHeight)
+        ? Number.parseFloat(style.fontSize) || DEFAULT_LINE_HEIGHT
+        : parsedLineHeight;
+
+    // 折り返しを考慮してキャレットの実際のY位置を計算
+    const caretTop = getCaretTopPosition(element, caretPosition, style);
+
+    const scrollTop = element.scrollTop;
+    const clientHeight = element.clientHeight;
+    const padding = lineHeight * SCROLL_PADDING_LINES;
+
+    // キャレットが上端に近い場合は上にスクロール
+    if (caretTop < scrollTop + padding) {
+      element.scrollTop = Math.max(0, caretTop - padding);
+    }
+    // キャレットが下端に近い場合は下にスクロール
+    else if (caretTop + lineHeight > scrollTop + clientHeight - padding) {
+      element.scrollTop = caretTop + lineHeight - clientHeight + padding;
+    }
+  }
+};
+
+/**
+ * contenteditable要素のカーソル位置にスクロール
+ * Selection APIを使ってカーソルの実際の位置を取得
+ *
+ * @param element - contenteditable要素
+ */
+const scrollToCaretContentEditable = (element: HTMLElement) => {
+  const selection = window.getSelection();
+  if (!selection || selection.rangeCount === 0) return;
+
+  const range = selection.getRangeAt(0);
+  const rect = range.getBoundingClientRect();
+  const elementRect = element.getBoundingClientRect();
+
+  // 要素の表示領域（スクロール領域）に対するカーソルの相対位置
+  const caretTopRelative = rect.top - elementRect.top + element.scrollTop;
+  const caretBottomRelative = rect.bottom - elementRect.top + element.scrollTop;
 
   const scrollTop = element.scrollTop;
   const clientHeight = element.clientHeight;
-  const padding = lineHeight * SCROLL_PADDING_LINES;
 
-  // キャレットが上端に近い場合は上にスクロール
-  if (caretTop < scrollTop + padding) {
-    element.scrollTop = Math.max(0, caretTop - padding);
+  // カーソルが上端に近い、または見えない場合は上にスクロール
+  if (caretTopRelative < scrollTop + SCROLL_PADDING_PX) {
+    element.scrollTop = Math.max(0, caretTopRelative - SCROLL_PADDING_PX);
   }
-  // キャレットが下端に近い場合は下にスクロール
-  else if (caretTop + lineHeight > scrollTop + clientHeight - padding) {
-    element.scrollTop = caretTop + lineHeight - clientHeight + padding;
+  // カーソルが下端に近い、または見えない場合は下にスクロール
+  else if (caretBottomRelative > scrollTop + clientHeight - SCROLL_PADDING_PX) {
+    element.scrollTop = caretBottomRelative - clientHeight + SCROLL_PADDING_PX;
   }
 };
 
