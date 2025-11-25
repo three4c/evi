@@ -173,8 +173,10 @@ export const NORMAL_COMMANDS: Record<string, Command> = {
   },
   undo: () => {
     document.execCommand("undo");
+    return undefined;
   },
   redo: () => {
     document.execCommand("redo");
+    return undefined;
   },
 };
