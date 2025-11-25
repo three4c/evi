@@ -11,9 +11,7 @@ const measureDivCache = new WeakMap<HTMLTextAreaElement, HTMLDivElement>();
  * @param element - textarea要素
  * @returns 測定用のdiv要素
  */
-const getOrCreateMeasureDiv = (
-  element: HTMLTextAreaElement,
-): HTMLDivElement => {
+const getOrCreateMeasureDiv = (element: HTMLTextAreaElement) => {
   let measureDiv = measureDivCache.get(element);
 
   if (!measureDiv) {
