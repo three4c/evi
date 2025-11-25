@@ -1,6 +1,34 @@
 const SCROLL_PADDING_LINES = 2;
 const DEFAULT_LINE_HEIGHT = 16;
 
+// 測定用div要素のキャッシュ（textarea要素ごとに保持）
+const measureDivCache = new WeakMap<HTMLTextAreaElement, HTMLDivElement>();
+
+/**
+ * 測定用div要素を取得または作成する
+ * 一度作成した要素はキャッシュして再利用する
+ *
+ * @param element - textarea要素
+ * @returns 測定用のdiv要素
+ */
+const getOrCreateMeasureDiv = (
+  element: HTMLTextAreaElement,
+): HTMLDivElement => {
+  let measureDiv = measureDivCache.get(element);
+
+  if (!measureDiv) {
+    measureDiv = document.createElement("div");
+    measureDiv.style.position = "absolute";
+    measureDiv.style.visibility = "hidden";
+    measureDiv.style.whiteSpace = "pre-wrap";
+    measureDiv.style.wordWrap = "break-word";
+    document.body.appendChild(measureDiv);
+    measureDivCache.set(element, measureDiv);
+  }
+
+  return measureDiv;
+};
+
 /**
  * キャレットが画面内に見えるようにtextareaをスクロールする
  * textarea要素のみ対応（input要素はスクロール非対応）
@@ -8,6 +36,7 @@ const DEFAULT_LINE_HEIGHT = 16;
  *
  * @param element - inputまたはtextarea要素
  * @param caretPosition - キャレット位置（選択範囲の開始位置）
+ * @returns input要素の場合は何もせずに早期リターンする
  */
 export const scrollToCaret = (
   element: HTMLInputElement | HTMLTextAreaElement,
@@ -18,10 +47,12 @@ export const scrollToCaret = (
 
   // 計算スタイルから行の高さを取得
   const style = window.getComputedStyle(element);
+  const lineHeightStr = style.lineHeight;
+  const parsedLineHeight = Number.parseFloat(lineHeightStr);
   const lineHeight =
-    Number.parseFloat(style.lineHeight) ||
-    Number.parseFloat(style.fontSize) ||
-    DEFAULT_LINE_HEIGHT;
+    lineHeightStr === "normal" || Number.isNaN(parsedLineHeight)
+      ? Number.parseFloat(style.fontSize) || DEFAULT_LINE_HEIGHT
+      : parsedLineHeight;
 
   // 折り返しを考慮してキャレットの実際のY位置を計算
   const caretTop = getCaretTopPosition(element, caretPosition, style);
@@ -54,14 +85,10 @@ const getCaretTopPosition = (
   caretPosition: number,
   style: CSSStyleDeclaration,
 ) => {
-  // 測定用の一時div要素を作成
-  const measureDiv = document.createElement("div");
+  // キャッシュされた測定用div要素を取得
+  const measureDiv = getOrCreateMeasureDiv(element);
 
-  // textareaと同じスタイルを適用（折り返し動作を再現）
-  measureDiv.style.position = "absolute";
-  measureDiv.style.visibility = "hidden";
-  measureDiv.style.whiteSpace = "pre-wrap"; // textareaと同じ折り返し動作
-  measureDiv.style.wordWrap = "break-word";
+  // textareaと同じスタイルを適用（textarea要素のスタイルが変わる可能性があるため毎回更新）
   measureDiv.style.overflowWrap = style.overflowWrap;
   measureDiv.style.width = style.width;
   measureDiv.style.fontFamily = style.fontFamily;
@@ -78,12 +105,12 @@ const getCaretTopPosition = (
   const textBeforeCaret = element.value.substring(0, caretPosition);
   measureDiv.textContent = textBeforeCaret;
 
-  // DOMに追加して測定
-  document.body.appendChild(measureDiv);
+  // 高さを測定（既にDOMに追加済みなので追加・削除不要）
   const height = measureDiv.scrollHeight;
-  document.body.removeChild(measureDiv);
 
-  // paddingTopを引いた実際のテキスト高さを返す
+  // scrollHeightはpadding含む全体の高さ
+  // textarea.scrollTopはpadding内側のコンテンツエリアからの座標なので
+  // paddingTopを引いてコンテンツ高さのみを取得
   const paddingTop = Number.parseFloat(style.paddingTop) || 0;
   return height - paddingTop;
 };
