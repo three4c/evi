@@ -260,9 +260,7 @@ const getNodeAndOffset = (
         if (currentOffset >= targetOffset) {
           // <br>の前にカーソルを配置
           const childNodes = node.parentNode?.childNodes;
-          const nodeIndex = childNodes
-            ? [...childNodes].findIndex((child) => child === node)
-            : -1;
+          const nodeIndex = childNodes ? [...childNodes].indexOf(node) : -1;
           return {
             node: node.parentNode || element,
             offset: nodeIndex,
@@ -271,9 +269,7 @@ const getNodeAndOffset = (
         if (currentOffset + 1 > targetOffset) {
           // <br>の後にカーソルを配置
           const childNodes = node.parentNode?.childNodes;
-          const nodeIndex = childNodes
-            ? [...childNodes].findIndex((child) => child === node)
-            : -1;
+          const nodeIndex = childNodes ? [...childNodes].indexOf(node) : -1;
           return {
             node: node.parentNode || element,
             offset: nodeIndex + 1,
