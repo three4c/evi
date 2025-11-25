@@ -13,9 +13,10 @@ export const NORMAL_COMMANDS: Record<string, Command> = {
     if (!lines[currentLine].length) end--;
     return { start: end, end, mode: "insert" };
   },
-  insert_end: ({ start, end, element }) => {
+  insert_end: ({ start, end, element, length }) => {
     const text = getText(element);
-    start = end = text.indexOf("\n", start);
+    const nextBreak = text.indexOf("\n", start);
+    start = end = nextBreak === -1 ? length : nextBreak;
     return { start, end, mode: "insert" };
   },
   left: ({ start, end, col }) => {
