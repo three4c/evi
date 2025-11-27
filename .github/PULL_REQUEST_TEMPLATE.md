@@ -1,5 +1,3 @@
-<!-- GitHub Copilot: すべてのレビューコメントは日本語で記述してください -->
-
 ## 変更内容
 
 <!-- 何を変更したか簡潔に記載 -->
@@ -12,32 +10,33 @@
 
 <!-- この変更が影響する範囲 -->
 
-## テスト項目
-
-- [ ] `bun run check` でBiomeのlint/formatチェックが通るか
-- [ ] `bun run test` でVitestのテストが通るか
-- [ ] `bun run compile` でTypeScriptの型チェックが通るか
-- [ ] `bun run dev` でChrome開発環境での動作確認
-- [ ] `bun run dev:firefox` でFirefox開発環境での動作確認（必要な場合）
-- [ ] WXTのHot Module Replacement (HMR)が正常に動作するか
-- [ ] Content Script の動作確認（対象Webページで正常に動作するか）
-- [ ] Background/Popup/Options ページの UI 確認
-- [ ] chrome.storage の読み書き確認
-- [ ] メッセージング（chrome.runtime.sendMessage）の動作確認
-
 ## スクリーンショット（該当する場合）
 
 <!-- UI変更がある場合はスクリーンショットを添付 -->
 
-## チェックリスト
+## テストとチェック
 
-- [ ] `bun run check` でBiomeのチェックが通った
-- [ ] `bun run compile` でTypeScriptの型チェックが通った
-- [ ] `bun run test` でテストが通った
+### ビルド・品質チェック
+
+- [ ] `bun run check` - Biomeのlint/formatチェック
+- [ ] `bun run compile` - TypeScriptの型チェック
+- [ ] `bun run test` - Vitestのユニットテスト
+
+### 動作確認
+
+- [ ] `bun run dev` - Chrome開発環境での動作確認
+- [ ] `bun run dev:firefox` - Firefox開発環境での動作確認（必要な場合）
+- [ ] WXTのHot Module Replacement (HMR)の動作確認
+- [ ] Content Scriptの動作確認（対象Webページで正常に動作するか）
+- [ ] Background/Popup/Optionsページの表示・機能確認
+- [ ] chrome.storageの読み書き確認
+- [ ] メッセージング（chrome.runtime.sendMessage）の動作確認
+
+### その他
+
 - [ ] コードレビューを受けた
-- [ ] WXT の entrypoints が適切に配置されている
+- [ ] WXTのentrypointsが適切に配置されている
 - [ ] ドキュメントを更新した（必要な場合）
-- [ ] 関連するIssueをリンクした
 
 ## 関連Issue
 
